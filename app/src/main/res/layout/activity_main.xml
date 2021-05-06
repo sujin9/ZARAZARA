@@ -5,23 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:background="@drawable/bg1"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/purple_500">
+        android:layout_weight="1.3"
+        android:background="#40FFFFFF">
 
         <!-- 캐릭터 이름 -->
         <TextView
-            android:id="@+id/txt_name"
+            android:id="@+id/characterName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/dunggeunmo"
             android:text="모찌"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="5dp"
@@ -43,6 +44,7 @@
 
         <!-- 보유한 코인 -->
         <TextView
+            android:id="@+id/userCoin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -50,7 +52,7 @@
             android:layout_margin="5dp"
             android:text="500C"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20dp"
             android:layout_gravity="center_vertical" />
 
@@ -67,20 +69,55 @@
 
     <!-- 캐릭터 출력 -->
     <!-- 1초마다 사진 변경? (숨쉬기 표현) -->
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"  >
+        android:layout_weight="7" >
 
         <ImageView
-            android:layout_width="400dp"
-            android:layout_height="400dp"
-            android:layout_gravity="center"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
             android:src="@drawable/character_bear_11" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <!-- 메뉴 출력 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#B3FFFFFF" >
+
+        <ImageButton
+            android:id="@+id/homeBtn1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/icon_raise"/>
+
+        <ImageButton
+            android:id="@+id/homeBtn2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/icon_walk"/>
+
+        <ImageButton
+            android:id="@+id/homeBtn3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/icon_mission"/>
+
+    </LinearLayout>
 
 </LinearLayout>
