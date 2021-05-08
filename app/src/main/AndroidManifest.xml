@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.zarazara">
 
+    // 권한 추가
+    // 만보계 권한
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,5 +25,4 @@
         <activity android:name=".WalkActivity"/>
         <activity android:name=".MissionActivity"/>
     </application>
-
 </manifest>

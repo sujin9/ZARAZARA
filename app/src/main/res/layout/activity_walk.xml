@@ -1,16 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_orange_light">
-
+    android:background="@android:color/holo_orange_light"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <!-- 날짜 -->
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/day"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="걸음수,,,"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="100dp"
-        android:layout_gravity="center" />
+        android:text="날짜"
+        android:textSize="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <!-- 걸음 수 -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="걸음 수"
+        android:layout_marginTop="250dp"
+        android:textSize="60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <!-- 일일 걸음 수 태그 -->
+    <TextView
+        android:id="@+id/stepCountTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintLeft_toLeftOf="@+id/title"
+        app:layout_constraintRight_toLeftOf="@+id/stepCountView"
+        android:textSize="30dp"
+        android:text="일일 걸음 수: "
+        />
+    <!-- 일일 걸음 수 숫자-->
+    <TextView
+        android:id="@+id/stepCountView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/stepCountTag"
+        app:layout_constraintLeft_toRightOf="@+id/stepCountTag"
+        app:layout_constraintRight_toRightOf="@+id/title"
+        app:layout_constraintTop_toTopOf="@+id/stepCountTag"
+        />
+    <!-- 누적 걸음 수 태그 -->
+    <TextView
+        android:id="@+id/totalStepCountTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/stepCountTag"
+        app:layout_constraintLeft_toLeftOf="@+id/title"
+        app:layout_constraintRight_toLeftOf="@+id/totalStepCountView"
+        android:textSize="30dp"
+        android:text="누적 걸음 수: "
+        />
+    <!-- 누적 걸음 수 숫자 -->
+    <TextView
+        android:id="@+id/totalStepCountView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/totalStepCountTag"
+        app:layout_constraintLeft_toRightOf="@+id/stepCountTag"
+        app:layout_constraintRight_toRightOf="@+id/title"
+        app:layout_constraintTop_toTopOf="@+id/totalStepCountTag"
+        />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
