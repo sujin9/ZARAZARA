@@ -1,7 +1,11 @@
 package com.example.zarazara;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
@@ -10,12 +14,15 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import com.amitshekhar.DebugDB;
@@ -58,6 +65,7 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
     String today;
     int save = 0;
 
+
     @RequiresApi(api = Build.VERSION_CODES.M)
 
     @Override
@@ -73,15 +81,14 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         db = helper.getWritableDatabase();
         helper.onCreate(db);
 
-        //현재 시간(날짜 구하기 위해) 이게 왜 null
+        //현재 시간(날짜 구하기 위해)
         now = System.currentTimeMillis();
         date = new Date(now);
         SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
         today = sdt.format(date);
-
         // 새로운 instance 생성
         save = helper.getStep(today);
-        helper.insert(today, save);
+        helper.insert(0);
 
         stepCountView = findViewById(R.id.stepCountView);
         totalStepCountView = findViewById(R.id.totalStepCountView);
@@ -108,7 +115,9 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
             Toast.makeText(this, "No Step Sensor", Toast.LENGTH_SHORT).show();
         }
 
+
     }
+
 
     public void onStart() {
         super.onStart();
@@ -133,7 +142,7 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
             //if(event.values[0]==1.0f){}
 
             // 초기값 설정(TYPE_STEP_COUNTER 는 스스로 초기화 x)
-            if(mSteps < 1 && mCurrentSteps <= 0)
+            if(mSteps < 1)
             {
                 mSteps = (int) event.values[0];
             }
@@ -148,7 +157,6 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
             mTotalSteps = helper.getTotalStep();
             totalStepCountView.setText(String.valueOf(mTotalSteps));
 
-            //Log.i("log: ", "New step detected by STEP_COUNTER sensor. Total step count: " + mCurrentSteps );
         }
 
     }

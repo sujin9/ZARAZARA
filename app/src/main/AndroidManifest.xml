@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.zarazara">
 
-    // 권한 추가
-    // 만보계 권한
-    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    // foreground service
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
 
     <application
         android:allowBackup="true"
@@ -13,16 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity
-            android:name=".MainActivity">
+        <service
+            android:name=".WalkService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RaiseActivity"/>
-        <activity android:name=".WalkActivity"/>
-        <activity android:name=".MissionActivity"/>
+        <activity android:name=".RaiseActivity" />
+        <activity android:name=".WalkActivity" />
+        <activity android:name=".MissionActivity" />
     </application>
+
 </manifest>
