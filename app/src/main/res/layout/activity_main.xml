@@ -100,8 +100,10 @@
             android:background="@android:color/transparent"
             android:src="@drawable/icon_raise"/>
 
+        <!--포그라운드 서비스 연결-->
         <ImageButton
             android:id="@+id/homeBtn2"
+            android:onClick="onStartForegroundService"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -117,7 +119,7 @@
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:src="@drawable/icon_mission"/>
-
     </LinearLayout>
+
 
 </LinearLayout>
