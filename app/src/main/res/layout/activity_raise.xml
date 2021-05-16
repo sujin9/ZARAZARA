@@ -72,6 +72,7 @@
         android:layout_weight="8">
 
         <TextView
+            android:id="@+id/raiseTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="키우기"
@@ -79,8 +80,51 @@
             android:textSize="60dp"
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"/>
+            android:layout_marginTop="80dp"/>
 
+        <!-- 키우기 버튼-->
+        <LinearLayout
+            android:id="@+id/raiseTable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/raiseTitle" >
+
+            <Button
+                android:id="@+id/btn_raise_eat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/bg_outline"
+                android:text="식사"
+                android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/btn_raise_exercise"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_outline"
+                android:text="운동"
+                android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/btn_raise_hobby"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/bg_outline"
+                android:text="취미"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/raiseTable"
+            android:background="@drawable/bg_outline"/>
 
     </RelativeLayout>
 
