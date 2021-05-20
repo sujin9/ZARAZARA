@@ -5,10 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class RaiseFragment1 extends Fragment implements View.OnClickListener {
 
@@ -30,8 +33,11 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.raise_mealBtn:
+                // 버튼 누름 작동 여부 판단 위한 예시
+                Toast.makeText(getActivity(), "밥먹자", LENGTH_SHORT).show();
                 break;
             case R.id.raise_snackBtn:
+                Toast.makeText(getActivity(), "간식먹자", LENGTH_SHORT).show();
                 break;
         }
     }
