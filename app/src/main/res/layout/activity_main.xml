@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -225,6 +224,8 @@
 
     </RelativeLayout>
 
+
+    <!-- 메뉴 출력 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -240,8 +241,10 @@
             android:background="@android:color/transparent"
             android:src="@drawable/icon_raise"/>
 
+        <!--포그라운드 서비스 연결-->
         <ImageButton
             android:id="@+id/homeBtn2"
+            android:onClick="onStartForegroundService"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
