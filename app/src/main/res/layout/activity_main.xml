@@ -26,7 +26,7 @@
             android:textAlignment="center"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="5dp"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:layout_gravity="center_vertical"/>
 
         <!-- 경험치 바 -->
@@ -69,17 +69,158 @@
 
     <!-- 캐릭터 출력 -->
     <!-- 1초마다 사진 변경? (숨쉬기 표현) -->
+
+
+    <!-- 메뉴 출력 -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7" >
+        android:layout_weight="7">
 
-        <ImageView
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            android:layout_centerHorizontal="true"
+        <!--모찌 선택할 수 있게끔 말풍선 띄우기용 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/progressBar_speech"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/p_speech"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:scaleY="1.1"
+                app:srcCompat="@drawable/speech_bubble" />
+
+            <TextView
+                android:id="@+id/p_meal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dunggeunmo"
+                android:text="식 사"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:translationX="95dp"
+                android:translationY="-150dp"/>
+
+            <TextView
+                android:id="@+id/p_exercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dunggeunmo"
+                android:text="운 동"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:translationX="95dp"
+                android:translationY="-143dp"/>
+
+            <TextView
+                android:id="@+id/p_hobby"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dunggeunmo"
+                android:text="취 미"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:translationX="95dp"
+                android:translationY="-137dp"/>
+
+            <Button
+                android:id="@+id/upgrade"
+                android:layout_width="78dp"
+                android:layout_height="40dp"
+                android:fontFamily="@font/dunggeunmo"
+                android:text="[진 화] "
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:translationX="116dp"
+                android:translationY="-138dp"
+                android:background="#00000000"/>
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/mozzi"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
             android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"
+            android:background="@android:color/transparent"
             android:src="@drawable/character_bear_11" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/mozzi_speech"
+            android:visibility="invisible" >
+
+            <ImageView
+                android:id="@+id/m_speech"
+                android:layout_width="match_parent"
+                android:layout_height="340dp"
+                android:layout_gravity="center"
+                android:rotation="180"
+                android:translationY="40dp"
+                app:srcCompat="@drawable/speech_bubble" />
+
+            <TextView
+                android:id="@+id/profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dunggeunmo"
+                android:gravity="center_horizontal"
+                android:text="정  보"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:translationY="-230dp" />
+
+            <TextView
+                android:id="@+id/full"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="120dp"
+                android:layout_marginRight="120dp"
+                android:fontFamily="@font/dunggeunmo"
+                android:gravity="center_horizontal"
+                android:text="포만감"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="23dp"
+                android:translationY="-205dp" />
+
+            <TextView
+                android:id="@+id/happy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="120dp"
+                android:layout_marginRight="120dp"
+                android:fontFamily="@font/dunggeunmo"
+                android:gravity="center_horizontal"
+                android:text="행복감"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="23dp"
+                android:translationY="-189dp" />
+
+            <TextView
+                android:id="@+id/exercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="120dp"
+                android:layout_marginRight="120dp"
+                android:fontFamily="@font/dunggeunmo"
+                android:gravity="center_horizontal"
+                android:text="운동량"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="23dp"
+                android:translationY="-173dp" />
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -119,7 +260,7 @@
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:src="@drawable/icon_mission"/>
-    </LinearLayout>
 
+    </LinearLayout>
 
 </LinearLayout>
