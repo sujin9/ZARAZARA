@@ -19,7 +19,7 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_raise1,container,false);
+        View v = inflater.inflate(R.layout.fragment_raise3,container,false);
 
         ImageButton raiseHobby1Btn = (ImageButton)v.findViewById(R.id.raise_hobbyBtn1);
         ImageButton raiseHobby2Btn = (ImageButton)v.findViewById(R.id.raise_hobbyBtn2);
@@ -36,13 +36,13 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
         switch(v.getId()) {
             case R.id.raise_hobbyBtn1:
                 // 버튼 누름 작동 여부 판단 위한 예시
-                Toast.makeText(getActivity(), "밥먹자", LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "놀자1", LENGTH_SHORT).show();
                 break;
             case R.id.raise_hobbyBtn2:
-                Toast.makeText(getActivity(), "간식먹자", LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "놀자2", LENGTH_SHORT).show();
                 break;
             case R.id.raise_hobbyBtn3:
-                Toast.makeText(getActivity(), "놀자", LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "놀자3", LENGTH_SHORT).show();
                 break;
         }
     }

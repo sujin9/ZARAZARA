@@ -19,7 +19,7 @@ public class RaiseFragment2 extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_raise1,container,false);
+        View v = inflater.inflate(R.layout.fragment_raise2,container,false);
 
         ImageButton raiseExerciseBtn = (ImageButton)v.findViewById(R.id.raise_exerciseBtn);
         raiseExerciseBtn.setOnClickListener(this);
