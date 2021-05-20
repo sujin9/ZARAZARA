@@ -85,7 +85,7 @@
 
         <!-- 걸음 수 -->
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/stepTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/day"
@@ -101,7 +101,7 @@
             android:id="@+id/stepCountLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title"
+            android:layout_below="@id/stepTitle"
             android:layout_centerInParent="true"
             android:layout_marginTop="20dp">
             <!-- 일일 걸음 수 태그 -->
