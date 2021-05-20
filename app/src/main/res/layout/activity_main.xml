@@ -58,6 +58,8 @@
 
         <!-- 날씨 : 추후 날씨 정보에 따라 업데이트 예정 -->
         <ImageView
+            android:id="@+id/notiBtn"
+            android:onClick="onStartForegroundService"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1"
@@ -103,7 +105,6 @@
         <!--포그라운드 서비스 연결-->
         <ImageButton
             android:id="@+id/homeBtn2"
-            android:onClick="onStartForegroundService"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
