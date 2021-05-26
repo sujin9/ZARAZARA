@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             //finish()
         }
         else {
-            // 날짜 변경 비교 --> 코인 획득
+            // 접속 날짜 변경 비교 --> 코인 획득
             now = java.lang.System.currentTimeMillis()
             date = java.util.Date(now)
             nowDate = sdt.format(date)
@@ -91,14 +91,14 @@ class MainActivity : AppCompatActivity() {
                 editor.apply()
             }
             else {
-                // 같은 날짜
+                // 접속 같은 날짜
                 // nothing to do !
             }
 
         }
 
         //
-        coinText.text = userCoin.toString()
+        coinText.text = sharedPreferences.getInt("userCoin", 0).toString()
     //    nameText.text = name
 
         // 하단 버튼 클릭할 때
