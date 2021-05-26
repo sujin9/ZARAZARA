@@ -51,4 +51,7 @@ dependencies {
 
     // db 확인용
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+
+    // tutorial Appcompat
+    implementation 'androidx.appcompat:appcompat:1.2.0'
 }

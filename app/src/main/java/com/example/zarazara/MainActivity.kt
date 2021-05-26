@@ -2,13 +2,13 @@ package com.example.zarazara
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import androidx.constraintlayout.widget.ConstraintSet.VISIBLE
+import androidx.appcompat.app.AppCompatActivity
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,10 +87,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // 첫 실행시에만 tutorial 나오도록 설정
+        val sharedPreferences = getSharedPreferences("checkFirstAccess", MODE_PRIVATE)
+        val checkFirstAccess = sharedPreferences.getBoolean("checkFirstAccess", false)
+
+        if (!checkFirstAccess) {
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("checkFirstAccess", true)
+            editor.apply()
+            val tutorialIntent = Intent(this@MainActivity, TutorialActivity::class.java)
+            startActivity(tutorialIntent)
+            finish()
+        }
     }
 
     // 알림 채널(서비스 - notification)
-    // Button2(걸음 수) 기능은 Foreground Service + notification 으로 수행
+    // 걸음 수 기능은 Foreground Service + notification 으로 수행
     fun onStartForegroundService(view: View?) {
         val intent = Intent(this, WalkService::class.java)
         intent.action = "startForeground"
