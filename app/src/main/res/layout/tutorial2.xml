@@ -3,13 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+<!--
     <TextView
-        android:text = "두 번째 페이지"
+        android:text = "키우기 등 기능 소개"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="50dp"
         android:fontFamily="@font/dunggeunmo"
+        />
+        -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/tutorial_img_2"
+        android:background="@drawable/tutorial_img_1"
         />
 
 </RelativeLayout>

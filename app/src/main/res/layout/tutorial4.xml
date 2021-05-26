@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/splash_view">
-
+<!--
     <TextView
         android:layout_width="match_parent"
         android:layout_height="300dp"
@@ -12,14 +12,23 @@
         android:text="종료 페이지"
         android:textSize="50dp"
         />
+    -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/tutorial_img_4"
+        android:background="@drawable/tutorial_img_4"
+        />
 
     <Button
         android:id="@+id/tutorial_end_button"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="500dp"
         android:layout_centerHorizontal="true"
-        android:text="시작"
+        android:text="시작하기"
+
         android:fontFamily="@font/dunggeunmo"
         />
 
