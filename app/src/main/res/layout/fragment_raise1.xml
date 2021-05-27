@@ -17,6 +17,7 @@
             android:layout_height="100dp"
             android:layout_marginLeft="30dp"
             android:layout_weight="1"
+            android:scaleType="centerInside"
             android:background="@android:color/transparent"
             android:src="@drawable/raise_meal" />
 
@@ -26,6 +27,7 @@
             android:layout_height="100dp"
             android:layout_marginRight="30dp"
             android:layout_weight="1"
+            android:scaleType="centerInside"
             android:background="@android:color/transparent"
             android:src="@drawable/raise_snack" />
     </LinearLayout>

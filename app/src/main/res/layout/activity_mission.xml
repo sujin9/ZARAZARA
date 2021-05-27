@@ -48,7 +48,6 @@
             android:layout_weight="1"
             android:fontFamily="@font/dunggeunmo"
             android:layout_margin="5dp"
-            android:text="500C"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20dp"
