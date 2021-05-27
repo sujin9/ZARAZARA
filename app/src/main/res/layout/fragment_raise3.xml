@@ -45,6 +45,7 @@
         android:layout_height="wrap_content" >
 
         <TextView
+            android:id="@+id/price_play"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -52,20 +53,20 @@
             android:fontFamily="@font/dunggeunmo"
             android:textAlignment="center"
             android:textSize="30dp"
-            android:textColor="@color/white"
-            android:text="50C" />
+            android:textColor="@color/white" />
 
         <TextView
+            android:id="@+id/price_sing"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/dunggeunmo"
             android:textAlignment="center"
             android:textSize="30dp"
-            android:textColor="@color/white"
-            android:text="75C" />
+            android:textColor="@color/white" />
 
         <TextView
+            android:id="@+id/price_read"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -73,8 +74,7 @@
             android:fontFamily="@font/dunggeunmo"
             android:textAlignment="center"
             android:textSize="30dp"
-            android:textColor="@color/white"
-            android:text="30C" />
+            android:textColor="@color/white" />
 
 
     </LinearLayout>

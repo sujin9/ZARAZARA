@@ -28,6 +28,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/price_exercise"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -36,8 +37,7 @@
             android:fontFamily="@font/dunggeunmo"
             android:textAlignment="center"
             android:textSize="30dp"
-            android:textColor="@color/white"
-            android:text="500C" />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 </LinearLayout>
