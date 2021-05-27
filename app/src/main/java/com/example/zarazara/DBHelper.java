@@ -67,7 +67,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public int getStep(String today) {
         SQLiteDatabase db = getWritableDatabase();
 
-        // Cursor cursor = db.rawQuery("SELECT SUM(steps) FROM stepStore WHERE date BETWEEN '" + today + " 00:00:00' AND '" + today + " 23:59:59';" , null);
+       // Cursor cursor = db.rawQuery("SELECT SUM(steps) FROM stepStore WHERE date BETWEEN '" + today + " 00:00:00' AND '" + today + " 23:59:59';" , null);
         // _id>1 : 첫 실행 시 걸음 수가 올라가지 않는 부분 임시 체크
         Cursor cursor = db.rawQuery("SELECT SUM(steps) FROM stepStore WHERE _id > 1 AND date LIKE '" + today + "%';" , null);
         cursor.moveToFirst();

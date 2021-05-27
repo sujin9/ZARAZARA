@@ -33,9 +33,9 @@ class MainActivity : AppCompatActivity() {
         var nameText = findViewById<TextView>(R.id.characterName)   // 캐릭터 이름
         var coinText = findViewById<TextView>(R.id.userCoin)        // 보유한 코인
         // 버튼
-        var homeButton1 = findViewById<ImageButton>(R.id.homeBtn1)  // 키우기 버튼
-        var homeButton2 = findViewById<ImageButton>(R.id.homeBtn2)  // 걸음수 버튼
-        var homeButton3 = findViewById<ImageButton>(R.id.homeBtn3)  // 미션 버튼
+        var homeButton1 = findViewById<ImageButton>(R.id.homeBtn1) // 키우기 버튼
+        var homeButton2 = findViewById<ImageButton>(R.id.homeBtn2) // 걸음수 버튼
+        var homeButton3 = findViewById<ImageButton>(R.id.homeBtn3) // 미션 버튼
         // intent
         var raiseIntent = Intent(this, RaiseActivity::class.java)
         var walkIntent = Intent(this, WalkActivity::class.java)
