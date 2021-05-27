@@ -56,7 +56,7 @@
             android:textSize="20dp"
             android:layout_gravity="center_vertical" />
 
-        <!-- 날씨 : 추후 날씨 정보에 따라 업데이트 예정 -->
+        <!-- foreground service 실행 버튼 -->
         <ImageView
             android:id="@+id/notiBtn"
             android:onClick="onStartForegroundService"

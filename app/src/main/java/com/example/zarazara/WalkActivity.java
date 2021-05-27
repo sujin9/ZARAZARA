@@ -14,6 +14,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -65,7 +66,6 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
     String today;
     int save = 0;
 
-
     @RequiresApi(api = Build.VERSION_CODES.M)
 
     @Override
@@ -77,9 +77,10 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
 
         // SQLite database 및 테이블 생성(if not exist)
         helper = new DBHelper(WalkActivity.this, "stepStore.db", null, 1);
-
         db = helper.getWritableDatabase();
         helper.onCreate(db);
+
+
 
         //현재 시간(날짜 구하기 위해)
         now = System.currentTimeMillis();
@@ -175,5 +176,6 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
+
 }
 
