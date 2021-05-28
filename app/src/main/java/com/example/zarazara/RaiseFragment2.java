@@ -53,10 +53,16 @@ public class RaiseFragment2 extends Fragment implements View.OnClickListener {
                 // 버튼 누름 작동 여부 판단 위한 예시
                 //Toast.makeText(getActivity(), "운동하자", LENGTH_SHORT).show();
                 coin = sharedPreferences.getInt("userCoin", 0) - price_exercise;
-                editor.putInt("userCoin", coin);
-                editor.apply();
-                coinText.setText(Integer.toString(coin));
-                Toast.makeText(getActivity(), "운동을 해요! "+Integer.toString(price_exercise)+" 코인이 차감됩니다", LENGTH_SHORT).show();
+
+                if(coin>=0) {
+                    editor.putInt("userCoin", coin);
+                    editor.apply();
+                    coinText.setText(Integer.toString(coin));
+                    Toast.makeText(getActivity(), "운동을 해요! " + Integer.toString(price_exercise) + " 코인이 차감됩니다", LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
+                }
                 break;
         }
     }

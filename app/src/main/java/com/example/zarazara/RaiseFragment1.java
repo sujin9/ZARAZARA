@@ -60,18 +60,31 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
             case R.id.raise_mealBtn:
                 //Toast.makeText(getActivity(), "밥먹자", LENGTH_SHORT).show();
                 coin = sharedPreferences.getInt("userCoin", 0) - price_meal;
-                editor.putInt("userCoin", coin);
-                editor.apply();
-                coinText.setText(Integer.toString(coin));
-                Toast.makeText(getActivity(), "밥을 먹어요! "+Integer.toString(price_meal)+" 코인이 차감됩니다", LENGTH_SHORT).show();
+
+                if(coin>=0) {
+                    editor.putInt("userCoin", coin);
+                    editor.apply();
+                    coinText.setText(Integer.toString(coin));
+                    Toast.makeText(getActivity(), "밥을 먹어요! " + Integer.toString(price_meal) + " 코인이 차감됩니다", LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
+                }
                 break;
+
             case R.id.raise_snackBtn:
                 //Toast.makeText(getActivity(), "간식먹자", LENGTH_SHORT).show();
                 coin = sharedPreferences.getInt("userCoin", 0) - price_snack;
-                editor.putInt("userCoin", coin);
-                editor.apply();
-                coinText.setText(Integer.toString(coin));
-                Toast.makeText(getActivity(), "간식을 먹어요! "+Integer.toString(price_snack)+" 코인이 차감됩니다", LENGTH_SHORT).show();
+
+                if(coin>=0) {
+                    editor.putInt("userCoin", coin);
+                    editor.apply();
+                    coinText.setText(Integer.toString(coin));
+                    Toast.makeText(getActivity(), "간식을 먹어요! " + Integer.toString(price_snack) + " 코인이 차감됩니다", LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
+                }
                 break;
         }
     }
