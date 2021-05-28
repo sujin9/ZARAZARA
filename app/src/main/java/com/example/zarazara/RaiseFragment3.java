@@ -22,8 +22,11 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    TextView coinText;
 
+    View toastLayout;
+    TextView toastText;
+
+    TextView coinText;
     int coin;
     int price_play = 150;
     int price_sing = 135;
@@ -37,6 +40,9 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
         editor = sharedPreferences.edit();
 
         View v = inflater.inflate(R.layout.fragment_raise3,container,false);
+
+        toastLayout = inflater.inflate(R.layout.custom_toast,(ViewGroup)v.findViewById(R.id.customToastLayout));
+        toastText = toastLayout.findViewById(R.id.customToastText);
 
         coinText = (TextView) getActivity().findViewById(R.id.userCoin);
         TextView playPrice = (TextView)v.findViewById(R.id.price_play);
@@ -58,6 +64,9 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Toast toast = new Toast(this.getActivity());
+        toast.setDuration(LENGTH_SHORT);
+
         switch(v.getId()) {
             case R.id.raise_hobbyBtn1:
                 // 버튼 누름 작동 여부 판단 위한 예시
@@ -68,10 +77,12 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
                     editor.putInt("userCoin", coin);
                     editor.apply();
                     coinText.setText(Integer.toString(coin));
-                    Toast.makeText(getActivity(), "장난감을 가지고 놀아요! " + Integer.toString(price_play) + " 코인이 차감됩니다", LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "장난감을 가지고 놀아요! " + Integer.toString(price_play) + " 코인이 차감됩니다", LENGTH_SHORT).show();
+                    toastText.setText("장난감을 가지고 놀아요!\n" + Integer.toString(price_play) + " 코인이 차감됩니다");
                 }
                 else {
-                    Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
+                    toastText.setText("코인이 부족합니다");
                 }
                 break;
             case R.id.raise_hobbyBtn2:
@@ -82,10 +93,12 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
                     editor.putInt("userCoin", coin);
                     editor.apply();
                     coinText.setText(Integer.toString(coin));
-                    Toast.makeText(getActivity(), "노래를 불러요! " + Integer.toString(price_sing) + " 코인이 차감됩니다", LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "노래를 불러요! " + Integer.toString(price_sing) + " 코인이 차감됩니다", LENGTH_SHORT).show();
+                    toastText.setText("노래를 불러요!\n" + Integer.toString(price_sing) + " 코인이 차감됩니다");
                 }
                 else {
-                    Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
+                    toastText.setText("코인이 부족합니다");
                 }
                 break;
             case R.id.raise_hobbyBtn3:
@@ -96,12 +109,16 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
                     editor.putInt("userCoin", coin);
                     editor.apply();
                     coinText.setText(Integer.toString(coin));
-                    Toast.makeText(getActivity(), "책을 읽어요! " + Integer.toString(price_read) + " 코인이 차감됩니다", LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "책을 읽어요! " + Integer.toString(price_read) + " 코인이 차감됩니다", LENGTH_SHORT).show();
+                    toastText.setText("책을 읽어요!\n" + Integer.toString(price_read) + " 코인이 차감됩니다");
                 }
                 else {
-                    Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
+                    toastText.setText("코인이 부족합니다");
                 }
                 break;
         }
+        toast.setView(toastLayout);
+        toast.show();
     }
 }
