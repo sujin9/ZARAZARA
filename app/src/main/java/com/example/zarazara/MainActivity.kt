@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         var missionIntent = Intent(this, MissionActivity::class.java)
 
         // 첫 실행 여부 확인
-        val sharedPreferences = getSharedPreferences("checkFirstAccess", MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE)
         val checkFirstAccess = sharedPreferences.getBoolean("checkFirstAccess", false)
         val editor = sharedPreferences.edit()
 
@@ -116,6 +116,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(missionIntent)
         }
 
+        showMozziInfoBubble()
+
+    }
+
+
+    // 모찌 상태 말풍선 출력
+    fun showMozziInfoBubble() {
 
         //모찌말풍선이랑 경험치바 말풍선이랑 겹치지 않게, 1 = 말풍선 띄워짐, 0 = 말풍선 숨김
         var mozzi_num = 0

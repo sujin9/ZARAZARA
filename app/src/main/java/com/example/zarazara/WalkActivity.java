@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
@@ -73,13 +74,20 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walk);
 
+        // 상단 보유 코인 표시
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        String userCoin = Integer.toString(sharedPreferences.getInt("userCoin", 0));
+
+        TextView coinText = (TextView)findViewById(R.id.userCoin);
+        coinText.setText(userCoin);
+
+
         DebugDB.getAddressLog();
 
         // SQLite database 및 테이블 생성(if not exist)
         helper = new DBHelper(WalkActivity.this, "stepStore.db", null, 1);
         db = helper.getWritableDatabase();
         helper.onCreate(db);
-
 
 
         //현재 시간(날짜 구하기 위해)

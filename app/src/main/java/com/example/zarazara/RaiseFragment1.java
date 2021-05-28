@@ -1,16 +1,22 @@
 package com.example.zarazara;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Map;
+import java.util.Set;
+
+import static android.content.Context.MODE_PRIVATE;
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class RaiseFragment1 extends Fragment implements View.OnClickListener {
@@ -19,10 +25,12 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("checkFirstAccess", MODE_PRIVATE);
         View v = inflater.inflate(R.layout.fragment_raise1,container,false);
 
         ImageButton raiseMealBtn = (ImageButton)v.findViewById(R.id.raise_mealBtn);
         ImageButton raiseSnackBtn = (ImageButton)v.findViewById(R.id.raise_snackBtn);
+
         raiseMealBtn.setOnClickListener(this);
         raiseSnackBtn.setOnClickListener(this);
 
