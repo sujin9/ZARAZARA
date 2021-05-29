@@ -36,13 +36,12 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
     // 캐릭터 수치 변동 관련
     // 장난감  행복+20
     // 노래    행복+15
-    // 책      행복+20 건강+10
+    // 책      행복+30
     int gaugeHappy;
     int gaugeHealth;
     int happy_play = 20;
     int happy_sing = 15;
-    int happy_read = 20;
-    int health_read = 10;
+    int happy_read = 30;
 
     @Nullable
     @Override
@@ -60,13 +59,19 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
         TextView playPrice = (TextView)v.findViewById(R.id.price_play);
         TextView singPrice = (TextView)v.findViewById(R.id.price_sing);
         TextView readPrice = (TextView)v.findViewById(R.id.price_read);
+        TextView playExp = (TextView)v.findViewById(R.id.explain_play);
+        TextView singExp = (TextView)v.findViewById(R.id.explain_sing);
+        TextView readExp = (TextView)v.findViewById(R.id.explain_read);
         ImageButton raiseHobby1Btn = (ImageButton)v.findViewById(R.id.raise_hobbyBtn1);
         ImageButton raiseHobby2Btn = (ImageButton)v.findViewById(R.id.raise_hobbyBtn2);
         ImageButton raiseHobby3Btn = (ImageButton)v.findViewById(R.id.raise_hobbyBtn3);
 
-        playPrice.setText(Integer.toString(price_play));
-        singPrice.setText(Integer.toString(price_sing));
-        readPrice.setText(Integer.toString(price_read));
+        playPrice.setText(Integer.toString(price_play)+"C");
+        singPrice.setText(Integer.toString(price_sing)+"C");
+        readPrice.setText(Integer.toString(price_read)+"C");
+        playExp.setText("행복감 +"+happy_play);
+        singExp.setText("행복감 +"+happy_sing);
+        readExp.setText("행복감 +"+happy_read);
         raiseHobby1Btn.setOnClickListener(this);
         raiseHobby2Btn.setOnClickListener(this);
         raiseHobby3Btn.setOnClickListener(this);
@@ -80,7 +85,6 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
         toast.setDuration(LENGTH_SHORT);
         coin = sharedPreferences.getInt("userCoin", 0);
         gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0);
-        gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0);
 
         switch(v.getId()) {
             case R.id.raise_hobbyBtn1:  // play
@@ -149,11 +153,8 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
                     toastText.setText("책을 읽어요!\n" + Integer.toString(price_read) + " 코인이 차감됩니다");
                     // 수치 관련
                     gaugeHappy += happy_read;
-                    gaugeHealth += health_read;
                     if (gaugeHappy>100) gaugeHappy=100;
-                    if (gaugeHealth>100) gaugeHealth=100;
                     editor.putInt("gaugeHappy", gaugeHappy);
-                    editor.putInt("gaugeHealth", gaugeHealth);
 
                     editor.apply();
                 }

@@ -52,9 +52,11 @@ public class RaiseFragment2 extends Fragment implements View.OnClickListener {
 
         coinText = (TextView) getActivity().findViewById(R.id.userCoin);
         TextView exercisePrice = (TextView)v.findViewById(R.id.price_exercise);
+        TextView exerciseExp = (TextView)v.findViewById(R.id.explain_exercise);
         ImageButton raiseExerciseBtn = (ImageButton)v.findViewById(R.id.raise_exerciseBtn);
 
-        exercisePrice.setText(Integer.toString(price_exercise));
+        exercisePrice.setText(Integer.toString(price_exercise)+"C");
+        exerciseExp.setText("운동량 +"+exercise_health+"\n포만감 "+exercise_full);
         raiseExerciseBtn.setOnClickListener(this);
 
         return v;

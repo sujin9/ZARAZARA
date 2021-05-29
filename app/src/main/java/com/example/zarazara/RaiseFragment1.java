@@ -62,11 +62,15 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
         coinText = (TextView) getActivity().findViewById(R.id.userCoin);
         TextView mealPrice = (TextView)v.findViewById(R.id.price_meal);
         TextView snackPrice = (TextView)v.findViewById(R.id.price_snack);
+        TextView mealExp = (TextView)v.findViewById(R.id.explain_meal);
+        TextView snackExp = (TextView)v.findViewById(R.id.explain_snack);
         ImageButton raiseMealBtn = (ImageButton)v.findViewById(R.id.raise_mealBtn);
         ImageButton raiseSnackBtn = (ImageButton)v.findViewById(R.id.raise_snackBtn);
 
         mealPrice.setText(Integer.toString(price_meal)+"C");
         snackPrice.setText(Integer.toString(price_snack)+"C");
+        mealExp.setText("포만감 +"+full_meal);
+        snackExp.setText("포만감 +"+full_snack+"\n행복감 +"+happy_snack);
         raiseMealBtn.setOnClickListener(this);
         raiseSnackBtn.setOnClickListener(this);
 
