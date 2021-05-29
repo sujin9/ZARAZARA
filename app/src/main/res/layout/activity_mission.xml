@@ -99,7 +99,7 @@
             app:tabIndicatorColor="@color/white"
             app:tabTextAppearance="@style/tab_text"/>
 
-        <androidx.viewpager2.widget.ViewPager2
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/missionViewPager"
             android:layout_width="400dp"
             android:layout_height="400dp"
