@@ -2,43 +2,118 @@ package com.example.zarazara
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import androidx.constraintlayout.widget.ConstraintSet.VISIBLE
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
+
+    var userCoin:Int = 0       // 유저가 보유한 코인    --> 매달 12시 지나면 추가
+    var name:String = "모찌"   // 유저 캐릭터 애칭      --> 최초 실행할 때 튜토리얼에서 입력받음
+
+    // 날짜 체크용 시간
+    var nowDate:String = ""       // 접속한 현재 날짜
+    var now:Long = 0              // 현재 시점 불러옴
+    lateinit var date:Date
+    var sdt = SimpleDateFormat("yyyy-MM-dd")
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // 선언
+        // 텍스트뷰
+        var nameText = findViewById<TextView>(R.id.characterName)   // 캐릭터 이름
+        var coinText = findViewById<TextView>(R.id.userCoin)        // 보유한 코인
         // 버튼
         var homeButton1 = findViewById<ImageButton>(R.id.homeBtn1) // 키우기 버튼
-   //     var homeButton2 = findViewById<ImageButton>(R.id.homeBtn2) // 걸음수 버튼
+        var homeButton2 = findViewById<ImageButton>(R.id.homeBtn2) // 걸음수 버튼
         var homeButton3 = findViewById<ImageButton>(R.id.homeBtn3) // 미션 버튼
         // intent
         var raiseIntent = Intent(this, RaiseActivity::class.java)
-    //    var walkIntent = Intent(this, WalkActivity::class.java)
+        var walkIntent = Intent(this, WalkActivity::class.java)
         var missionIntent = Intent(this, MissionActivity::class.java)
+
+        // 첫 실행 여부 확인
+        val sharedPreferences = getSharedPreferences("checkFirstAccess", MODE_PRIVATE)
+        val checkFirstAccess = sharedPreferences.getBoolean("checkFirstAccess", false)
+        val editor = sharedPreferences.edit()
+
+        if(!checkFirstAccess) {     // 앱 최초 실행
+            editor.putBoolean("checkFirstAccess", true)
+            editor.apply()
+
+            // 첫 접속 날짜 저장
+            now = java.lang.System.currentTimeMillis()
+            date = java.util.Date(now)
+            nowDate = sdt.format(date)
+            editor.putInt("userCoin", userCoin)
+            editor.putString("currentDate", nowDate)
+            editor.apply()
+
+            // 튜토리얼 실행
+            //val tutorialIntent = Intent(this, TutorialActivity::class.java)
+            //startActivity(tutorialIntent)
+            //finish()
+        }
+        else {
+            // 접속 날짜 변경 비교 --> 코인 획득
+            now = java.lang.System.currentTimeMillis()
+            date = java.util.Date(now)
+            nowDate = sdt.format(date)
+
+            // Log.d("CheckDateChanged", sharedPreferences.getString("currentDate", "Default").toString()+" & "+nowDate))
+            if(checkDateChanged(
+                    sharedPreferences.getString("currentDate", "Default").toString(),nowDate)) {
+                // 접속일 기준, 어제 걸음수 불러오기
+                var yesterday = sdt.format(java.util.Date(now - 24 * 60 * 60 * 1000))
+                var dbHelper = DBHelper(this, "stepStore.db", null, 1)
+                var db = dbHelper.writableDatabase
+                dbHelper.onCreate(db)
+
+                var newCoin:Int = dbHelper.getStep(yesterday)/100
+
+                // 코인 변환
+                // Log.d("CheckCoin", sharedPreferences.getInt("userCoin", 0).toString()+"+++"+newCoin)
+                userCoin = sharedPreferences.getInt("userCoin", 0) + newCoin
+
+                Toast.makeText(this, newCoin.toString()+"코인이 적립되었습니다!", Toast.LENGTH_LONG).show()
+
+                editor.putInt("userCoin", userCoin)
+                editor.putString("currentDate", nowDate)
+                editor.apply()
+            }
+            else {
+                // 접속 같은 날짜
+                // nothing to do !
+            }
+
+        }
+
+        //
+        coinText.text = sharedPreferences.getInt("userCoin", 0).toString()
+    //    nameText.text = name
 
         // 하단 버튼 클릭할 때
         homeButton1.setOnClickListener {
             startActivity(raiseIntent)
         }
 
-        /* Button2: 포그라운드 서비스 연결로 수정
         homeButton2.setOnClickListener {
             startActivity(walkIntent)
         }
-         */
 
         homeButton3.setOnClickListener {
             startActivity(missionIntent)
         }
+
 
         //모찌말풍선이랑 경험치바 말풍선이랑 겹치지 않게, 1 = 말풍선 띄워짐, 0 = 말풍선 숨김
         var mozzi_num = 0
@@ -87,6 +162,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    // 날짜 비교 체크 함수
+    fun checkDateChanged(date1: String, date2: String):Boolean {
+        if (date1==date2) {
+            return false        // 같은 날짜
+        }
+        else {
+            // Toast.makeText(this, "날짜 바뀜!", Toast.LENGTH_LONG).show()
+            return true        // 다른 날짜
+        }
     }
 
     // 알림 채널(서비스 - notification)
