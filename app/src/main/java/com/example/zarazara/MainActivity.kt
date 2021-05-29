@@ -1,6 +1,7 @@
 package com.example.zarazara
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -15,13 +16,19 @@ class MainActivity : AppCompatActivity() {
 
     var userCoin:Int = 0       // 유저가 보유한 코인    --> 매달 12시 지나면 추가
     var name:String = "모찌"   // 유저 캐릭터 애칭      --> 최초 실행할 때 튜토리얼에서 입력받음
+    var gaugeFull:Int = 20       // 포만감
+    var gaugeHealth:Int = 20     // 건강도
+    var gaugeHappy:Int = 20      // 행복도
+
+    lateinit var coinText:TextView
+
+    lateinit var sharedPreferences:SharedPreferences
 
     // 날짜 체크용 시간
     var nowDate:String = ""       // 접속한 현재 날짜
     var now:Long = 0              // 현재 시점 불러옴
     lateinit var date:Date
     var sdt = SimpleDateFormat("yyyy-MM-dd")
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         // 선언
         // 텍스트뷰
         var nameText = findViewById<TextView>(R.id.characterName)   // 캐릭터 이름
-        var coinText = findViewById<TextView>(R.id.userCoin)        // 보유한 코인
+        coinText = findViewById<TextView>(R.id.userCoin)        // 보유한 코인
         // 버튼
         var homeButton1 = findViewById<ImageButton>(R.id.homeBtn1) // 키우기 버튼
         var homeButton2 = findViewById<ImageButton>(R.id.homeBtn2) // 걸음수 버튼
@@ -42,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         var missionIntent = Intent(this, MissionActivity::class.java)
 
         // 첫 실행 여부 확인
-        val sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE)
         val checkFirstAccess = sharedPreferences.getBoolean("checkFirstAccess", false)
         val editor = sharedPreferences.edit()
 
@@ -54,8 +61,12 @@ class MainActivity : AppCompatActivity() {
             now = java.lang.System.currentTimeMillis()
             date = java.util.Date(now)
             nowDate = sdt.format(date)
-            editor.putInt("userCoin", userCoin)
             editor.putString("currentDate", nowDate)
+            // 초기 설정 저장
+            editor.putInt("userCoin", userCoin)
+            editor.putInt("gaugeFull", gaugeFull)
+            editor.putInt("gaugeHealth", gaugeHealth)
+            editor.putInt("gaugeHappy", gaugeHappy)
             editor.apply()
 
             // 튜토리얼 실행
@@ -116,10 +127,24 @@ class MainActivity : AppCompatActivity() {
             startActivity(missionIntent)
         }
 
+        // 모찌 상태
         showMozziInfoBubble()
+        // 프로그레스바 설정
+    //    gaugeFull = sharedPreferences.getInt("gaugeFull", 0)
+    //    gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0)
+    //    gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0)
 
     }
 
+    // back 버튼 누르고 돌아왔을 때 화면 갱신
+    // 앱 실행중일 때 - 날짜 바뀌고 코인 받는 부분 추가 해야하나..?
+    override fun onResume() {
+        super.onResume()
+        coinText.text = sharedPreferences.getInt("userCoin", 0).toString()
+        Log.d("CheckFullGauge", sharedPreferences.getInt("gaugeFull", 0).toString())
+        Log.d("CheckHappyGauge", sharedPreferences.getInt("gaugeHappy", 0).toString())
+        Log.d("CheckHealthGauge", sharedPreferences.getInt("gaugeHealth", 0).toString())
+    }
 
     // 모찌 상태 말풍선 출력
     fun showMozziInfoBubble() {
