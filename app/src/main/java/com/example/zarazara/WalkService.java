@@ -10,13 +10,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
-import static java.sql.DriverManager.println;
 
 public class WalkService extends Service {
 
@@ -36,8 +32,13 @@ public class WalkService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
 
-        if("startForeground".equals(intent.getAction()))
-            startForegroundService();   // 포그라운드 생성
+        if(intent.getAction() != null)
+        {
+            if("startForeground".equals(intent.getAction()))
+                startForegroundService();   // 포그라운드 생성
+            else if ("STOP_ACTION".equals(intent.getAction()))
+                stopForegroundService();    // 포그라운드 종료
+        }
 
         // START_STICKY: 서비스가 죽어도 시스템에서 재생성
         // START_NOT_STICKY: 서비스가 죽어도 시스템에서 재생성하지 않음
@@ -48,12 +49,18 @@ public class WalkService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.O)
 
     private void startForegroundService() {
+        // 버튼 설정
+        Intent stopSelf = new Intent(this, ButtonReceiver.class);
+        stopSelf.setAction("STOP");
+        PendingIntent stopPendingIntent = PendingIntent.getBroadcast(this, 0, stopSelf, 0);
+
         // 채널 설정
         String channel_id = "WalkChannelId";            // 채널 아이디
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channel_id);
-        builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle("ZARAZARA");        // 앱 이름
-        builder.setContentText("걸음 수 측정 중");    // 설명
+        builder.setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("ZARAZARA")        // 앱 이름
+                .setContentText("걸음 수 측정 중")    // 설명
+                .addAction(R.drawable.icon_walk, "PAUSE", stopPendingIntent);
 
         Intent notificationIntent = new Intent(this, WalkActivity.class); // 실제 수행하는 인텐트
         // pendingIntent: 클릭 시 동작하는 인텐트
@@ -72,5 +79,11 @@ public class WalkService extends Service {
         Notification notification = builder.build();
         startForeground(1, notification); // id 0이면 안 됨
     }
+    // 포그라운드 서비스 종료 함수
+    private void stopForegroundService(){
+        stopForeground(true);
+        stopSelf();
+    }
+
 
 }
