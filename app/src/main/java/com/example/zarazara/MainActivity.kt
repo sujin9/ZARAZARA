@@ -5,7 +5,10 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import java.text.SimpleDateFormat
@@ -23,8 +26,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var coinText:TextView
 
     lateinit var sharedPreferences:SharedPreferences
+    // 토스트 관련
+    lateinit var toast:Toast
+    lateinit var toastLayout:View
+    lateinit var toastText:TextView
 
-    // 날짜 체크용 시간
+    // 날짜 체크용
     var nowDate:String = ""       // 접속한 현재 날짜
     var now:Long = 0              // 현재 시점 불러옴
     lateinit var date:Date
@@ -47,26 +54,38 @@ class MainActivity : AppCompatActivity() {
         var raiseIntent = Intent(this, RaiseActivity::class.java)
         var walkIntent = Intent(this, WalkActivity::class.java)
         var missionIntent = Intent(this, MissionActivity::class.java)
+        // 토스트
+        var customToastLayout = findViewById<LinearLayout>(R.id.customToastLayout)
+        toastLayout = layoutInflater.inflate(R.layout.custom_toast, customToastLayout)
+        toastText = toastLayout.findViewById<TextView>(R.id.customToastText)
+        toast = Toast(this)
+        toast.duration = Toast.LENGTH_SHORT
 
+        //
         // 첫 실행 여부 확인
         sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE)
         val checkFirstAccess = sharedPreferences.getBoolean("checkFirstAccess", false)
         val editor = sharedPreferences.edit()
+
+        now = java.lang.System.currentTimeMillis()
+        date = java.util.Date(now)
+        nowDate = sdt.format(date)
 
         if(!checkFirstAccess) {     // 앱 최초 실행
             editor.putBoolean("checkFirstAccess", true)
             editor.apply()
 
             // 첫 접속 날짜 저장
-            now = java.lang.System.currentTimeMillis()
-            date = java.util.Date(now)
-            nowDate = sdt.format(date)
+        //    now = java.lang.System.currentTimeMillis()
+        //    date = java.util.Date(now)
+        //    nowDate = sdt.format(date)
             editor.putString("currentDate", nowDate)
             // 초기 설정 저장
             editor.putInt("userCoin", userCoin)
             editor.putInt("gaugeFull", gaugeFull)
             editor.putInt("gaugeHealth", gaugeHealth)
             editor.putInt("gaugeHappy", gaugeHappy)
+
             editor.apply()
 
             // 튜토리얼 실행
@@ -76,13 +95,13 @@ class MainActivity : AppCompatActivity() {
         }
         else {
             // 접속 날짜 변경 비교 --> 코인 획득
-            now = java.lang.System.currentTimeMillis()
-            date = java.util.Date(now)
-            nowDate = sdt.format(date)
+        //    now = java.lang.System.currentTimeMillis()
+        //    date = java.util.Date(now)
+        //    nowDate = sdt.format(date)
 
             // Log.d("CheckDateChanged", sharedPreferences.getString("currentDate", "Default").toString()+" & "+nowDate))
             if(checkDateChanged(
-                    sharedPreferences.getString("currentDate", "Default").toString(),nowDate)) {
+                            sharedPreferences.getString("currentDate", "Default").toString(), nowDate)) {
                 // 접속일 기준, 어제 걸음수 불러오기
                 var yesterday = sdt.format(java.util.Date(now - 24 * 60 * 60 * 1000))
                 var dbHelper = DBHelper(this, "stepStore.db", null, 1)
@@ -95,7 +114,10 @@ class MainActivity : AppCompatActivity() {
                 // Log.d("CheckCoin", sharedPreferences.getInt("userCoin", 0).toString()+"+++"+newCoin)
                 userCoin = sharedPreferences.getInt("userCoin", 0) + newCoin
 
-                Toast.makeText(this, newCoin.toString()+"코인이 적립되었습니다!", Toast.LENGTH_LONG).show()
+                toast.setGravity(Gravity.CENTER_VERTICAL,0,0)
+                toastText.text = newCoin.toString() + " 코인이 적립되었습니다!"
+                toast.view = toastLayout
+                toast.show()
 
                 editor.putInt("userCoin", userCoin)
                 editor.putString("currentDate", nowDate)
@@ -109,25 +131,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         //
-        coinText.text = sharedPreferences.getInt("userCoin", 0).toString()
+        coinText.text = sharedPreferences.getInt("userCoin", 0).toString()+"C"
     //    nameText.text = name
 
         // 하단 버튼 클릭할 때
         homeButton1.setOnClickListener {
             startActivity(raiseIntent)
         }
-
-
         homeButton2.setOnClickListener {
             startActivity(walkIntent)
         }
-
-
         homeButton3.setOnClickListener {
             startActivity(missionIntent)
         }
 
-        // 모찌 상태
+        // 모찌 상태 출력
         showMozziInfoBubble()
         // 프로그레스바 설정
     //    gaugeFull = sharedPreferences.getInt("gaugeFull", 0)
@@ -140,7 +158,7 @@ class MainActivity : AppCompatActivity() {
     // 앱 실행중일 때 - 날짜 바뀌고 코인 받는 부분 추가 해야하나..?
     override fun onResume() {
         super.onResume()
-        coinText.text = sharedPreferences.getInt("userCoin", 0).toString()
+        coinText.text = sharedPreferences.getInt("userCoin", 0).toString()+"C"
         Log.d("CheckFullGauge", sharedPreferences.getInt("gaugeFull", 0).toString())
         Log.d("CheckHappyGauge", sharedPreferences.getInt("gaugeHappy", 0).toString())
         Log.d("CheckHealthGauge", sharedPreferences.getInt("gaugeHealth", 0).toString())
