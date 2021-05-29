@@ -16,9 +16,9 @@ class MainActivity : AppCompatActivity() {
 
     var userCoin:Int = 0       // 유저가 보유한 코인    --> 매달 12시 지나면 추가
     var name:String = "모찌"   // 유저 캐릭터 애칭      --> 최초 실행할 때 튜토리얼에서 입력받음
-    var gaugeFull:Int = 0       // 포만감
-    var gaugeHealth:Int = 0     // 건강도
-    var gaugeHappy:Int = 0      // 행복도
+    var gaugeFull:Int = 20       // 포만감
+    var gaugeHealth:Int = 20     // 건강도
+    var gaugeHappy:Int = 20      // 행복도
 
     lateinit var coinText:TextView
 
@@ -61,8 +61,12 @@ class MainActivity : AppCompatActivity() {
             now = java.lang.System.currentTimeMillis()
             date = java.util.Date(now)
             nowDate = sdt.format(date)
-            editor.putInt("userCoin", userCoin)
             editor.putString("currentDate", nowDate)
+            // 초기 설정 저장
+            editor.putInt("userCoin", userCoin)
+            editor.putInt("gaugeFull", gaugeFull)
+            editor.putInt("gaugeHealth", gaugeHealth)
+            editor.putInt("gaugeHappy", gaugeHappy)
             editor.apply()
 
             // 튜토리얼 실행
@@ -133,9 +137,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     // back 버튼 누르고 돌아왔을 때 화면 갱신
+    // 앱 실행중일 때 - 날짜 바뀌고 코인 받는 부분 추가 해야하나..?
     override fun onResume() {
         super.onResume()
         coinText.text = sharedPreferences.getInt("userCoin", 0).toString()
+        Log.d("CheckFullGauge", sharedPreferences.getInt("gaugeFull", 0).toString())
+        Log.d("CheckHappyGauge", sharedPreferences.getInt("gaugeHappy", 0).toString())
+        Log.d("CheckHealthGauge", sharedPreferences.getInt("gaugeHealth", 0).toString())
     }
 
     // 모찌 상태 말풍선 출력

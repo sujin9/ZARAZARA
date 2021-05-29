@@ -31,10 +31,21 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
     View toastLayout;
     TextView toastText;
 
+    // 코인 변동 관련 변수
     TextView coinText;
     int coin;
     int price_meal = 50;
     int price_snack = 70;
+
+    // 모찌 상태 수치 변동 관련 변수
+    // 밥을 먹으면 포만감 +30
+    // 간식을 먹으면 포만감 +20 / 행복 +10
+    // 포만감이 이미 full -> 먹을 수 없음
+    int gaugeFull;
+    int gaugeHappy;
+    int full_meal = 30;
+    int full_snack = 20;
+    int happy_snack = 10;
 
     @Nullable
     @Override
@@ -54,8 +65,8 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
         ImageButton raiseMealBtn = (ImageButton)v.findViewById(R.id.raise_mealBtn);
         ImageButton raiseSnackBtn = (ImageButton)v.findViewById(R.id.raise_snackBtn);
 
-        mealPrice.setText(Integer.toString(price_meal));    // 글씨 뒤에 C 표시 어떻게?
-        snackPrice.setText(Integer.toString(price_snack));
+        mealPrice.setText(Integer.toString(price_meal)+"C");
+        snackPrice.setText(Integer.toString(price_snack)+"C");
         raiseMealBtn.setOnClickListener(this);
         raiseSnackBtn.setOnClickListener(this);
 
@@ -66,37 +77,67 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         Toast toast = new Toast(this.getActivity());
         toast.setDuration(LENGTH_SHORT);
+        coin = sharedPreferences.getInt("userCoin", 0);
+        gaugeFull = sharedPreferences.getInt("gaugeFull", 0);
+        gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0);
 
         switch(v.getId()) {
-            case R.id.raise_mealBtn:
-                coin = sharedPreferences.getInt("userCoin", 0) - price_meal;
 
-                if(coin>=0) {
+            case R.id.raise_mealBtn:
+            //    coin = sharedPreferences.getInt("userCoin", 0);
+            //    gaugeFull = sharedPreferences.getInt("gaugeFull", 0);
+
+                if (coin<price_meal){
+                    //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
+                    toastText.setText("코인이 부족합니다");
+                }
+                else if (gaugeFull>=100) {
+                    toastText.setText("이미 배불러요 !");
+                }
+                else {  // if(coin>=price_meal && gaugeFull<100)
+                    // 코인
+                    coin -= price_meal;
                     editor.putInt("userCoin", coin);
-                    editor.apply();
                     coinText.setText(Integer.toString(coin));
                     //Toast.makeText(getActivity(), "밥을 먹어요! " + Integer.toString(price_meal) + " 코인이 차감됩니다", LENGTH_SHORT).show();
                     toastText.setText("밥을 먹어요!\n" + Integer.toString(price_meal) + " 코인이 차감됩니다");
-                }
-                else {
-                    //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
-                    toastText.setText("코인이 부족합니다");
+                    // 포만감
+                    gaugeFull += full_meal;
+                    if(gaugeFull>100) gaugeFull=100;    //MAX 100
+                    editor.putInt("gaugeFull", gaugeFull);
+
+                    editor.apply();
                 }
                 break;
 
             case R.id.raise_snackBtn:
-                coin = sharedPreferences.getInt("userCoin", 0) - price_snack;
+            //    coin = sharedPreferences.getInt("userCoin", 0);
+            //    gaugeFull = sharedPreferences.getInt("gaugeFull", 0);
+            //    gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0);
 
-                if(coin>=0) {
+                if(coin<price_snack) {
+                    //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
+                    toastText.setText("코인이 부족합니다");
+                }
+                else if (gaugeFull>=100) {
+                    toastText.setText("이미 배불러요 !");
+                }
+                else {
+                    // 코인
+                    coin -= price_snack;
                     editor.putInt("userCoin", coin);
-                    editor.apply();
                     coinText.setText(Integer.toString(coin));
                     //Toast.makeText(getActivity(), "간식을 먹어요! " + Integer.toString(price_snack) + " 코인이 차감됩니다", LENGTH_SHORT).show();
                     toastText.setText("간식을 먹어요!\n" + Integer.toString(price_snack) + " 코인이 차감됩니다");
-                }
-                else {
-                    //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
-                    toastText.setText("코인이 부족합니다");
+                    // 수치 변화
+                    gaugeFull += full_snack;
+                    gaugeHappy += happy_snack;
+                    if(gaugeFull>100) gaugeFull=100;
+                    if(gaugeHappy>100) gaugeHappy=100;
+                    editor.putInt("gaugeFull", gaugeFull);
+                    editor.putInt("gaugeHappy", gaugeHappy);
+
+                    editor.apply();
                 }
                 break;
         }

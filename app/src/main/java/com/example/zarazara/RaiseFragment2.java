@@ -26,9 +26,17 @@ public class RaiseFragment2 extends Fragment implements View.OnClickListener {
     View toastLayout;
     TextView toastText;
 
+    // 코인 변돋 관련
     TextView coinText;
     int coin;
     int price_exercise = 100;
+
+    // 모찌 수치 변동 관련
+    // 운동하면 건강 +20 / 포만감 -10
+    int gaugeHealth;
+    int gaugeFull;
+    int exercise_health = 20;
+    int exercise_full = -10;
 
     @Nullable
     @Override
@@ -56,22 +64,40 @@ public class RaiseFragment2 extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         Toast toast = new Toast(this.getActivity());
         toast.setDuration(LENGTH_SHORT);
+        coin = sharedPreferences.getInt("userCoin", 0);
+        gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0);
+        gaugeFull = sharedPreferences.getInt("gaugeFull", 0);
 
         switch(v.getId()) {
             case R.id.raise_exerciseBtn:
                 // 버튼 누름 작동 여부 판단 위한 예시
-                coin = sharedPreferences.getInt("userCoin", 0) - price_exercise;
+            //    coin = sharedPreferences.getInt("userCoin", 0);
+            //    gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0);
+            //    gaugeFull = sharedPreferences.getInt("gaugeFull", 0);
 
-                if(coin>=0) {
+                if(coin<price_exercise) {
+                    //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
+                    toastText.setText("코인이 부족합니다");
+                }
+                else if(gaugeFull<=0) {
+                    toastText.setText("배고파서 운동을 할 수 없습니다");
+                }
+                else {
+                    // 코인
+                    coin -= price_exercise;
                     editor.putInt("userCoin", coin);
-                    editor.apply();
                     coinText.setText(Integer.toString(coin));
                     //Toast.makeText(getActivity(), "운동을 해요! " + Integer.toString(price_exercise) + " 코인이 차감됩니다", LENGTH_SHORT).show();
                     toastText.setText("운동을 해요!\n" + Integer.toString(price_exercise) + " 코인이 차감됩니다");
-                }
-                else {
-                    //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
-                    toastText.setText("코인이 부족합니다");
+                    // 수치 변화
+                    gaugeHealth += exercise_health;
+                    gaugeFull += exercise_full;
+                    if (gaugeHealth>100) gaugeHealth=100;
+                    if (gaugeFull>100) gaugeFull=100;
+                    editor.putInt("gaugeHealth", gaugeHealth);
+                    editor.putInt("gaugeFull", gaugeFull);
+
+                    editor.apply();
                 }
                 break;
         }
