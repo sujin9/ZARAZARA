@@ -1,11 +1,7 @@
 package com.example.zarazara;
 
 import android.Manifest;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,32 +11,18 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import com.amitshekhar.DebugDB;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-
-// 참고 사이트
-// 만보계 구현
-//--> https://stickode.tistory.com/82
-// TYPE_STEP_COUNTER 사용
-//--> https://call203.tistory.com/29
-
-// SQLite 사용(db로 걸음 수 관리)
-//--> https://popcorn16.tistory.com/76
 
 
 public class WalkActivity extends AppCompatActivity implements SensorEventListener{
@@ -147,15 +129,6 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
             sensorManager.registerListener(this,stepCountSensor,SensorManager.SENSOR_DELAY_FASTEST);
         }
     }
-
-/*
-    @Override
-    public void onPause(){
-        super.onPause();
-        sensorManager.unregisterListener(this);
-    }
-*/
-
 
     // 실제 센서의 작동과 관련된 함수
     // 동작을 감지하면 이벤트를 발생하여 onSensorChanged 에 값을 전달

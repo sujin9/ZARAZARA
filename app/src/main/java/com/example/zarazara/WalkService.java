@@ -13,9 +13,6 @@ import android.os.IBinder;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
-import static java.sql.DriverManager.println;
 
 public class WalkService extends Service {
 
@@ -82,6 +79,7 @@ public class WalkService extends Service {
         Notification notification = builder.build();
         startForeground(1, notification); // id 0이면 안 됨
     }
+    // 포그라운드 서비스 종료 함수
     private void stopForegroundService(){
         stopForeground(true);
         stopSelf();
