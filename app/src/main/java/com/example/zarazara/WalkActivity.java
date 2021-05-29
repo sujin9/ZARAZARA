@@ -14,6 +14,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -65,7 +66,6 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
     String today;
     int save = 0;
 
-
     @RequiresApi(api = Build.VERSION_CODES.M)
 
     @Override
@@ -77,25 +77,33 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
 
         // SQLite database 및 테이블 생성(if not exist)
         helper = new DBHelper(WalkActivity.this, "stepStore.db", null, 1);
-
         db = helper.getWritableDatabase();
         helper.onCreate(db);
+
+
 
         //현재 시간(날짜 구하기 위해)
         now = System.currentTimeMillis();
         date = new Date(now);
         SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
         today = sdt.format(date);
-        // 새로운 instance 생성
-        save = helper.getStep(today);
-        helper.insert(0);
+
+        if(helper.checkTable() < 0)
+            helper.insert("0",0);
+        else
+        {
+            // 새로운 날짜에만 instance 생성
+            save = helper.getStep(today);
+            if (save == 0)
+                helper.insert(today, 0);
+        }
+
 
         stepCountView = findViewById(R.id.stepCountView);
         totalStepCountView = findViewById(R.id.totalStepCountView);
         todayView = findViewById(R.id.day); //
 
         todayView.setText(today); //
-
 
         // 활동 퍼미션 체크 (권한 체크)
         if(ContextCompat.checkSelfPermission(this,
@@ -115,7 +123,6 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
             Toast.makeText(this, "No Step Sensor", Toast.LENGTH_SHORT).show();
         }
 
-
     }
 
 
@@ -133,30 +140,35 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+/*
+    @Override
+    public void onPause(){
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+*/
+
+
     // 실제 센서의 작동과 관련된 함수
     // 동작을 감지하면 이벤트를 발생하여 onSensorChanged 에 값을 전달
     @Override
     public void onSensorChanged(SensorEvent event) {
         // 걸음 센서 이벤트 발생시
         if(event.sensor.getType() == Sensor.TYPE_STEP_COUNTER){
-            //if(event.values[0]==1.0f){}
-
             // 초기값 설정(TYPE_STEP_COUNTER 는 스스로 초기화 x)
             if(mSteps < 1)
             {
                 mSteps = (int) event.values[0];
+                save = helper.getStep(today);
             }
-
             // 센서 이벤트가 발생할때 마다 걸음수 증가
             // 현재 값 = (리셋 안 된 값 + 현재 값) - 리셋 안 된 값 + db에 저장된 그날의 걸음수 불러와서
-            mCurrentSteps = (int)event.values[0] - mSteps;
-            helper.updateDailyStep(mCurrentSteps);
-            stepCountView.setText(String.valueOf(save + mCurrentSteps));
-
+            mCurrentSteps = (int)event.values[0] - mSteps + save;
+            helper.updateDailyStep(today, mCurrentSteps);
+            stepCountView.setText(String.valueOf(mCurrentSteps));
             // 누적값
             mTotalSteps = helper.getTotalStep();
             totalStepCountView.setText(String.valueOf(mTotalSteps));
-
         }
 
     }
@@ -164,5 +176,6 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
+
 }
 
