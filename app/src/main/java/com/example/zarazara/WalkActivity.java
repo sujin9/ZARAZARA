@@ -83,11 +83,11 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         else
         {
             // 새로운 날짜에만 instance 생성
-            save = helper.getStep(today);
-            if (save == 0)
+            int check = helper.checkDay(today);
+            if (check >= 1)
                 helper.insert(today, 0);
         }
-
+        
 
         stepCountView = findViewById(R.id.stepCountView);
         totalStepCountView = findViewById(R.id.totalStepCountView);
