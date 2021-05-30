@@ -27,6 +27,11 @@ class MainActivity : AppCompatActivity() {
     var gaugeHealth:Int = 20     // 건강도
     var gaugeHappy:Int = 20      // 행복도
 
+    var totalExp:Int = 0
+    var gaugeMealExp:Int = 0
+    var gaugeExerciseExp:Int = 0
+    var gaugeHobbyExp:Int = 0
+
     lateinit var coinText:TextView
     lateinit var fullProgressBar:ProgressBar
     lateinit var happyProgressBar:ProgressBar
@@ -48,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     var now:Long = 0              // 현재 시점 불러옴
     lateinit var date:Date
     var sdt = SimpleDateFormat("yyyy-MM-dd")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,6 +108,14 @@ class MainActivity : AppCompatActivity() {
             editor.putInt("gaugeFull", gaugeFull)
             editor.putInt("gaugeHealth", gaugeHealth)
             editor.putInt("gaugeHappy", gaugeHappy)
+            /*
+             var gaugeMealExp:Int = 0
+    var gaugeExerciseExp:Int = 0
+    var gaugeHobbyExp:Int = 0
+             */
+            editor.putInt("gaugeMealExp", gaugeMealExp)
+            editor.putInt("gaugeExerciseExp", gaugeExerciseExp)
+            editor.putInt("gaugeHobbyExp", gaugeHobbyExp)
 
             editor.apply()
 
@@ -165,7 +179,7 @@ class MainActivity : AppCompatActivity() {
 
         // 프로그레스바 설정
         setMozziProgress()
-
+        setExpProgressBar()
 
     }
 
@@ -190,6 +204,25 @@ class MainActivity : AppCompatActivity() {
         fullProgressBar.setProgress(gaugeFull)
         exerciseProgressBar.setProgress(gaugeHealth)
         happyProgressBar.setProgress(gaugeHappy)
+    }
+
+    // 상단 프로그레스바 설정
+    fun setExpProgressBar(){
+
+        gaugeMealExp = sharedPreferences.getInt("gaugeMealExp", 0)
+        gaugeExerciseExp = sharedPreferences.getInt("gaugeExerciseExp", 0)
+        gaugeHobbyExp = sharedPreferences.getInt("gaugeHobbyExp", 0)
+
+        totalExp = (gaugeMealExp + gaugeExerciseExp + gaugeHobbyExp) / 3
+
+        Log.d("CheckTotalExpGauge","Total "+totalExp)
+        Log.d("CheckExpGauge","Meal "+gaugeMealExp+"| Exe "+gaugeExerciseExp+"| Hobby "+gaugeHobbyExp)
+
+        totalExpProgreeBar.setProgress(totalExp)
+        mealExpProgressBar.setProgress(gaugeMealExp)
+        exerciseExpProgressBar.setProgress(gaugeExerciseExp)
+        hobbyExpProgressBar.setProgress(gaugeHobbyExp)
+
     }
 
     // 모찌 상태 말풍선 출력
@@ -285,5 +318,17 @@ class MainActivity : AppCompatActivity() {
 
         setMozziProgress()
     }
+
+    /*
+    fun upgradeMozzi(){
+
+        var mozziBtn = findViewById<ImageButton>(R.id.mozzi)
+        var upgradeBtn = findViewById<Button>(R.id.upgrade)
+
+        upgradeBtn.setOnClickListener{
+            if(totalExpProgreeBar.getProgress )
+        }
+    }
+     */
 
 }
