@@ -100,7 +100,10 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
 
                 if(coin<price_play) {
                     //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
-                    toastText.setText("코인이 부족합니다");
+                    toastText.setText("코인이 부족해요");
+                }
+                else if(gaugeHappy>=100) {
+                    toastText.setText("너무 행복해요 !\n즐겁게 쉬고 있어요");
                 }
                 else {
                     // 코인
@@ -108,7 +111,7 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
                     editor.putInt("userCoin", coin);
                     coinText.setText(Integer.toString(coin));
                     //Toast.makeText(getActivity(), "장난감을 가지고 놀아요! " + Integer.toString(price_play) + " 코인이 차감됩니다", LENGTH_SHORT).show();
-                    toastText.setText("장난감을 가지고 놀아요!\n" + Integer.toString(price_play) + " 코인이 차감됩니다");
+                    toastText.setText("장난감을 가지고 놀아요!\n" + Integer.toString(price_play) + " 코인이 차감됐어요");
                     // 수치 변화
                     gaugeHappy += happy_play;
                     if (gaugeHappy>100) gaugeHappy=100;
@@ -125,7 +128,10 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
 
                 if(coin<price_sing) {
                     //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
-                    toastText.setText("코인이 부족합니다");
+                    toastText.setText("코인이 부족해요");
+                }
+                else if(gaugeHappy>=100) {
+                    toastText.setText("너무 행복해요 !\n즐겁게 쉬고 있어요");
                 }
                 else {
                     // 코인
@@ -133,7 +139,7 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
                     editor.putInt("userCoin", coin);
                     coinText.setText(Integer.toString(coin));
                     //Toast.makeText(getActivity(), "노래를 불러요! " + Integer.toString(price_sing) + " 코인이 차감됩니다", LENGTH_SHORT).show();
-                    toastText.setText("노래를 불러요!\n" + Integer.toString(price_sing) + " 코인이 차감됩니다");
+                    toastText.setText("노래를 불러요!\n" + Integer.toString(price_sing) + " 코인이 차감됐어요");
                     // 수치 변화
                     gaugeHappy += happy_sing;
                     if (gaugeHappy>100) gaugeHappy=100;
@@ -150,7 +156,10 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
 
                 if(coin<price_read) {
                     //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
-                    toastText.setText("코인이 부족합니다");
+                    toastText.setText("코인이 부족해요");
+                }
+                else if(gaugeHappy>=100) {
+                    toastText.setText("너무 행복해요 !\n즐겁게 쉬고 있어요");
                 }
                 else {
                     // 코인 변화
@@ -158,7 +167,7 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
                     editor.putInt("userCoin", coin);
                     coinText.setText(Integer.toString(coin));
                     //Toast.makeText(getActivity(), "책을 읽어요! " + Integer.toString(price_read) + " 코인이 차감됩니다", LENGTH_SHORT).show();
-                    toastText.setText("책을 읽어요!\n" + Integer.toString(price_read) + " 코인이 차감됩니다");
+                    toastText.setText("책을 읽어요!\n" + Integer.toString(price_read) + " 코인이 차감됐어요");
                     // 수치 관련
                     gaugeHappy += happy_read;
                     if (gaugeHappy>100) gaugeHappy=100;

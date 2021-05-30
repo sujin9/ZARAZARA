@@ -102,7 +102,7 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
 
                 if (coin<price_meal){
                     //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
-                    toastText.setText("코인이 부족합니다");
+                    toastText.setText("코인이 부족해요");
                 }
                 else if (gaugeFull>=100) {
                     toastText.setText("이미 배불러요 !");
@@ -114,7 +114,7 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
                     coinText.setText(Integer.toString(coin));
 
                     //Toast.makeText(getActivity(), "밥을 먹어요! " + Integer.toString(price_meal) + " 코인이 차감됩니다", LENGTH_SHORT).show();
-                    toastText.setText("밥을 먹어요!\n" + Integer.toString(price_meal) + " 코인이 차감됩니다");
+                    toastText.setText("밥을 먹어요!\n" + Integer.toString(price_meal) + " 코인이 차감됐어요");
 
                     // 수치 변화
                     gaugeFull += full_meal;
@@ -130,7 +130,7 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
 
                 if(coin<price_snack) {
                     //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
-                    toastText.setText("코인이 부족합니다");
+                    toastText.setText("코인이 부족해요");
                 }
                 else if (gaugeFull>=100) {
                     toastText.setText("이미 배불러요 !");
@@ -142,7 +142,7 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
                     coinText.setText(Integer.toString(coin));
 
                     //Toast.makeText(getActivity(), "간식을 먹어요! " + Integer.toString(price_snack) + " 코인이 차감됩니다", LENGTH_SHORT).show();
-                    toastText.setText("간식을 먹어요!\n" + Integer.toString(price_snack) + " 코인이 차감됩니다");
+                    toastText.setText("간식을 먹어요!\n" + Integer.toString(price_snack) + " 코인이 차감됐어요");
 
                     // 수치 변화
                     gaugeFull += full_snack;

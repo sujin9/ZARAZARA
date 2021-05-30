@@ -23,7 +23,7 @@ public class ButtonReceiver extends BroadcastReceiver {
         inflater = LayoutInflater.from(context);
         toastLayout = inflater.inflate(R.layout.custom_toast, null);
         toastText = toastLayout.findViewById(R.id.customToastText);
-        toastText.setText("걸음 수 측정 종료");
+        toastText.setText("걸음 수 측정을 종료해요");
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(toastLayout);
         toast.show();

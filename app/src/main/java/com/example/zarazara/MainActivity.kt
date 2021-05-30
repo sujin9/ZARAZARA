@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity() {
                 userCoin = sharedPreferences.getInt("userCoin", 0) + newCoin
 
                 toast.setGravity(Gravity.CENTER_VERTICAL,0,0)
-                toastText.text = newCoin.toString() + " 코인이 적립되었습니다!"
+                toastText.text = newCoin.toString() + " 코인이 적립되었어요!"
                 toast.view = toastLayout
                 toast.show()
 
