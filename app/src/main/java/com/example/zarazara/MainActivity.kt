@@ -247,28 +247,13 @@ class MainActivity : AppCompatActivity() {
         var alarmIntent = Intent(context, AlarmReceiver::class.java)
         var alarmPendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0)
 
-        var now: Long? = null
-        var date: Date? = null
-        var today: String? = null
-
-        now = System.currentTimeMillis()
-        date = Date(now)
-        val sdt = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-        today = sdt.format(date)
-        Log.e("현재 시각 in main", today)
-        //실험용 1분마다
+        // 2시간마다 수치 감소하도록
         alarmManager?.setRepeating(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            SystemClock.elapsedRealtime() + 60 * 1000,
-            60*1000,
+            SystemClock.elapsedRealtime() + 2 * 60 * 60 * 1000,
+            2 * 60 * 60 * 1000,
             alarmPendingIntent);
 
-
-        /*
-        // 두 시간마다 AlarmReceiver 실행
-        alarmManager?.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HOUR*2,
-                        AlarmManager.INTERVAL_HOUR*2, alarmPendingIntent);
-         */
     }
 
 }
