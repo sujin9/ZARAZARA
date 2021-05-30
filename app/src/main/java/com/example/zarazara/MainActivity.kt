@@ -1,9 +1,14 @@
 package com.example.zarazara
 
+import android.app.AlarmManager
+import android.app.AlarmManager.INTERVAL_FIFTEEN_MINUTES
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -29,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     var now:Long = 0              // 현재 시점 불러옴
     lateinit var date:Date
     var sdt = SimpleDateFormat("yyyy-MM-dd")
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,7 +111,6 @@ class MainActivity : AppCompatActivity() {
                 // 접속 같은 날짜
                 // nothing to do !
             }
-
         }
 
         //
@@ -133,6 +138,24 @@ class MainActivity : AppCompatActivity() {
     //    gaugeFull = sharedPreferences.getInt("gaugeFull", 0)
     //    gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0)
     //    gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0)
+
+        /*
+       // 게이지 Timerㅇ
+       val timerTask: TimerTask = object : TimerTask() {
+           override fun run() {
+               Log.e("태스크 카운터:", count.toString())
+               count++
+           }
+       }
+       // 타이머
+       val timer = Timer()
+       // timerTask를 딜레이 0초에 3초마다 실행
+       timer.schedule(timerTask, 0, 3000)
+        */
+
+        // 현재시각 체크 시작
+        startAlarmReceiver(this)
+
 
     }
 
@@ -209,8 +232,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // 알림 채널(서비스 - notification)
-    // Button2(걸음 수) 기능은 Foreground Service + notification 으로 수행
+    // notification 채널(서비스 - notification)
+    // Foreground Service + notification 으로 수행
     fun onStartForegroundService(view: View?) {
         val intent = Intent(this, WalkService::class.java)
         intent.action = "startForeground"
@@ -221,6 +244,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // 게이지 수치 반복 감소용
+    fun startAlarmReceiver(context: Context) {
 
+        var alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+        var alarmPendingIntent = Intent(context, AlarmReceiver::class.java).let { alarmIntent ->
+            PendingIntent.getBroadcast(this, 0, alarmIntent, 0)
+        }
+
+        var now: Long? = null
+        var date: Date? = null
+        var today: String? = null
+
+        now = System.currentTimeMillis()
+        date = Date(now)
+        val sdt = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+        today = sdt.format(date)
+        Log.e("현재 시각 in main", today)
+        //실험용 1분마다
+        alarmManager?.setRepeating(
+            AlarmManager.ELAPSED_REALTIME_WAKEUP,
+            SystemClock.elapsedRealtime(),
+            60*1000,
+            alarmPendingIntent);
+
+        /*
+        // 두 시간마다 AlarmReceiver 실행
+        alarmManager?.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HOUR*2,
+                        AlarmManager.INTERVAL_HOUR*2, alarmPendingIntent);
+         */
+    }
 
 }

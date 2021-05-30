@@ -24,6 +24,12 @@
             android:name=".ButtonReceiver"
             android:exported="false"></receiver>
 
+        <receiver
+            android:name=".AlarmReceiver">
+            android:enabled="true"
+            android:exported="false"
+        </receiver>
+
         <service
             android:name=".WalkService"
             android:enabled="true"
@@ -40,5 +46,6 @@
         <activity android:name=".WalkActivity" />
         <activity android:name=".MissionActivity" />
     </application>
+
 
 </manifest>
