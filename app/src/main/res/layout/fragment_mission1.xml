@@ -1,168 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/transparent">
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:background="#00000000"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/firstmission1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fontFamily="@font/dunggeunmo"
-        android:text="100보 걷기"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="100dp" />
 
-    <TextView
-        android:id="@+id/onecoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fontFamily="@font/dunggeunmo"
-        android:text="1코인"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="180dp"
-        tools:layout_editor_absoluteY="100dp"/>
+    <LinearLayout
+        android:id="@+id/daily"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/checkbox11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/checkbox_x"
-        android:translationX="270dp"
-        android:translationY="90dp"/>
+        <!--미션-->
+        <TextView
+            android:id="@+id/firstmission1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginRight="110dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:gravity="center"
+            android:text="100보 걷기"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:translationX="-90dp"
+            android:translationY="65dp" />
 
-    <TextView
-        android:id="@+id/secondmission1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fontFamily="@font/dunggeunmo"
-        android:text="500보 걷기"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="160dp" />
+        <TextView
+            android:id="@+id/secondmission1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginRight="110dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:gravity="center"
+            android:text="500보 걷기"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:translationX="-90dp"
+            android:translationY="95dp" />
 
-    <TextView
-        android:id="@+id/fivecoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fontFamily="@font/dunggeunmo"
-        android:text="5코인"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="180dp"
-        tools:layout_editor_absoluteY="160dp"   />
+        <TextView
+            android:id="@+id/thirdmission1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginRight="110dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:gravity="center"
+            android:text="1000보 걷기"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:translationX="-90dp"
+            android:translationY="125dp" />
 
-    <ImageView
-        android:id="@+id/checkbox12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/checkbox_x"
-        android:translationX="270dp"
-        android:translationY="150dp"/>
+        <TextView
+            android:id="@+id/fourthmission1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginRight="110dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:gravity="center"
+            android:text="5000보 걷기"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:translationX="-90dp"
+            android:translationY="155dp" />
 
-    <TextView
-        android:id="@+id/thirdmission1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fontFamily="@font/dunggeunmo"
-        android:text="1000보 걷기"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="220dp" />
+        <TextView
+            android:id="@+id/fifthmission1"
+            android:layout_width="192dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginRight="110dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:gravity="center"
+            android:text="10000보 걷기"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:translationX="-90dp"
+            android:translationY="185dp" />
 
-    <TextView
-        android:id="@+id/twentycoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fontFamily="@font/dunggeunmo"
-        android:text="20코인"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="175dp"
-        tools:layout_editor_absoluteY="220dp"   />
+        <!--코인-->
+        <TextView
+            android:id="@+id/coin1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:layout_marginRight="150dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:gravity="center"
+            android:text="1코인"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:translationX="60dp"
+            android:translationY="-70dp" />
 
-    <ImageView
-        android:id="@+id/checkbox13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/checkbox_x"
-        android:translationX="270dp"
-        android:translationY="210dp"/>
+        <TextView
+            android:id="@+id/coin2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:layout_marginRight="150dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:gravity="center"
+            android:text="5코인"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:translationX="60dp"
+            android:translationY="-40dp"/>
 
-    <TextView
-        android:id="@+id/fourthmission1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fontFamily="@font/dunggeunmo"
-        android:text="5000보 걷기"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="280dp" />
+        <TextView
+            android:id="@+id/coin3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:layout_marginRight="150dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:gravity="center"
+            android:text="20코인"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:translationX="60dp"
+            android:translationY="-10dp"/>
 
-    <TextView
-        android:id="@+id/sixtycoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fontFamily="@font/dunggeunmo"
-        android:text="60코인"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="175dp"
-        tools:layout_editor_absoluteY="280dp"   />
+        <TextView
+            android:id="@+id/coin4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:layout_marginRight="150dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:gravity="center"
+            android:text="60코인"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:translationX="60dp"
+            android:translationY="20dp"/>
 
-    <ImageView
-        android:id="@+id/checkbox14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/checkbox_x"
-        android:translationX="270dp"
-        android:translationY="270dp"/>
+        <TextView
+            android:id="@+id/coin5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:layout_marginRight="150dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:gravity="center"
+            android:text="120코인"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:translationX="60dp"
+            android:translationY="50dp"/>
 
-    <TextView
-        android:id="@+id/fifthmission1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fontFamily="@font/dunggeunmo"
-        android:text="10000보 걷기"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="340dp" />
+        <!--빈 체크박스-->
+        <ImageView
+            android:id="@+id/checkbox_x11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:translationX="330dp"
+            android:translationY="-215dp"
+            app:srcCompat="@drawable/checkbox_x"
+            android:visibility="visible"    />
 
-    <TextView
-        android:id="@+id/onehundredcoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fontFamily="@font/dunggeunmo"
-        android:text="120코인"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        tools:layout_editor_absoluteX="170dp"
-        tools:layout_editor_absoluteY="340dp"   />
+        <ImageView
+            android:id="@+id/checkbox_x12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:translationX="330dp"
+            android:translationY="-205dp"
+            app:srcCompat="@drawable/checkbox_x"
+            android:visibility="visible"    />
 
-    <ImageView
-        android:id="@+id/checkbox15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/checkbox_x"
-        android:translationX="270dp"
-        android:translationY="330dp"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/checkbox_x13"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:translationX="330dp"
+            android:translationY="-195dp"
+            app:srcCompat="@drawable/checkbox_x"
+            android:visibility="visible"    />
+
+        <ImageView
+            android:id="@+id/checkbox_x14"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:translationX="330dp"
+            android:translationY="-185dp"
+            app:srcCompat="@drawable/checkbox_x"
+            android:visibility="visible"    />
+
+        <ImageView
+            android:id="@+id/checkbox_x15"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:translationX="330dp"
+            android:translationY="-175dp"
+            app:srcCompat="@drawable/checkbox_x"
+            android:visibility="visible"    />
+
+        <!--찬 체크박스-->
+        <ImageView
+            android:id="@+id/checkbox_o11"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:translationX="330dp"
+            android:translationY="-451dp"
+            app:srcCompat="@drawable/checkbox_o"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/checkbox_o12"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:translationX="330dp"
+            android:translationY="-441dp"
+            app:srcCompat="@drawable/checkbox_o"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/checkbox_o13"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:translationX="330dp"
+            android:translationY="-431dp"
+            app:srcCompat="@drawable/checkbox_o"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/checkbox_o14"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:translationX="330dp"
+            android:translationY="-421dp"
+            app:srcCompat="@drawable/checkbox_o"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/checkbox_o15"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:translationX="330dp"
+            android:translationY="-411dp"
+            app:srcCompat="@drawable/checkbox_o"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
+</LinearLayout>
