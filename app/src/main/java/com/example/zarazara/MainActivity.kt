@@ -177,6 +177,9 @@ class MainActivity : AppCompatActivity() {
         // 모찌 상태 출력
         showMozziInfoBubble()
 
+        // 모찌 사망 여부 확인
+        passAway()
+
         /*
        // 게이지 Timerㅇ
        val timerTask: TimerTask = object : TimerTask() {
@@ -207,6 +210,7 @@ class MainActivity : AppCompatActivity() {
         coinText.text = sharedPreferences.getInt("userCoin", 0).toString()+"C"
         setMozziProgress()
         setExpProgress()
+        passAway()
     }
 
     // 상단 경험치 프로그레스바 설정
@@ -329,7 +333,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    // 진화 기능
+    // 캐릭터 진화 기능
     fun upgrade() {
         // Toast.makeText(this, "진화한당", Toast.LENGTH_SHORT).show()
         totalExp = sharedPreferences.getInt("totalExp", 0);
@@ -351,7 +355,7 @@ class MainActivity : AppCompatActivity() {
             editor.apply()
 
             showCharacter(sharedPreferences.getInt("version",1))
-            resetSetting()
+            resetSetting(0,50)
 
         }
         else if (version>3) {
@@ -362,6 +366,27 @@ class MainActivity : AppCompatActivity() {
         else if (totalExp<300) {
             toastText.text = "아직 진화할 수 없어요 !"
             toast.show()
+        }
+    }
+
+    // 캐릭터 사망 기능
+    fun passAway(){
+        gaugeFull = sharedPreferences.getInt("gaugeFull", 0)
+        gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0)
+        // gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0)
+
+        // 포만감, 운동량 둘 중 하나라도 0이 되면 사망
+        if (gaugeFull<=0 || gaugeHealth<=0) {
+            // 사망
+            toast.setGravity(Gravity.CENTER_VERTICAL,0,0)
+            toast.view = toastLayout
+            toastText.text = "모찌가 사망하고 환생하여\n처음 단계로 돌아왔어요"
+            toast.show()
+
+            editor.putInt("version", 1)
+            editor.apply()
+            showCharacter(sharedPreferences.getInt("version",1))
+            resetSetting(0,70)
         }
     }
 
@@ -385,15 +410,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 캐릭터 경험치 초기화
-    fun resetSetting() {
-        editor.putInt("totalExp", 0)
-        editor.putInt("mealExp", 0)
-        editor.putInt("exerciseExp", 0)
-        editor.putInt("hobbyExp", 0)
+    fun resetSetting(expSet:Int, gaugeSet:Int) {
+        editor.putInt("totalExp", expSet)
+        editor.putInt("mealExp", expSet)
+        editor.putInt("exerciseExp", expSet)
+        editor.putInt("hobbyExp", expSet)
 
-        editor.putInt("gaugeFull", 50)
-        editor.putInt("gaugeHealth", 50)
-        editor.putInt("gaugeHappy", 50)
+        editor.putInt("gaugeFull", gaugeSet)
+        editor.putInt("gaugeHealth", gaugeSet)
+        editor.putInt("gaugeHappy", gaugeSet)
 
         editor.apply()
 
