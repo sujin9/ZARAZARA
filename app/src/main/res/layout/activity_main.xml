@@ -32,9 +32,10 @@
         <!-- 경험치 바 -->
         <ProgressBar
             android:id="@+id/expProgressBar"
-            style="?android:attr/progressBarStyleHorizontal"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:progressDrawable="@drawable/custom_progressbar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_weight="2"
             android:layout_margin="5dp"
             android:max="300"
@@ -109,7 +110,8 @@
 
             <ProgressBar
                 android:id="@+id/p_meal_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="160dp"
@@ -129,7 +131,8 @@
 
             <ProgressBar
                 android:id="@+id/p_exercise_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="160dp"
@@ -149,7 +152,8 @@
 
             <ProgressBar
                 android:id="@+id/p_hobby_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="160dp"
@@ -223,7 +227,8 @@
 
             <ProgressBar
                 android:id="@+id/full_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:max="100"
@@ -246,7 +251,8 @@
 
             <ProgressBar
                 android:id="@+id/happy_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:max="100"
@@ -269,7 +275,8 @@
 
             <ProgressBar
                 android:id="@+id/exercise_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:max="100"
