@@ -37,8 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:layout_margin="5dp"
-            android:max="100"
-            android:progress="25"
+            android:max="300"
             android:layout_gravity="center_vertical" />
         <!-- setProgress() 로 값 바꿀 수 있음 -->
 
@@ -114,8 +113,7 @@
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="160dp"
-                android:max="3"
-                android:progress="0"
+                android:max="100"
                 android:translationY="-169dp"/>
 
             <TextView
@@ -135,8 +133,7 @@
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="160dp"
-                android:max="3"
-                android:progress="3"
+                android:max="100"
                 android:translationY="-179dp"/>
 
             <TextView
@@ -156,8 +153,7 @@
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="160dp"
-                android:max="3"
-                android:progress="2"
+                android:max="100"
                 android:translationY="-189dp"/>
 
             <Button

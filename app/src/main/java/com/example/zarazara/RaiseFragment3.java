@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
 
     View toastLayout;
     TextView toastText;
+    ProgressBar progressBar;
 
     // 코인 변동 관련
     TextView coinText;
@@ -38,10 +40,13 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
     // 노래    행복+15
     // 책      행복+30
     int gaugeHappy;
-    int gaugeHealth;
     int happy_play = 20;
     int happy_sing = 15;
     int happy_read = 30;
+    // 취미 경험치 +10
+    int totalExp;
+    int hobbyExp;
+    int getExp = 10;
 
     @Nullable
     @Override
@@ -56,6 +61,7 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
         toastText = toastLayout.findViewById(R.id.customToastText);
 
         coinText = (TextView) getActivity().findViewById(R.id.userCoin);
+        progressBar = getActivity().findViewById(R.id.expProgressBar);
         TextView playPrice = (TextView)v.findViewById(R.id.price_play);
         TextView singPrice = (TextView)v.findViewById(R.id.price_sing);
         TextView readPrice = (TextView)v.findViewById(R.id.price_read);
@@ -86,11 +92,11 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
         coin = sharedPreferences.getInt("userCoin", 0);
         gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0);
 
+        hobbyExp = sharedPreferences.getInt("hobbyExp", 0);
+        totalExp = sharedPreferences.getInt("totalExp",0);
+
         switch(v.getId()) {
             case R.id.raise_hobbyBtn1:  // play
-                // 버튼 누름 작동 여부 판단 위한 예시
-                //Toast.makeText(getActivity(), "놀자1", LENGTH_SHORT).show();
-            //    coin = sharedPreferences.getInt("userCoin", 0) - price_play;
 
                 if(coin<price_play) {
                     //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
@@ -107,8 +113,9 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
                     gaugeHappy += happy_play;
                     if (gaugeHappy>100) gaugeHappy=100;
                     editor.putInt("gaugeHappy", gaugeHappy);
-
                     editor.apply();
+                    // 경험치
+                    setExp();
                 }
                 break;
 
@@ -131,8 +138,9 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
                     gaugeHappy += happy_sing;
                     if (gaugeHappy>100) gaugeHappy=100;
                     editor.putInt("gaugeHappy", happy_sing);
-
                     editor.apply();
+                    // 경험치
+                    setExp();
                 }
                 break;
 
@@ -155,12 +163,28 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
                     gaugeHappy += happy_read;
                     if (gaugeHappy>100) gaugeHappy=100;
                     editor.putInt("gaugeHappy", gaugeHappy);
-
                     editor.apply();
+                    // 경험치
+                    setExp();
                 }
                 break;
         }
+        setTotalExp();
         toast.setView(toastLayout);
         toast.show();
+    }
+    void setExp() {
+        hobbyExp += getExp;
+        if(hobbyExp>100) hobbyExp=100;
+        editor.putInt("hobbyExp", hobbyExp);
+        editor.apply();
+    }
+    void setTotalExp() {
+        totalExp = sharedPreferences.getInt("mealExp",0)
+                +sharedPreferences.getInt("exerciseExp",0)
+                +sharedPreferences.getInt("hobbyExp",0);
+        editor.putInt("totalExp", totalExp);
+        editor.apply();
+        progressBar.setProgress(totalExp);
     }
 }

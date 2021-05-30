@@ -19,6 +19,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     int gaugeFull;
     int gaugeHealth;
+    int gaugeHappy;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -42,12 +43,15 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         gaugeFull = sharedPreferences.getInt("gaugeFull", 0);
         gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0);
+        gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0);
 
-        // 포만감, 건강 게이지 시간에 따라 감소되도록
-        gaugeFull -= 10;
+        // 포만감, 운동량, 행복감 게이지 시간에 따라 감소되도록
+        gaugeFull -= 15;
         if(gaugeFull < 0)   gaugeFull = 0;
-        gaugeHealth -= 10;
+        gaugeHealth -= 15;
         if(gaugeHealth < 0) gaugeHealth = 0;
+        gaugeHappy -= 10;
+        if(gaugeHappy < 0) gaugeHappy = 0;
 
         editor.putInt("gaugeFull", gaugeFull);
         editor.putInt("gaugeHealth", gaugeHealth);

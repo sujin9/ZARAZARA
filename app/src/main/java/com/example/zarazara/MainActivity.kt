@@ -21,11 +21,16 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    var userCoin:Int = 0       // 유저가 보유한 코인    --> 매달 12시 지나면 추가
+    // 초기 설정
+    var userCoin:Int = 1000       // 유저가 보유한 코인    --> 매달 12시 지나면 추가
     var name:String = "모찌"   // 유저 캐릭터 애칭      --> 최초 실행할 때 튜토리얼에서 입력받음
-    var gaugeFull:Int = 20       // 포만감
-    var gaugeHealth:Int = 20     // 건강도
-    var gaugeHappy:Int = 20      // 행복도
+    var gaugeFull:Int = 80       // 포만감
+    var gaugeHealth:Int = 80     // 건강도
+    var gaugeHappy:Int = 80      // 행복도
+    var totalExp = 0            // 총 경험치
+    var mealExp = 0             // 식사 경험치
+    var exerciseExp = 0         // 운동 경험치
+    var hobbyExp = 0            // 취미 경험치
 
     lateinit var coinText:TextView
     lateinit var fullProgressBar:ProgressBar
@@ -102,6 +107,10 @@ class MainActivity : AppCompatActivity() {
             editor.putInt("gaugeFull", gaugeFull)
             editor.putInt("gaugeHealth", gaugeHealth)
             editor.putInt("gaugeHappy", gaugeHappy)
+            editor.putInt("totalExp", totalExp)
+            editor.putInt("mealExp", mealExp)
+            editor.putInt("exerciseExp", exerciseExp)
+            editor.putInt("hobbyExp", hobbyExp)
 
             editor.apply()
 
@@ -179,7 +188,7 @@ class MainActivity : AppCompatActivity() {
 
         // 프로그레스바 설정
         setMozziProgress()
-
+        setExpProgress()
 
     }
 
@@ -192,6 +201,21 @@ class MainActivity : AppCompatActivity() {
     //    Log.d("CheckHappyGauge", sharedPreferences.getInt("gaugeHappy", 0).toString())
     //    Log.d("CheckHealthGauge", sharedPreferences.getInt("gaugeHealth", 0).toString())
         setMozziProgress()
+        setExpProgress()
+    }
+
+    // 상단 경험치 프로그레스바 설정
+    fun setExpProgress() {
+        mealExp = sharedPreferences.getInt("mealExp",0)
+        hobbyExp = sharedPreferences.getInt("hobbyExp",0)
+        exerciseExp = sharedPreferences.getInt("exerciseExp",0)
+        totalExp = sharedPreferences.getInt("totalExp", 0);
+        Log.d("CheckExp","meal "+mealExp+"| exercise "+exerciseExp+"| hobby "+hobbyExp+"| total "+totalExp)
+        mealExpProgressBar.setProgress(mealExp)
+        exerciseExpProgressBar.setProgress(exerciseExp)
+        hobbyExpProgressBar.setProgress(hobbyExp)
+        totalExpProgreeBar.setProgress(totalExp)
+
     }
 
     // 모찌 상태 프로그레스바 설정
@@ -229,6 +253,7 @@ class MainActivity : AppCompatActivity() {
                     mozzispeech.visibility = View.VISIBLE
                     mozzi_num = 1
                 }
+                setMozziProgress()
             }
             else{
                 mozzispeech.visibility = View.INVISIBLE
@@ -292,11 +317,10 @@ class MainActivity : AppCompatActivity() {
         // 1분 : 60*1000     (변경 확인 위해)
         alarmManager?.setRepeating(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            SystemClock.elapsedRealtime() + 60 * 1000,
-            60 * 1000,
+            SystemClock.elapsedRealtime() + 2 * 60 * 60 * 1000,
+                2 * 60 * 60 * 1000,
             alarmPendingIntent);
 
-        setMozziProgress()
     }
 
 }

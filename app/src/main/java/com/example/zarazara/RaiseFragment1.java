@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
 
     View toastLayout;
     TextView toastText;
+    ProgressBar progressBar;
 
     // 코인 변동 관련 변수
     TextView coinText;
@@ -46,6 +48,11 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
     int full_meal = 30;
     int full_snack = 20;
     int happy_snack = 10;
+    // 식사 경험치 +10
+    int totalExp;
+    int mealExp;
+    int getExp = 10;
+
 
     @Nullable
     @Override
@@ -60,6 +67,7 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
         toastText = toastLayout.findViewById(R.id.customToastText);
 
         coinText = (TextView) getActivity().findViewById(R.id.userCoin);
+        progressBar = getActivity().findViewById(R.id.expProgressBar);
         TextView mealPrice = (TextView)v.findViewById(R.id.price_meal);
         TextView snackPrice = (TextView)v.findViewById(R.id.price_snack);
         TextView mealExp = (TextView)v.findViewById(R.id.explain_meal);
@@ -85,11 +93,12 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
         gaugeFull = sharedPreferences.getInt("gaugeFull", 0);
         gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0);
 
+        mealExp = sharedPreferences.getInt("mealExp", 0);
+        totalExp = sharedPreferences.getInt("totalExp",0);
+
         switch(v.getId()) {
 
             case R.id.raise_mealBtn:
-            //    coin = sharedPreferences.getInt("userCoin", 0);
-            //    gaugeFull = sharedPreferences.getInt("gaugeFull", 0);
 
                 if (coin<price_meal){
                     //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
@@ -103,21 +112,21 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
                     coin -= price_meal;
                     editor.putInt("userCoin", coin);
                     coinText.setText(Integer.toString(coin));
+
                     //Toast.makeText(getActivity(), "밥을 먹어요! " + Integer.toString(price_meal) + " 코인이 차감됩니다", LENGTH_SHORT).show();
                     toastText.setText("밥을 먹어요!\n" + Integer.toString(price_meal) + " 코인이 차감됩니다");
-                    // 포만감
+
+                    // 수치 변화
                     gaugeFull += full_meal;
                     if(gaugeFull>100) gaugeFull=100;    //MAX 100
                     editor.putInt("gaugeFull", gaugeFull);
-
                     editor.apply();
+                    // 경험치
+                    setExp();
                 }
                 break;
 
             case R.id.raise_snackBtn:
-            //    coin = sharedPreferences.getInt("userCoin", 0);
-            //    gaugeFull = sharedPreferences.getInt("gaugeFull", 0);
-            //    gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0);
 
                 if(coin<price_snack) {
                     //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
@@ -131,8 +140,10 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
                     coin -= price_snack;
                     editor.putInt("userCoin", coin);
                     coinText.setText(Integer.toString(coin));
+
                     //Toast.makeText(getActivity(), "간식을 먹어요! " + Integer.toString(price_snack) + " 코인이 차감됩니다", LENGTH_SHORT).show();
                     toastText.setText("간식을 먹어요!\n" + Integer.toString(price_snack) + " 코인이 차감됩니다");
+
                     // 수치 변화
                     gaugeFull += full_snack;
                     gaugeHappy += happy_snack;
@@ -140,13 +151,32 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
                     if(gaugeHappy>100) gaugeHappy=100;
                     editor.putInt("gaugeFull", gaugeFull);
                     editor.putInt("gaugeHappy", gaugeHappy);
-
                     editor.apply();
+                    // 경험치
+                    setExp();
                 }
                 break;
         }
+        setTotalExp();
         toast.setView(toastLayout);
         toast.show();
     }
+
+    void setExp() {
+        mealExp += getExp;
+        if(mealExp>100) mealExp=100;
+        editor.putInt("mealExp", mealExp);
+        editor.apply();
+    }
+
+    void setTotalExp() {
+        totalExp = sharedPreferences.getInt("mealExp",0)
+                +sharedPreferences.getInt("exerciseExp",0)
+                +sharedPreferences.getInt("hobbyExp",0);
+        editor.putInt("totalExp", totalExp);
+        editor.apply();
+        progressBar.setProgress(totalExp);
+    }
+
 }
 

@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,10 +24,11 @@ public class RaiseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_raise);
 
-        // 상단 보유 코인 표시
+        // 상단 보유 코인 표시, 전체 경험치 표시
         SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
         String userCoin = Integer.toString(sharedPreferences.getInt("userCoin", 0));
-
+        ProgressBar progressBar = (ProgressBar)findViewById(R.id.expProgressBar);
+        progressBar.setProgress(sharedPreferences.getInt("totalExp",0));
         TextView coinText = (TextView)findViewById(R.id.userCoin);
         coinText.setText(userCoin);
 
