@@ -159,8 +159,6 @@ class MainActivity : AppCompatActivity() {
 
         // 모찌 상태 출력
         showMozziInfoBubble()
-        // 프로그레스바 설정
-        setMozziProgress()
 
         /*
        // 게이지 Timerㅇ
@@ -178,6 +176,10 @@ class MainActivity : AppCompatActivity() {
 
         // 현재시각 체크 시작
         startAlarmReceiver(this)
+
+        // 프로그레스바 설정
+        setMozziProgress()
+
 
     }
 
@@ -286,12 +288,15 @@ class MainActivity : AppCompatActivity() {
         var alarmPendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0)
 
         // 2시간마다 수치 감소하도록
+        // 2시간 : 2*60*60*1000
+        // 1분 : 60*1000     (변경 확인 위해)
         alarmManager?.setRepeating(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            SystemClock.elapsedRealtime() + 2 * 60 * 60 * 1000,
-            2 * 60 * 60 * 1000,
+            SystemClock.elapsedRealtime() + 60 * 1000,
+            60 * 1000,
             alarmPendingIntent);
 
+        setMozziProgress()
     }
 
 }
