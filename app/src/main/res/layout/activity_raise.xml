@@ -105,6 +105,4 @@
             android:background="@drawable/bg_outline" />
 
     </RelativeLayout>
-
-
 </LinearLayout>
