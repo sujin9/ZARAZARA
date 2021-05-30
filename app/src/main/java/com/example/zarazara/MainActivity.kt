@@ -160,20 +160,6 @@ class MainActivity : AppCompatActivity() {
         // 모찌 상태 출력
         showMozziInfoBubble()
 
-        /*
-       // 게이지 Timerㅇ
-       val timerTask: TimerTask = object : TimerTask() {
-           override fun run() {
-               Log.e("태스크 카운터:", count.toString())
-               count++
-           }
-       }
-       // 타이머
-       val timer = Timer()
-       // timerTask를 딜레이 0초에 3초마다 실행
-       timer.schedule(timerTask, 0, 3000)
-        */
-
         // 현재시각 체크 시작
         startAlarmReceiver(this)
 
@@ -229,6 +215,7 @@ class MainActivity : AppCompatActivity() {
                     mozzispeech.visibility = View.VISIBLE
                     mozzi_num = 1
                 }
+                setMozziProgress()
             }
             else{
                 mozzispeech.visibility = View.INVISIBLE
