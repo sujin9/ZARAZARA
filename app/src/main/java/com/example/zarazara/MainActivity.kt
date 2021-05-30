@@ -1,7 +1,6 @@
 package com.example.zarazara
 
 import android.app.AlarmManager
-import android.app.AlarmManager.INTERVAL_FIFTEEN_MINUTES
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -34,8 +33,6 @@ class MainActivity : AppCompatActivity() {
     var now:Long = 0              // 현재 시점 불러옴
     lateinit var date:Date
     var sdt = SimpleDateFormat("yyyy-MM-dd")
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -156,7 +153,6 @@ class MainActivity : AppCompatActivity() {
         // 현재시각 체크 시작
         startAlarmReceiver(this)
 
-
     }
 
     // back 버튼 누르고 돌아왔을 때 화면 갱신
@@ -248,9 +244,8 @@ class MainActivity : AppCompatActivity() {
     fun startAlarmReceiver(context: Context) {
 
         var alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
-        var alarmPendingIntent = Intent(context, AlarmReceiver::class.java).let { alarmIntent ->
-            PendingIntent.getBroadcast(this, 0, alarmIntent, 0)
-        }
+        var alarmIntent = Intent(context, AlarmReceiver::class.java)
+        var alarmPendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0)
 
         var now: Long? = null
         var date: Date? = null
@@ -264,9 +259,10 @@ class MainActivity : AppCompatActivity() {
         //실험용 1분마다
         alarmManager?.setRepeating(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            SystemClock.elapsedRealtime(),
+            SystemClock.elapsedRealtime() + 60 * 1000,
             60*1000,
             alarmPendingIntent);
+
 
         /*
         // 두 시간마다 AlarmReceiver 실행
