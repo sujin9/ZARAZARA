@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     // 초기 설정
     var userCoin:Int = 1000       // 유저가 보유한 코인    --> 매달 12시 지나면 추가
-    var name:String = "모찌"   // 유저 캐릭터 애칭      --> 최초 실행할 때 튜토리얼에서 입력받음
+    var name:String = "모찌"   // 유저 캐릭터 애칭         --> 최초 실행할 때 튜토리얼에서 입력받음
     var gaugeFull:Int = 80       // 포만감
     var gaugeHealth:Int = 80     // 건강도
     var gaugeHappy:Int = 80      // 행복도
@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     var mealExp = 0             // 식사 경험치
     var exerciseExp = 0         // 운동 경험치
     var hobbyExp = 0            // 취미 경험치
+    var version:Int = 1
 
     lateinit var coinText:TextView
     lateinit var fullProgressBar:ProgressBar
@@ -42,6 +43,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var hobbyExpProgressBar:ProgressBar
 
     lateinit var sharedPreferences:SharedPreferences
+    lateinit var editor:SharedPreferences.Editor
+    lateinit var mozzi:ImageButton
+    lateinit var upgradeButton:Button
 
     // 토스트 관련
     lateinit var toast:Toast
@@ -66,6 +70,8 @@ class MainActivity : AppCompatActivity() {
         var homeButton1 = findViewById<ImageButton>(R.id.homeBtn1) // 키우기 버튼
         var homeButton2 = findViewById<ImageButton>(R.id.homeBtn2) // 걸음수 버튼
         var homeButton3 = findViewById<ImageButton>(R.id.homeBtn3) // 미션 버튼
+        upgradeButton = findViewById<Button>(R.id.upgradeBtn)   // 진화 버튼
+        mozzi = findViewById<ImageButton>(R.id.mozzi)   //모찌
         // intent
         var raiseIntent = Intent(this, RaiseActivity::class.java)
         var walkIntent = Intent(this, WalkActivity::class.java)
@@ -90,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         // 첫 실행 여부 확인
         sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE)
         val checkFirstAccess = sharedPreferences.getBoolean("checkFirstAccess", false)
-        val editor = sharedPreferences.edit()
+        editor = sharedPreferences.edit()
 
         now = java.lang.System.currentTimeMillis()
         date = java.util.Date(now)
@@ -103,6 +109,7 @@ class MainActivity : AppCompatActivity() {
             // 첫 접속 날짜 저장
             editor.putString("currentDate", nowDate)
             // 초기 설정 저장
+            editor.putInt("version",version)
             editor.putInt("userCoin", userCoin)
             editor.putInt("gaugeFull", gaugeFull)
             editor.putInt("gaugeHealth", gaugeHealth)
@@ -151,7 +158,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        //
+        //요소들 출력
+        showCharacter(sharedPreferences.getInt("version",1))
         coinText.text = sharedPreferences.getInt("userCoin", 0).toString()+"C"
     //    nameText.text = name
 
@@ -197,9 +205,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         coinText.text = sharedPreferences.getInt("userCoin", 0).toString()+"C"
-    //    Log.d("CheckFullGauge", sharedPreferences.getInt("gaugeFull", 0).toString())
-    //    Log.d("CheckHappyGauge", sharedPreferences.getInt("gaugeHappy", 0).toString())
-    //    Log.d("CheckHealthGauge", sharedPreferences.getInt("gaugeHealth", 0).toString())
         setMozziProgress()
         setExpProgress()
     }
@@ -215,7 +220,6 @@ class MainActivity : AppCompatActivity() {
         exerciseExpProgressBar.setProgress(exerciseExp)
         hobbyExpProgressBar.setProgress(hobbyExp)
         totalExpProgreeBar.setProgress(totalExp)
-
     }
 
     // 모찌 상태 프로그레스바 설정
@@ -237,7 +241,6 @@ class MainActivity : AppCompatActivity() {
         var mozzi_num = 0
         var progressBar_num = 0
         //클릭시 말풍선 띄우고 다시 클릭시 사라짐
-        var mozzi = findViewById<ImageButton>(R.id.mozzi)   //모찌
         var mozzispeech = findViewById<LinearLayout>(R.id.mozzi_speech)    //모찌말풍선
         var progressspeech = findViewById<LinearLayout>(R.id.progressBar_speech)    //경험치바말풍선
 
@@ -272,6 +275,9 @@ class MainActivity : AppCompatActivity() {
                     mozzi_num = 0
                     progressspeech.visibility = View.VISIBLE
                     progressBar_num = 1
+                }
+                upgradeButton.setOnClickListener {
+                    upgrade()
                 }
             }
             else {
@@ -320,6 +326,76 @@ class MainActivity : AppCompatActivity() {
             SystemClock.elapsedRealtime() + 2 * 60 * 60 * 1000,
                 2 * 60 * 60 * 1000,
             alarmPendingIntent);
+
+    }
+
+    // 진화 기능
+    fun upgrade() {
+        // Toast.makeText(this, "진화한당", Toast.LENGTH_SHORT).show()
+        totalExp = sharedPreferences.getInt("totalExp", 0);
+        version = sharedPreferences.getInt("version", 1)
+        version += 1
+        toast.setGravity(Gravity.CENTER_VERTICAL,0,0)
+        toast.view = toastLayout
+        if (totalExp>=300 && version<=3) {
+            // 진화
+            toastText.text = "캐릭터가 진화해요 !"
+            toast.show()
+
+            totalExpProgreeBar.setProgress(0)
+            mealExpProgressBar.setProgress(0)
+            exerciseExpProgressBar.setProgress(0)
+            hobbyExpProgressBar.setProgress(0)
+
+            editor.putInt("version", version)
+            editor.apply()
+
+            showCharacter(sharedPreferences.getInt("version",1))
+            resetSetting()
+
+        }
+        else if (version>3) {
+            toastText.text = "이미 캐릭터가 최고 레벨이에요 !"
+            toast.show()
+            version = 3
+        }
+        else if (totalExp<300) {
+            toastText.text = "아직 진화할 수 없어요 !"
+            toast.show()
+        }
+    }
+
+    // 단계별 캐릭터 출력 함수
+    fun showCharacter(version:Int) {
+        if(version==1) {
+            mozzi.setImageResource(R.drawable.character_bear_11)
+            editor.putInt("version",1)
+        }
+        else if(version==2){
+            mozzi.setImageResource(R.drawable.character_bear_21)
+            editor.putInt("version",2)
+        }
+        else if(version==3){
+            mozzi.setImageResource(R.drawable.character_bear_31)
+            editor.putInt("version",3)
+        }
+        else { // nothing to do
+        }
+        editor.apply()
+    }
+
+    // 캐릭터 경험치 초기화
+    fun resetSetting() {
+        editor.putInt("totalExp", 0)
+        editor.putInt("mealExp", 0)
+        editor.putInt("exerciseExp", 0)
+        editor.putInt("hobbyExp", 0)
+
+        editor.putInt("gaugeFull", 50)
+        editor.putInt("gaugeHealth", 50)
+        editor.putInt("gaugeHappy", 50)
+
+        editor.apply()
 
     }
 
