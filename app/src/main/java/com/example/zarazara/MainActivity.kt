@@ -1,9 +1,13 @@
 package com.example.zarazara
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -44,7 +48,6 @@ class MainActivity : AppCompatActivity() {
     var now:Long = 0              // 현재 시점 불러옴
     lateinit var date:Date
     var sdt = SimpleDateFormat("yyyy-MM-dd")
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -137,7 +140,6 @@ class MainActivity : AppCompatActivity() {
                 // 접속 같은 날짜
                 // nothing to do !
             }
-
         }
 
         //
@@ -159,6 +161,23 @@ class MainActivity : AppCompatActivity() {
         showMozziInfoBubble()
         // 프로그레스바 설정
         setMozziProgress()
+
+        /*
+       // 게이지 Timerㅇ
+       val timerTask: TimerTask = object : TimerTask() {
+           override fun run() {
+               Log.e("태스크 카운터:", count.toString())
+               count++
+           }
+       }
+       // 타이머
+       val timer = Timer()
+       // timerTask를 딜레이 0초에 3초마다 실행
+       timer.schedule(timerTask, 0, 3000)
+        */
+
+        // 현재시각 체크 시작
+        startAlarmReceiver(this)
 
     }
 
@@ -247,8 +266,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // 알림 채널(서비스 - notification)
-    // Button2(걸음 수) 기능은 Foreground Service + notification 으로 수행
+    // notification 채널(서비스 - notification)
+    // Foreground Service + notification 으로 수행
     fun onStartForegroundService(view: View?) {
         val intent = Intent(this, WalkService::class.java)
         intent.action = "startForeground"
@@ -259,6 +278,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // 게이지 수치 반복 감소용
+    fun startAlarmReceiver(context: Context) {
 
+        var alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+        var alarmIntent = Intent(context, AlarmReceiver::class.java)
+        var alarmPendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0)
+
+        // 2시간마다 수치 감소하도록
+        alarmManager?.setRepeating(
+            AlarmManager.ELAPSED_REALTIME_WAKEUP,
+            SystemClock.elapsedRealtime() + 2 * 60 * 60 * 1000,
+            2 * 60 * 60 * 1000,
+            alarmPendingIntent);
+
+    }
 
 }
