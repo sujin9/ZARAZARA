@@ -71,29 +71,38 @@
     android:layout_height="0dp"
     android:layout_weight="8" >
 
+        <TextView
+            android:id="@+id/missionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:text="미 션"
+            android:textColor="@color/white"
+            android:textSize="60dp" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/missionTab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/missionTitle"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="40dp"
             android:layout_marginRight="20dp"
             app:tabBackground="@drawable/bg_outline"
             app:tabIndicatorColor="@color/white"
-            app:tabTextAppearance="@style/tab_text"
-            android:translationY="50dp">
-        </com.google.android.material.tabs.TabLayout>
+            app:tabTextAppearance="@style/tab_text" />
 
-        <androidx.viewpager2.widget.ViewPager2
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/missionViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_below="@id/missionTab"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="138dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="100dp"
-            app:tabBackground="@drawable/bg_outline"/>
+            android:background="@drawable/bg_outline" />
+
     </RelativeLayout>
 
 </LinearLayout>

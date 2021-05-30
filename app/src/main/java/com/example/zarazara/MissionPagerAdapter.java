@@ -8,21 +8,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MissionPagerAdapter extends FragmentStatePagerAdapter {
-    List<Fragment> fragments = new ArrayList<>();
+    //List<Fragment> fragments = new ArrayList<>();
+
+    private int tabCount;
 
     public MissionPagerAdapter(FragmentManager fm, int i){
-        super(fm);
-        fragments.add(new MissionFragment1());
-        fragments.add(new MissionFragment2());
+        super(fm, i);
+    //    fragments.add(new MissionFragment1());
+    //    fragments.add(new MissionFragment2());
+        this.tabCount = i;
     }
 
     @Override
     public Fragment getItem(int i){
-        return fragments.get(i);
+        switch (i) {
+            case 0:
+                return new MissionFragment1();
+            case 1:
+                return new MissionFragment2();
+            default:
+                return null;
+        }
     }
 
     @Override
     public int getCount(){
-        return fragments.size();
+        return tabCount;
     }
 }

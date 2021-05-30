@@ -16,11 +16,10 @@ public class MissionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mission);
 
         tabLayout = findViewById(R.id.missionTab);
+        viewPager = findViewById(R.id.missionViewPager);
 
         tabLayout.addTab(tabLayout.newTab().setText("일일미션"));
         tabLayout.addTab(tabLayout.newTab().setText("누적미션"));
-
-        viewPager = findViewById(R.id.missionViewPager);
 
         viewPager.setAdapter(new MissionPagerAdapter(getSupportFragmentManager(), 2));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
