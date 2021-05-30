@@ -13,10 +13,6 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-    Long now;
-    Date date;
-    String today;
-
     int gaugeFull;
     int gaugeHealth;
 
@@ -40,14 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Log.e("CheckFullGauge in Receiver", String.valueOf(gaugeFull));
         Log.e("CheckHealthGauge in Receiver", String.valueOf(gaugeHealth));
-/*
-        if(context!= null)
-        {
-            ((MainActivity)context).setMozziProgress();
-        }
 
-
- */
         editor.apply();
 
     }
