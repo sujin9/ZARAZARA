@@ -31,7 +31,7 @@
 
         <!-- 경험치 바 -->
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/expProgressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
         android:layout_height="0dp"
         android:layout_weight="7">
 
-        <!--모찌 선택할 수 있게끔 말풍선 띄우기용 -->
+        <!--상단 프로그레스바 말풍선 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -199,6 +199,7 @@
                 android:translationY="40dp"
                 app:srcCompat="@drawable/speech_bubble" />
 
+            <!-- 모찌 선택 시 상태 말풍선 -->
             <TextView
                 android:id="@+id/profile"
                 android:layout_width="match_parent"
@@ -230,8 +231,7 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:max="5"
-                android:progress="1"
+                android:max="100"
                 android:layout_marginLeft="192dp"
                 android:translationY="-230dp"/>
 
@@ -254,8 +254,7 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:max="5"
-                android:progress="2"
+                android:max="100"
                 android:layout_marginLeft="192dp"
                 android:translationY="-220dp"/>
 
@@ -278,8 +277,7 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:max="5"
-                android:progress="5"
+                android:max="100"
                 android:layout_marginLeft="192dp"
                 android:translationY="-210dp"/>
         </LinearLayout>

@@ -28,7 +28,7 @@
 
         <!-- 경험치 바 -->
         <ProgressBar
-            android:id="@id/progressBar"
+            android:id="@id/expProgressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

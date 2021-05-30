@@ -24,8 +24,16 @@ class MainActivity : AppCompatActivity() {
     var gaugeHappy:Int = 20      // 행복도
 
     lateinit var coinText:TextView
+    lateinit var fullProgressBar:ProgressBar
+    lateinit var happyProgressBar:ProgressBar
+    lateinit var exerciseProgressBar:ProgressBar
+    lateinit var totalExpProgreeBar:ProgressBar
+    lateinit var mealExpProgressBar:ProgressBar
+    lateinit var exerciseExpProgressBar:ProgressBar
+    lateinit var hobbyExpProgressBar:ProgressBar
 
     lateinit var sharedPreferences:SharedPreferences
+
     // 토스트 관련
     lateinit var toast:Toast
     lateinit var toastLayout:View
@@ -54,7 +62,16 @@ class MainActivity : AppCompatActivity() {
         var raiseIntent = Intent(this, RaiseActivity::class.java)
         var walkIntent = Intent(this, WalkActivity::class.java)
         var missionIntent = Intent(this, MissionActivity::class.java)
-        // 토스트
+        // 모찌 상태 프로그레스바
+        fullProgressBar = findViewById<ProgressBar>(R.id.full_progressbar)
+        happyProgressBar = findViewById<ProgressBar>(R.id.happy_progressbar)
+        exerciseProgressBar = findViewById<ProgressBar>(R.id.exercise_progressbar)
+        // 상단 경험치 프로그레스바
+        totalExpProgreeBar = findViewById<ProgressBar>(R.id.expProgressBar)
+        mealExpProgressBar = findViewById<ProgressBar>(R.id.p_meal_progressbar)
+        exerciseExpProgressBar = findViewById<ProgressBar>(R.id.p_exercise_progressbar)
+        hobbyExpProgressBar = findViewById<ProgressBar>(R.id.p_hobby_progressbar)
+        // 토스트 관련
         var customToastLayout = findViewById<LinearLayout>(R.id.customToastLayout)
         toastLayout = layoutInflater.inflate(R.layout.custom_toast, customToastLayout)
         toastText = toastLayout.findViewById<TextView>(R.id.customToastText)
@@ -76,9 +93,6 @@ class MainActivity : AppCompatActivity() {
             editor.apply()
 
             // 첫 접속 날짜 저장
-        //    now = java.lang.System.currentTimeMillis()
-        //    date = java.util.Date(now)
-        //    nowDate = sdt.format(date)
             editor.putString("currentDate", nowDate)
             // 초기 설정 저장
             editor.putInt("userCoin", userCoin)
@@ -95,10 +109,6 @@ class MainActivity : AppCompatActivity() {
         }
         else {
             // 접속 날짜 변경 비교 --> 코인 획득
-        //    now = java.lang.System.currentTimeMillis()
-        //    date = java.util.Date(now)
-        //    nowDate = sdt.format(date)
-
             // Log.d("CheckDateChanged", sharedPreferences.getString("currentDate", "Default").toString()+" & "+nowDate))
             if(checkDateChanged(
                             sharedPreferences.getString("currentDate", "Default").toString(), nowDate)) {
@@ -148,9 +158,7 @@ class MainActivity : AppCompatActivity() {
         // 모찌 상태 출력
         showMozziInfoBubble()
         // 프로그레스바 설정
-    //    gaugeFull = sharedPreferences.getInt("gaugeFull", 0)
-    //    gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0)
-    //    gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0)
+        setMozziProgress()
 
     }
 
@@ -159,9 +167,22 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         coinText.text = sharedPreferences.getInt("userCoin", 0).toString()+"C"
-        Log.d("CheckFullGauge", sharedPreferences.getInt("gaugeFull", 0).toString())
-        Log.d("CheckHappyGauge", sharedPreferences.getInt("gaugeHappy", 0).toString())
-        Log.d("CheckHealthGauge", sharedPreferences.getInt("gaugeHealth", 0).toString())
+    //    Log.d("CheckFullGauge", sharedPreferences.getInt("gaugeFull", 0).toString())
+    //    Log.d("CheckHappyGauge", sharedPreferences.getInt("gaugeHappy", 0).toString())
+    //    Log.d("CheckHealthGauge", sharedPreferences.getInt("gaugeHealth", 0).toString())
+        setMozziProgress()
+    }
+
+    // 모찌 상태 프로그레스바 설정
+    fun setMozziProgress() {
+        gaugeFull = sharedPreferences.getInt("gaugeFull", 0)
+        gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0)
+        gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0)
+        Log.d("CheckGauge","full "+gaugeFull+"| health "+gaugeHealth+"| happy "+gaugeHappy)
+
+        fullProgressBar.setProgress(gaugeFull)
+        exerciseProgressBar.setProgress(gaugeHealth)
+        happyProgressBar.setProgress(gaugeHappy)
     }
 
     // 모찌 상태 말풍선 출력
@@ -173,7 +194,6 @@ class MainActivity : AppCompatActivity() {
         //클릭시 말풍선 띄우고 다시 클릭시 사라짐
         var mozzi = findViewById<ImageButton>(R.id.mozzi)   //모찌
         var mozzispeech = findViewById<LinearLayout>(R.id.mozzi_speech)    //모찌말풍선
-        var progressBar = findViewById<ProgressBar>(R.id.progressBar)   //경험치바
         var progressspeech = findViewById<LinearLayout>(R.id.progressBar_speech)    //경험치바말풍선
 
         mozzi.setOnClickListener {
@@ -195,7 +215,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        progressBar.setOnClickListener {
+        totalExpProgreeBar.setOnClickListener {
             if (progressspeech.visibility == View.INVISIBLE) {
                 if(mozzi_num == 0){
                     progressspeech.visibility = View.VISIBLE
