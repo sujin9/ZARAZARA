@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var date: Date
     var sdt = SimpleDateFormat("yyyy-MM-dd")
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -177,7 +178,6 @@ class MainActivity : AppCompatActivity() {
 
         // 모찌 상태 출력
         showMozziInfoBubble()
-
         // 모찌 사망 여부 확인
         passAway()
 
@@ -194,14 +194,13 @@ class MainActivity : AppCompatActivity() {
        // timerTask를 딜레이 0초에 3초마다 실행
        timer.schedule(timerTask, 0, 3000)
         */
-
+        
         // 현재시각 체크 시작
         startAlarmReceiver(this)
 
         // 프로그레스바 설정
         setMozziProgress()
         setExpProgress()
-
     }
 
     // back 버튼 누르고 돌아왔을 때 화면 갱신
@@ -239,6 +238,7 @@ class MainActivity : AppCompatActivity() {
         happyProgressBar.setProgress(gaugeHappy)
     }
 
+
     // 모찌 상태 말풍선 출력
     fun showMozziInfoBubble() {
 
@@ -254,14 +254,16 @@ class MainActivity : AppCompatActivity() {
                 if (progressBar_num == 0) {
                     mozzispeech.visibility = View.VISIBLE
                     mozzi_num = 1
-                } else {
+                } 
+              else {
                     progressspeech.visibility = View.INVISIBLE
                     progressBar_num = 0
                     mozzispeech.visibility = View.VISIBLE
                     mozzi_num = 1
                 }
                 setMozziProgress()
-            } else {
+            } 
+          else {
                 mozzispeech.visibility = View.INVISIBLE
                 mozzi_num = 0
             }
