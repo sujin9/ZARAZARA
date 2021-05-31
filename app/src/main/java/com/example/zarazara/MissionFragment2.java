@@ -73,8 +73,6 @@ public class MissionFragment2 extends Fragment {
         }
 
         if (walkTotal >= TotalStep) {
-            walkText.setText(walkText1);
-
             checkBoxX2.setVisibility(View.INVISIBLE);
             checkBoxO2.setVisibility(View.VISIBLE);
 
@@ -100,6 +98,8 @@ public class MissionFragment2 extends Fragment {
             Log.d("walkText1", walkText1);
             editor.putString("walkText", walkText1);
             editor.apply();
+
+            walkText.setText(walkText1);
 
             checkBoxO2.setVisibility(View.INVISIBLE);
             checkBoxX2.setVisibility(View.VISIBLE);
