@@ -94,84 +94,60 @@ public class MissionFragment1 extends Fragment {
         if(walkResult >= 10000 &&  dailyMission5 == false){
             Toast.makeText(getActivity(), "오늘 할 일은 끝났어요!", LENGTH_SHORT).show();
 
-            checkBoxX15.setVisibility(View.INVISIBLE);
-            checkBoxO15.setVisibility(View.VISIBLE);
-
             userCoin = sharedPreferences.getInt("userCoin", 0) + 120;
 
             Toast.makeText(getActivity(), "120코인이 적립되었어요!", LENGTH_SHORT).show();
 
             editor.putInt("userCoin", userCoin);
-            editor.putBoolean("dailyMission5", true);
-            editor.apply();
+            dailyMission5 = true;
 
             count++;
         }
         dailyMission4 = sharedPreferences.getBoolean("dailyMission4", false);
         if(walkResult >= 5000 && dailyMission4 == false){
-            Toast.makeText(getActivity(), "10000보 걷자", LENGTH_SHORT).show();
-
-            checkBoxX14.setVisibility(View.INVISIBLE);
-            checkBoxO14.setVisibility(View.VISIBLE);
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 60;
 
             Toast.makeText(getActivity(), "60코인이 적립되었어요!", LENGTH_SHORT).show();
 
             editor.putInt("userCoin", userCoin);
-            editor.putBoolean("dailyMission4", true);
-            editor.apply();
+            dailyMission4 = true;
 
             count++;
         }
         dailyMission3 = sharedPreferences.getBoolean("dailyMission3", false);
         if(walkResult >= 1000 && dailyMission3 == false){
-            Toast.makeText(getActivity(), "5000보 걷자", LENGTH_SHORT).show();
-
-            checkBoxX13.setVisibility(View.INVISIBLE);
-            checkBoxO13.setVisibility(View.VISIBLE);
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 20;
 
             Toast.makeText(getActivity(), "20코인이 적립되었어요!", LENGTH_SHORT).show();
 
             editor.putInt("userCoin", userCoin);
-            editor.putBoolean("dailyMission3", true);
-            editor.apply();
+            dailyMission3 = true;
 
             count++;
         }
         dailyMission2 = sharedPreferences.getBoolean("dailyMission2", false);
         if(walkResult >= 500 && dailyMission2 == false){
-            Toast.makeText(getActivity(), "1000보 걷자", LENGTH_SHORT).show();
-
-            checkBoxX12.setVisibility(View.INVISIBLE);
-            checkBoxO12.setVisibility(View.VISIBLE);
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 5;
 
             Toast.makeText(getActivity(), "5코인이 적립되었어요!", LENGTH_SHORT).show();
 
             editor.putInt("userCoin", userCoin);
-            editor.putBoolean("dailyMission2", true);
-            editor.apply();
+            dailyMission2 = true;
 
             count++;
         }
         dailyMission1 = sharedPreferences.getBoolean("dailyMission1", false);
         if(walkResult >= 100 && dailyMission1 == false){
-            Toast.makeText(getActivity(), "500보 걷자", LENGTH_SHORT).show();
-
-            checkBoxX11.setVisibility(View.INVISIBLE);
-            checkBoxO11.setVisibility(View.VISIBLE);
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 1;
 
             Toast.makeText(getActivity(), "1코인이 적립되었어요!", LENGTH_SHORT).show();
 
             editor.putInt("userCoin", userCoin);
-            editor.putBoolean("dailyMission1", true);
-            editor.apply();
+            dailyMission1 = true;
 
             count++;
         }
@@ -198,5 +174,27 @@ public class MissionFragment1 extends Fragment {
             editor.putBoolean("CheckDateChanged", false);
             editor.apply();
         }
+
+        if (dailyMission1 == true){
+            checkBoxX11.setVisibility(View.INVISIBLE);
+            checkBoxO11.setVisibility(View.VISIBLE);
+        }
+        if (dailyMission2 == true){
+            checkBoxX12.setVisibility(View.INVISIBLE);
+            checkBoxO12.setVisibility(View.VISIBLE);
+        }
+        if(dailyMission3 == true){
+            checkBoxX13.setVisibility(View.INVISIBLE);
+            checkBoxO13.setVisibility(View.VISIBLE);
+        }
+        if (dailyMission4 == true){
+            checkBoxX14.setVisibility(View.INVISIBLE);
+            checkBoxO14.setVisibility(View.VISIBLE);
+        }
+        if (dailyMission5 == true){
+            checkBoxX15.setVisibility(View.INVISIBLE);
+            checkBoxO15.setVisibility(View.VISIBLE);
+        }
+        editor.apply();
     }
 }
