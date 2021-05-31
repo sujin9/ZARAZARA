@@ -32,13 +32,13 @@
         <!-- 경험치 바 -->
         <ProgressBar
             android:id="@+id/expProgressBar"
-            style="?android:attr/progressBarStyleHorizontal"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:progressDrawable="@drawable/custom_progressbar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_weight="2"
             android:layout_margin="5dp"
-            android:max="100"
-            android:progress="25"
+            android:max="300"
             android:layout_gravity="center_vertical" />
         <!-- setProgress() 로 값 바꿀 수 있음 -->
 
@@ -110,12 +110,12 @@
 
             <ProgressBar
                 android:id="@+id/p_meal_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="160dp"
-                android:max="3"
-                android:progress="0"
+                android:max="100"
                 android:translationY="-169dp"/>
 
             <TextView
@@ -131,12 +131,12 @@
 
             <ProgressBar
                 android:id="@+id/p_exercise_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="160dp"
-                android:max="3"
-                android:progress="3"
+                android:max="100"
                 android:translationY="-179dp"/>
 
             <TextView
@@ -152,16 +152,16 @@
 
             <ProgressBar
                 android:id="@+id/p_hobby_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="160dp"
-                android:max="3"
-                android:progress="2"
+                android:max="100"
                 android:translationY="-189dp"/>
 
             <Button
-                android:id="@+id/upgrade"
+                android:id="@+id/upgradeBtn"
                 android:layout_width="78dp"
                 android:layout_height="40dp"
                 android:fontFamily="@font/dunggeunmo"
@@ -180,8 +180,7 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/character_bear_11" />
+            android:background="@android:color/transparent" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -228,7 +227,8 @@
 
             <ProgressBar
                 android:id="@+id/full_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:max="100"
@@ -251,7 +251,8 @@
 
             <ProgressBar
                 android:id="@+id/happy_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:max="100"
@@ -274,7 +275,8 @@
 
             <ProgressBar
                 android:id="@+id/exercise_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:max="100"
