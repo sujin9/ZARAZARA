@@ -80,7 +80,7 @@
             android:fontFamily="@font/dunggeunmo"
             android:text="미 션"
             android:textColor="@color/white"
-            android:textSize="60dp" />
+            android:textSize="35dp" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/missionTab"
