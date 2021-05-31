@@ -149,6 +149,7 @@ class MainActivity : AppCompatActivity() {
             if (checkDateChanged(
                             sharedPreferences.getString("currentDate", "Default").toString(), nowDate)) {
                 getYesterdayCoin()
+                resetDailyMission()
             } else {
                 // 접속 같은 날짜
                 // nothing to do !
@@ -463,6 +464,17 @@ class MainActivity : AppCompatActivity() {
 
         editor.apply()
 
+    }
+
+    // 일일 미션 변수 초기화
+    fun resetDailyMission(){
+        editor.putBoolean("dailyMission1", false)
+        editor.putBoolean("dailyMission2", false)
+        editor.putBoolean("dailyMission3", false)
+        editor.putBoolean("dailyMission4", false)
+        editor.putBoolean("dailyMission5", false)
+
+        editor.apply()
     }
 
 }
