@@ -3,15 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<!--
-    <TextView
-        android:text = "세 번째 페이지"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="50dp"
-        android:fontFamily="@font/dunggeunmo"
-        />
--->
 
     <ImageView
         android:layout_width="match_parent"

@@ -26,6 +26,8 @@ public class TutorialActivity extends FragmentActivity {
         tutorialLayouts.add(R.layout.tutorial2);
         tutorialLayouts.add(R.layout.tutorial3);
         tutorialLayouts.add(R.layout.tutorial4);
+        tutorialLayouts.add(R.layout.tutorial5);
+        tutorialLayouts.add(R.layout.tutorial6);
 
         tutorialPagerAdapter = new TutorialAdapter(this, tutorialLayouts);
         tutorialViewPager.setAdapter(tutorialPagerAdapter);

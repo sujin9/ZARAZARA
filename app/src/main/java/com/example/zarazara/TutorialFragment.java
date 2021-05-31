@@ -30,7 +30,7 @@ public class TutorialFragment extends Fragment {
         int page = this.getArguments().getInt("tutorial_page");
         View view = inflater.inflate(page, container, false);
 
-        if(page == R.layout.tutorial4){
+        if(page == R.layout.tutorial6){
             buttonTutorialEnd = view.findViewById(R.id.tutorial_end_button);
             buttonTutorialEnd.setOnClickListener(new View.OnClickListener() {
                 @Override

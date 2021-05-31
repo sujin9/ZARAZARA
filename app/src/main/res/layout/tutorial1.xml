@@ -3,19 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <!--
-    <TextView
-        android:text = "스토리"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="50dp"
-        android:fontFamily="@font/dunggeunmo"
-        />
-    -->
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/tutorial_img_1"
-        android:background="@drawable/tutorial_img_1"
+        android:background="@drawable/tutorial_img_back"
         />
 </RelativeLayout>
