@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,10 @@ public class MissionFragment1 extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    View toastLayout;
+    TextView toastText;
+    TextView coinText;
+
     ImageView checkBoxX11;
     ImageView checkBoxX12;
     ImageView checkBoxX13;
@@ -57,12 +62,17 @@ public class MissionFragment1 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_mission1,container,false);
 
+        toastLayout = inflater.inflate(R.layout.custom_toast,(ViewGroup)v.findViewById(R.id.customToastLayout));
+        toastText = toastLayout.findViewById(R.id.customToastText);
+
         sharedPreferences = this.getActivity().getSharedPreferences("shared", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         helper = new DBHelper(getActivity(), "stepStore.db", null, 1);
         db = helper.getWritableDatabase();
         helper.onCreate(db);
+
+        coinText = (TextView) getActivity().findViewById(R.id.userCoin);
 
         checkBoxX11 = v.findViewById(R.id.checkbox_x11);
         checkBoxX12 = v.findViewById(R.id.checkbox_x12);
@@ -85,6 +95,9 @@ public class MissionFragment1 extends Fragment {
     //MainActivity mainActivity = new MainActivity(); //mainActivity에서 시간과 날짜 활용
 
     public void setWalkActivity(){
+        Toast toast = new Toast(this.getActivity());
+        toast.setDuration(LENGTH_SHORT);
+        toast.setView(toastLayout);
 
         String nowDate = sharedPreferences.getString("currentDate", "Default");
         int walkResult = helper.getStep(nowDate);
@@ -92,18 +105,23 @@ public class MissionFragment1 extends Fragment {
 
         dailyMission5 = sharedPreferences.getBoolean("dailyMission5", false);
         if(walkResult >= 10000 &&  dailyMission5 == false){
-            Toast.makeText(getActivity(), "오늘 할 일은 끝났어요!", LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "오늘 할 일은 끝났어요!", LENGTH_SHORT).show();
+            toast.setText("오늘 할 일은 끝났어요!");
+            toast.show();
 
             checkBoxX15.setVisibility(View.INVISIBLE);
             checkBoxO15.setVisibility(View.VISIBLE);
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 120;
 
-            Toast.makeText(getActivity(), "120코인이 적립되었어요!", LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "120코인이 적립되었어요!", LENGTH_SHORT).show();
+            toast.setText("120코인이 적립되었어요!");
+            toast.show();
 
             editor.putInt("userCoin", userCoin);
             editor.putBoolean("dailyMission5", true);
             editor.apply();
+            coinText.setText(Integer.toString(userCoin)+"C");
 
             count++;
         }
@@ -121,6 +139,7 @@ public class MissionFragment1 extends Fragment {
             editor.putInt("userCoin", userCoin);
             editor.putBoolean("dailyMission4", true);
             editor.apply();
+            coinText.setText(Integer.toString(userCoin)+"C");
 
             count++;
         }
@@ -138,6 +157,7 @@ public class MissionFragment1 extends Fragment {
             editor.putInt("userCoin", userCoin);
             editor.putBoolean("dailyMission3", true);
             editor.apply();
+            coinText.setText(Integer.toString(userCoin)+"C");
 
             count++;
         }
@@ -155,6 +175,7 @@ public class MissionFragment1 extends Fragment {
             editor.putInt("userCoin", userCoin);
             editor.putBoolean("dailyMission2", true);
             editor.apply();
+            coinText.setText(Integer.toString(userCoin)+"C");
 
             count++;
         }
@@ -172,9 +193,11 @@ public class MissionFragment1 extends Fragment {
             editor.putInt("userCoin", userCoin);
             editor.putBoolean("dailyMission1", true);
             editor.apply();
+            coinText.setText(Integer.toString(userCoin)+"C");
 
             count++;
         }
+
 
         Boolean date_result = sharedPreferences.getBoolean("CheckDateChanged", false);
         if(date_result == true && count >= 1) { //00시 되면 체크박스 초기화
