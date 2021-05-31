@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import java.lang.Math.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,40 +23,41 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     // 초기 설정
-    var userCoin:Int = 1000       // 유저가 보유한 코인    --> 매달 12시 지나면 추가
-    var name:String = "모찌"   // 유저 캐릭터 애칭         --> 최초 실행할 때 튜토리얼에서 입력받음
-    var gaugeFull:Int = 80       // 포만감
-    var gaugeHealth:Int = 80     // 건강도
-    var gaugeHappy:Int = 80      // 행복도
+    var userCoin: Int = 1000       // 유저가 보유한 코인    --> 매달 12시 지나면 추가
+    var name: String = "모찌"   // 유저 캐릭터 애칭         --> 최초 실행할 때 튜토리얼에서 입력받음
+    var gaugeFull: Int = 80       // 포만감
+    var gaugeHealth: Int = 80     // 건강도
+    var gaugeHappy: Int = 80      // 행복도
     var totalExp = 0            // 총 경험치
     var mealExp = 0             // 식사 경험치
     var exerciseExp = 0         // 운동 경험치
     var hobbyExp = 0            // 취미 경험치
-    var version:Int = 1
+    var version: Int = 1         // 캐릭터 단계
+    var kind: Int = 1            // 캐릭터 종류
 
-    lateinit var coinText:TextView
-    lateinit var fullProgressBar:ProgressBar
-    lateinit var happyProgressBar:ProgressBar
-    lateinit var exerciseProgressBar:ProgressBar
-    lateinit var totalExpProgreeBar:ProgressBar
-    lateinit var mealExpProgressBar:ProgressBar
-    lateinit var exerciseExpProgressBar:ProgressBar
-    lateinit var hobbyExpProgressBar:ProgressBar
+    lateinit var coinText: TextView
+    lateinit var fullProgressBar: ProgressBar
+    lateinit var happyProgressBar: ProgressBar
+    lateinit var exerciseProgressBar: ProgressBar
+    lateinit var totalExpProgreeBar: ProgressBar
+    lateinit var mealExpProgressBar: ProgressBar
+    lateinit var exerciseExpProgressBar: ProgressBar
+    lateinit var hobbyExpProgressBar: ProgressBar
 
-    lateinit var sharedPreferences:SharedPreferences
-    lateinit var editor:SharedPreferences.Editor
-    lateinit var mozzi:ImageButton
-    lateinit var upgradeButton:Button
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
+    lateinit var mozzi: ImageButton
+    lateinit var upgradeButton: Button
 
     // 토스트 관련
-    lateinit var toast:Toast
-    lateinit var toastLayout:View
-    lateinit var toastText:TextView
+    lateinit var toast: Toast
+    lateinit var toastLayout: View
+    lateinit var toastText: TextView
 
     // 날짜 체크용
-    var nowDate:String = ""       // 접속한 현재 날짜
-    var now:Long = 0              // 현재 시점 불러옴
-    lateinit var date:Date
+    var nowDate: String = ""       // 접속한 현재 날짜
+    var now: Long = 0              // 현재 시점 불러옴
+    lateinit var date: Date
     var sdt = SimpleDateFormat("yyyy-MM-dd")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,14 +104,15 @@ class MainActivity : AppCompatActivity() {
         date = java.util.Date(now)
         nowDate = sdt.format(date)
 
-        if(!checkFirstAccess) {     // 앱 최초 실행
+        if (!checkFirstAccess) {     // 앱 최초 실행
             editor.putBoolean("checkFirstAccess", true)
             editor.apply()
 
             // 첫 접속 날짜 저장
             editor.putString("currentDate", nowDate)
             // 초기 설정 저장
-            editor.putInt("version",version)
+            editor.putInt("version", version)
+            editor.putInt("kind", kind)
             editor.putInt("userCoin", userCoin)
             editor.putInt("gaugeFull", gaugeFull)
             editor.putInt("gaugeHealth", gaugeHealth)
@@ -125,11 +128,10 @@ class MainActivity : AppCompatActivity() {
             //val tutorialIntent = Intent(this, TutorialActivity::class.java)
             //startActivity(tutorialIntent)
             //finish()
-        }
-        else {
+        } else {
             // 접속 날짜 변경 비교 --> 코인 획득
             // Log.d("CheckDateChanged", sharedPreferences.getString("currentDate", "Default").toString()+" & "+nowDate))
-            if(checkDateChanged(
+            if (checkDateChanged(
                             sharedPreferences.getString("currentDate", "Default").toString(), nowDate)) {
                 // 접속일 기준, 어제 걸음수 불러오기
                 var yesterday = sdt.format(java.util.Date(now - 24 * 60 * 60 * 1000))
@@ -137,13 +139,13 @@ class MainActivity : AppCompatActivity() {
                 var db = dbHelper.writableDatabase
                 dbHelper.onCreate(db)
 
-                var newCoin:Int = dbHelper.getStep(yesterday)/100
+                var newCoin: Int = dbHelper.getStep(yesterday) / 100
 
                 // 코인 변환
                 // Log.d("CheckCoin", sharedPreferences.getInt("userCoin", 0).toString()+"+++"+newCoin)
                 userCoin = sharedPreferences.getInt("userCoin", 0) + newCoin
 
-                toast.setGravity(Gravity.CENTER_VERTICAL,0,0)
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
                 toastText.text = newCoin.toString() + " 코인이 적립되었어요!"
                 toast.view = toastLayout
                 toast.show()
@@ -151,17 +153,16 @@ class MainActivity : AppCompatActivity() {
                 editor.putInt("userCoin", userCoin)
                 editor.putString("currentDate", nowDate)
                 editor.apply()
-            }
-            else {
+            } else {
                 // 접속 같은 날짜
                 // nothing to do !
             }
         }
 
         //요소들 출력
-        showCharacter(sharedPreferences.getInt("version",1))
-        coinText.text = sharedPreferences.getInt("userCoin", 0).toString()+"C"
-    //    nameText.text = name
+        showCharacter(sharedPreferences.getInt("version", 1), sharedPreferences.getInt("kind",1))
+        coinText.text = sharedPreferences.getInt("userCoin", 0).toString() + "C"
+        //    nameText.text = name
 
         // 하단 버튼 클릭할 때
         homeButton1.setOnClickListener {
@@ -207,7 +208,7 @@ class MainActivity : AppCompatActivity() {
     // 앱 실행중일 때 - 날짜 바뀌고 코인 받는 부분 추가 해야하나..?
     override fun onResume() {
         super.onResume()
-        coinText.text = sharedPreferences.getInt("userCoin", 0).toString()+"C"
+        coinText.text = sharedPreferences.getInt("userCoin", 0).toString() + "C"
         setMozziProgress()
         setExpProgress()
         passAway()
@@ -215,11 +216,11 @@ class MainActivity : AppCompatActivity() {
 
     // 상단 경험치 프로그레스바 설정
     fun setExpProgress() {
-        mealExp = sharedPreferences.getInt("mealExp",0)
-        hobbyExp = sharedPreferences.getInt("hobbyExp",0)
-        exerciseExp = sharedPreferences.getInt("exerciseExp",0)
+        mealExp = sharedPreferences.getInt("mealExp", 0)
+        hobbyExp = sharedPreferences.getInt("hobbyExp", 0)
+        exerciseExp = sharedPreferences.getInt("exerciseExp", 0)
         totalExp = sharedPreferences.getInt("totalExp", 0);
-        Log.d("CheckExp","meal "+mealExp+"| exercise "+exerciseExp+"| hobby "+hobbyExp+"| total "+totalExp)
+        Log.d("CheckExp", "meal " + mealExp + "| exercise " + exerciseExp + "| hobby " + hobbyExp + "| total " + totalExp)
         mealExpProgressBar.setProgress(mealExp)
         exerciseExpProgressBar.setProgress(exerciseExp)
         hobbyExpProgressBar.setProgress(hobbyExp)
@@ -231,7 +232,7 @@ class MainActivity : AppCompatActivity() {
         gaugeFull = sharedPreferences.getInt("gaugeFull", 0)
         gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0)
         gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0)
-        Log.d("CheckGauge","full "+gaugeFull+"| health "+gaugeHealth+"| happy "+gaugeHappy)
+        Log.d("CheckGauge", "full " + gaugeFull + "| health " + gaugeHealth + "| happy " + gaugeHappy)
 
         fullProgressBar.setProgress(gaugeFull)
         exerciseProgressBar.setProgress(gaugeHealth)
@@ -249,20 +250,18 @@ class MainActivity : AppCompatActivity() {
         var progressspeech = findViewById<LinearLayout>(R.id.progressBar_speech)    //경험치바말풍선
 
         mozzi.setOnClickListener {
-            if(mozzispeech.visibility == View.INVISIBLE){
-                if(progressBar_num == 0){
+            if (mozzispeech.visibility == View.INVISIBLE) {
+                if (progressBar_num == 0) {
                     mozzispeech.visibility = View.VISIBLE
                     mozzi_num = 1
-                }
-                else{
+                } else {
                     progressspeech.visibility = View.INVISIBLE
                     progressBar_num = 0
                     mozzispeech.visibility = View.VISIBLE
                     mozzi_num = 1
                 }
                 setMozziProgress()
-            }
-            else{
+            } else {
                 mozzispeech.visibility = View.INVISIBLE
                 mozzi_num = 0
             }
@@ -270,11 +269,10 @@ class MainActivity : AppCompatActivity() {
 
         totalExpProgreeBar.setOnClickListener {
             if (progressspeech.visibility == View.INVISIBLE) {
-                if(mozzi_num == 0){
+                if (mozzi_num == 0) {
                     progressspeech.visibility = View.VISIBLE
                     progressBar_num = 1
-                }
-                else{
+                } else {
                     mozzispeech.visibility = View.INVISIBLE
                     mozzi_num = 0
                     progressspeech.visibility = View.VISIBLE
@@ -283,8 +281,7 @@ class MainActivity : AppCompatActivity() {
                 upgradeButton.setOnClickListener {
                     upgrade()
                 }
-            }
-            else {
+            } else {
                 progressspeech.visibility = View.INVISIBLE
                 progressBar_num = 0
             }
@@ -293,11 +290,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 날짜 비교 체크 함수
-    fun checkDateChanged(date1: String, date2: String):Boolean {
-        if (date1==date2) {
+    fun checkDateChanged(date1: String, date2: String): Boolean {
+        if (date1 == date2) {
             return false        // 같은 날짜
-        }
-        else {
+        } else {
             // Toast.makeText(this, "날짜 바뀜!", Toast.LENGTH_LONG).show()
             return true        // 다른 날짜
         }
@@ -326,10 +322,10 @@ class MainActivity : AppCompatActivity() {
         // 2시간 : 2*60*60*1000
         // 1분 : 60*1000     (변경 확인 위해)
         alarmManager?.setRepeating(
-            AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            SystemClock.elapsedRealtime() + 2 * 60 * 60 * 1000,
+                AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + 2 * 60 * 60 * 1000,
                 2 * 60 * 60 * 1000,
-            alarmPendingIntent);
+                alarmPendingIntent);
 
     }
 
@@ -339,9 +335,9 @@ class MainActivity : AppCompatActivity() {
         totalExp = sharedPreferences.getInt("totalExp", 0);
         version = sharedPreferences.getInt("version", 1)
         version += 1
-        toast.setGravity(Gravity.CENTER_VERTICAL,0,0)
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
         toast.view = toastLayout
-        if (totalExp>=300 && version<=3) {
+        if (totalExp >= 300 && version <= 3) {
             // 진화
             toastText.text = "캐릭터가 진화해요 !"
             toast.show()
@@ -354,63 +350,87 @@ class MainActivity : AppCompatActivity() {
             editor.putInt("version", version)
             editor.apply()
 
-            showCharacter(sharedPreferences.getInt("version",1))
-            resetSetting(0,50)
+            showCharacter(sharedPreferences.getInt("version", 1), sharedPreferences.getInt("kind", 1))
+            resetSetting(0, 50)
 
-        }
-        else if (version>3) {
+        } else if (version > 3) {
             toastText.text = "이미 캐릭터가 최고 레벨이에요 !"
             toast.show()
             version = 3
-        }
-        else if (totalExp<300) {
+        } else if (totalExp < 300) {
             toastText.text = "아직 진화할 수 없어요 !"
             toast.show()
         }
     }
 
     // 캐릭터 사망 기능
-    fun passAway(){
+    fun passAway() {
         gaugeFull = sharedPreferences.getInt("gaugeFull", 0)
         gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0)
         // gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0)
 
         // 포만감, 운동량 둘 중 하나라도 0이 되면 사망
-        if (gaugeFull<=0 || gaugeHealth<=0) {
+        if (gaugeFull <= 0 || gaugeHealth <= 0) {
             // 사망
-            toast.setGravity(Gravity.CENTER_VERTICAL,0,0)
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
             toast.view = toastLayout
             toastText.text = "모찌가 사망하고 환생하여\n처음 단계로 돌아왔어요"
             toast.show()
 
+            var random = Random()
+            kind = (random.nextInt(3)+1)    // 1~3
             editor.putInt("version", 1)
+            editor.putInt("kind", kind)
             editor.apply()
-            showCharacter(sharedPreferences.getInt("version",1))
-            resetSetting(0,70)
+
+            showCharacter(sharedPreferences.getInt("version", 1), kind)
+            resetSetting(0, 70)
         }
     }
 
     // 단계별 캐릭터 출력 함수
-    fun showCharacter(version:Int) {
-        if(version==1) {
-            mozzi.setImageResource(R.drawable.character_bear_11)
-            editor.putInt("version",1)
+    fun showCharacter(version: Int, kind: Int) {
+        if (kind == 1) {
+            if (version == 1) {
+                mozzi.setImageResource(R.drawable.character_bear_11)
+                editor.putInt("version", 1)
+            } else if (version == 2) {
+                mozzi.setImageResource(R.drawable.character_bear_21)
+                editor.putInt("version", 2)
+            } else if (version == 3) {
+                mozzi.setImageResource(R.drawable.character_bear_31)
+                editor.putInt("version", 3)
+            } else { }
         }
-        else if(version==2){
-            mozzi.setImageResource(R.drawable.character_bear_21)
-            editor.putInt("version",2)
+        else if (kind == 2) {
+            if (version == 1) {
+                mozzi.setImageResource(R.drawable.character_cat_11)
+                editor.putInt("version", 1)
+            } else if (version == 2) {
+                mozzi.setImageResource(R.drawable.character_cat_21)
+                editor.putInt("version", 2)
+            } else if (version == 3) {
+                mozzi.setImageResource(R.drawable.character_cat_31)
+                editor.putInt("version", 3)
+            } else { }
         }
-        else if(version==3){
-            mozzi.setImageResource(R.drawable.character_bear_31)
-            editor.putInt("version",3)
-        }
-        else { // nothing to do
+        else if (kind == 3) {
+            if (version == 1) {
+                mozzi.setImageResource(R.drawable.character_dog_11)
+                editor.putInt("version", 1)
+            } else if (version == 2) {
+                mozzi.setImageResource(R.drawable.character_dog_21)
+                editor.putInt("version", 2)
+            } else if (version == 3) {
+                mozzi.setImageResource(R.drawable.character_dog_31)
+                editor.putInt("version", 3)
+            } else { }
         }
         editor.apply()
     }
 
     // 캐릭터 경험치 초기화
-    fun resetSetting(expSet:Int, gaugeSet:Int) {
+    fun resetSetting(expSet: Int, gaugeSet: Int) {
         editor.putInt("totalExp", expSet)
         editor.putInt("mealExp", expSet)
         editor.putInt("exerciseExp", expSet)
