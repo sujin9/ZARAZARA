@@ -24,7 +24,7 @@
             android:text="모찌"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <!-- 경험치 바 -->
         <ProgressBar
@@ -58,7 +58,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="15dp"
             android:layout_weight="1"
-            android:src="@drawable/weather_sun" />
+            android:src="@drawable/service_sun" />
 
     </LinearLayout>
 

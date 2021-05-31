@@ -177,7 +177,6 @@ class MainActivity : AppCompatActivity() {
 
         // 모찌 상태 출력
         showMozziInfoBubble()
-
         // 모찌 사망 여부 확인
         passAway()
 
