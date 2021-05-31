@@ -83,7 +83,7 @@ public class MissionFragment1 extends Fragment {
         checkBoxO11 = v.findViewById(R.id.checkbox_o11);
         checkBoxO12 = v.findViewById(R.id.checkbox_o12);
         checkBoxO13 = v.findViewById(R.id.checkbox_o13);
-        checkBoxO14 = v.findViewById(R.id.checkbox_o15);
+        checkBoxO14 = v.findViewById(R.id.checkbox_o14);
         checkBoxO15 = v.findViewById(R.id.checkbox_o15);
 
         setWalkActivity();
@@ -225,11 +225,11 @@ public class MissionFragment1 extends Fragment {
             checkBoxO15.setVisibility(View.VISIBLE);
         }
 
-        editor.putBoolean("dailyMission1", true);
-        editor.putBoolean("dailyMission2", true);
-        editor.putBoolean("dailyMission3", true);
-        editor.putBoolean("dailyMission4", true);
-        editor.putBoolean("dailyMission5", true);
+        editor.putBoolean("dailyMission1", dailyMission1);
+        editor.putBoolean("dailyMission2", dailyMission2);
+        editor.putBoolean("dailyMission3", dailyMission3);
+        editor.putBoolean("dailyMission4", dailyMission4);
+        editor.putBoolean("dailyMission5", dailyMission5);
 
         editor.apply();
     }
