@@ -66,7 +66,7 @@ public class MissionFragment2 extends Fragment {
         accMission = sharedPreferences.getInt("accMission", 0);
         walkText1 = sharedPreferences.getString("walkText", "5000보 걷기");
 
-        if(walkTotal == TotalStep){
+        if(walkTotal >= TotalStep){
             accMission = 0;
             editor.putInt("accMission", accMission);
             editor.apply();
