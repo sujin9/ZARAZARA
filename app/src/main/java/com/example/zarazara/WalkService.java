@@ -57,7 +57,7 @@ public class WalkService extends Service {
         // 채널 설정
         String channel_id = "WalkChannelId";            // 채널 아이디
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channel_id);
-        builder.setSmallIcon(R.mipmap.ic_launcher)
+        builder.setSmallIcon(R.mipmap.ic_launcher_mozzi)
                 .setContentTitle("ZARAZARA")        // 앱 이름
                 .setContentText("걸음 수 측정 중")    // 설명
                 .addAction(R.drawable.icon_walk, "PAUSE", stopPendingIntent);
