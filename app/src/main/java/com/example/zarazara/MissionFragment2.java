@@ -99,8 +99,6 @@ public class MissionFragment2 extends Fragment {
             editor.putString("walkText", walkText1);
             editor.apply();
 
-            walkText.setText(walkText1);
-
             checkBoxO2.setVisibility(View.INVISIBLE);
             checkBoxX2.setVisibility(View.VISIBLE);
 
@@ -109,5 +107,6 @@ public class MissionFragment2 extends Fragment {
 
             Toast.makeText(getActivity(), "다음 미션을 향해서!", LENGTH_SHORT).show();
         }
+        walkText.setText(walkText1);
     }
 }
