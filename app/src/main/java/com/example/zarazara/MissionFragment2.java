@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ public class MissionFragment2 extends Fragment {
     SharedPreferences.Editor editor;
 
     TextView walkText;
+    String walkText1 = "";
+
     ImageView checkBoxX2;
     ImageView checkBoxO2;
 
@@ -61,6 +64,7 @@ public class MissionFragment2 extends Fragment {
         int walkTotal = helper.getTotalStep();
         TotalStep = sharedPreferences.getInt("totalStep", 5000);
         accMission = sharedPreferences.getInt("accMission", 0);
+        walkText1 = sharedPreferences.getString("walkText", "5000보 걷기");
 
         if(walkTotal == TotalStep){
             accMission = 0;
@@ -69,7 +73,7 @@ public class MissionFragment2 extends Fragment {
         }
 
         if (walkTotal >= TotalStep) {
-            Toast.makeText(getActivity(), "다음 미션을 향해서!", LENGTH_SHORT).show();
+            walkText.setText(walkText1);
 
             checkBoxX2.setVisibility(View.INVISIBLE);
             checkBoxO2.setVisibility(View.VISIBLE);
@@ -92,13 +96,18 @@ public class MissionFragment2 extends Fragment {
             editor.putInt("totalStep", TotalStep);
             editor.apply();
 
-            walkText.setText(String.valueOf(TotalStep) + "보 걷기");  //새롭게 설정
+            walkText1 = (String.valueOf(TotalStep) + "보 걷기");
+            Log.d("walkText1", walkText1);
+            editor.putString("walkText", walkText1);
+            editor.apply();
 
             checkBoxO2.setVisibility(View.INVISIBLE);
             checkBoxX2.setVisibility(View.VISIBLE);
 
             randomNum += 50;
             randomCoin += (int) (Math.random() * randomNum) + 1;
+
+            Toast.makeText(getActivity(), "다음 미션을 향해서!", LENGTH_SHORT).show();
         }
     }
 }

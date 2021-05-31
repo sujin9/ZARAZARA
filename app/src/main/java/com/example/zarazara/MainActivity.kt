@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     //누적미션
     var totalStep:Int = 5000
     var accMission:Int = 0
+    var walkText:String = "5000보 걷기"
 
     // 텍스트뷰, 프로그레스바
     lateinit var coinText: TextView
@@ -144,6 +145,7 @@ class MainActivity : AppCompatActivity() {
             //누적미션 달성여부 저장
             editor.putInt("accMission", 0)
             editor.putInt("totalStep", 5000)
+            editor.putString("walkText", "5000보 걷기")
 
             editor.apply()
 
