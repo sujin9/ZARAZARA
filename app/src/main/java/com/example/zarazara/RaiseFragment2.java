@@ -96,7 +96,7 @@ public class RaiseFragment2 extends Fragment implements View.OnClickListener {
                     // 코인
                     coin -= price_exercise;
                     editor.putInt("userCoin", coin);
-                    coinText.setText(Integer.toString(coin));
+                    coinText.setText(Integer.toString(coin)+"C");
                     //Toast.makeText(getActivity(), "운동을 해요! " + Integer.toString(price_exercise) + " 코인이 차감됩니다", LENGTH_SHORT).show();
                     toastText.setText("운동을 해요!\n" + Integer.toString(price_exercise) + " 코인이 차감됐어요");
                     // 수치 변화

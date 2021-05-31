@@ -111,7 +111,7 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
                     // 코인
                     coin -= price_meal;
                     editor.putInt("userCoin", coin);
-                    coinText.setText(Integer.toString(coin));
+                    coinText.setText(Integer.toString(coin)+"C");
 
                     //Toast.makeText(getActivity(), "밥을 먹어요! " + Integer.toString(price_meal) + " 코인이 차감됩니다", LENGTH_SHORT).show();
                     toastText.setText("밥을 먹어요!\n" + Integer.toString(price_meal) + " 코인이 차감됐어요");
@@ -139,7 +139,7 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
                     // 코인
                     coin -= price_snack;
                     editor.putInt("userCoin", coin);
-                    coinText.setText(Integer.toString(coin));
+                    coinText.setText(Integer.toString(coin)+"C");
 
                     //Toast.makeText(getActivity(), "간식을 먹어요! " + Integer.toString(price_snack) + " 코인이 차감됩니다", LENGTH_SHORT).show();
                     toastText.setText("간식을 먹어요!\n" + Integer.toString(price_snack) + " 코인이 차감됐어요");
