@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     // 초기 설정
     var userCoin: Int = 1000       // 유저가 보유한 코인    --> 매달 12시 지나면 추가
-    var name: String = "모찌"   // 유저 캐릭터 애칭         --> 최초 실행할 때 튜토리얼에서 입력받음
+    var name: String = "모찌"      // 캐릭터 이름
     var gaugeFull: Int = 80       // 포만감
     var gaugeHealth: Int = 80     // 건강도
     var gaugeHappy: Int = 80      // 행복도
@@ -134,26 +134,7 @@ class MainActivity : AppCompatActivity() {
             // Log.d("CheckDateChanged", sharedPreferences.getString("currentDate", "Default").toString()+" & "+nowDate))
             if (checkDateChanged(
                             sharedPreferences.getString("currentDate", "Default").toString(), nowDate)) {
-                // 접속일 기준, 어제 걸음수 불러오기
-                var yesterday = sdt.format(java.util.Date(now - 24 * 60 * 60 * 1000))
-                var dbHelper = DBHelper(this, "stepStore.db", null, 1)
-                var db = dbHelper.writableDatabase
-                dbHelper.onCreate(db)
-
-                var newCoin: Int = dbHelper.getStep(yesterday) / 100
-
-                // 코인 변환
-                // Log.d("CheckCoin", sharedPreferences.getInt("userCoin", 0).toString()+"+++"+newCoin)
-                userCoin = sharedPreferences.getInt("userCoin", 0) + newCoin
-
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
-                toastText.text = newCoin.toString() + " 코인이 적립되었어요!"
-                toast.view = toastLayout
-                toast.show()
-
-                editor.putInt("userCoin", userCoin)
-                editor.putString("currentDate", nowDate)
-                editor.apply()
+                getYesterdayCoin()
             } else {
                 // 접속 같은 날짜
                 // nothing to do !
@@ -163,7 +144,6 @@ class MainActivity : AppCompatActivity() {
         //요소들 출력
         showCharacter(sharedPreferences.getInt("version", 1), sharedPreferences.getInt("kind",1))
         coinText.text = sharedPreferences.getInt("userCoin", 0).toString() + "C"
-        //    nameText.text = name
 
         // 하단 버튼 클릭할 때
         homeButton1.setOnClickListener {
@@ -178,7 +158,7 @@ class MainActivity : AppCompatActivity() {
 
         // 모찌 상태 출력
         showMozziInfoBubble()
-        // 모찌 사망 여부 확인
+        // 모찌 사망 여부
         passAway()
 
         /*
@@ -211,6 +191,31 @@ class MainActivity : AppCompatActivity() {
         setMozziProgress()
         setExpProgress()
         passAway()
+    }
+
+
+    // 날짜가 바뀐 경우 - 전날 코인 가져와 추가
+    fun getYesterdayCoin() {
+        // 접속일 기준, 어제 걸음수 불러오기
+        var yesterday = sdt.format(java.util.Date(now - 24 * 60 * 60 * 1000))
+        var dbHelper = DBHelper(this, "stepStore.db", null, 1)
+        var db = dbHelper.writableDatabase
+        dbHelper.onCreate(db)
+
+        var newCoin: Int = dbHelper.getStep(yesterday) / 100
+
+        // 코인 변환
+        // Log.d("CheckCoin", sharedPreferences.getInt("userCoin", 0).toString()+"+++"+newCoin)
+        userCoin = sharedPreferences.getInt("userCoin", 0) + newCoin
+
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
+        toastText.text = newCoin.toString() + " 코인이 적립되었어요!"
+        toast.view = toastLayout
+        toast.show()
+
+        editor.putInt("userCoin", userCoin)
+        editor.putString("currentDate", nowDate)
+        editor.apply()
     }
 
     // 상단 경험치 프로그레스바 설정
