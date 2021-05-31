@@ -53,7 +53,7 @@ public class MissionFragment1 extends Fragment {
     ImageView checkBoxO14;
     ImageView checkBoxO15;
 
-    int count = 0; //체크박스 개수 세기, 1개라도 체크일시 00시에 0으로 초기화하고 빈박스로 변경하는 작업 진행
+
     int userCoin;   //메인에서 불러온 코인값 저장
     Boolean dailyMission1, dailyMission2, dailyMission3, dailyMission4, dailyMission5;
 
@@ -120,7 +120,6 @@ public class MissionFragment1 extends Fragment {
             coinText.setText(Integer.toString(userCoin)+"C");
             dailyMission5 = true;
 
-            count++;
         }
         dailyMission4 = sharedPreferences.getBoolean("dailyMission4", false);
         if(walkResult >= 5000 && dailyMission4 == false){
@@ -130,12 +129,10 @@ public class MissionFragment1 extends Fragment {
             Toast.makeText(getActivity(), "60코인이 적립되었어요!", LENGTH_SHORT).show();
 
             editor.putInt("userCoin", userCoin);
-            dailyMission4 = true;
             editor.apply();
             coinText.setText(Integer.toString(userCoin)+"C");
+            dailyMission4 = true;
 
-
-            count++;
         }
         dailyMission3 = sharedPreferences.getBoolean("dailyMission3", false);
         if(walkResult >= 1000 && dailyMission3 == false){
@@ -145,11 +142,10 @@ public class MissionFragment1 extends Fragment {
             Toast.makeText(getActivity(), "20코인이 적립되었어요!", LENGTH_SHORT).show();
 
             editor.putInt("userCoin", userCoin);
-            dailyMission3 = true;
             editor.apply();
             coinText.setText(Integer.toString(userCoin)+"C");
+            dailyMission3 = true;
 
-            count++;
         }
         dailyMission2 = sharedPreferences.getBoolean("dailyMission2", false);
         if(walkResult >= 500 && dailyMission2 == false){
@@ -158,12 +154,11 @@ public class MissionFragment1 extends Fragment {
 
             Toast.makeText(getActivity(), "5코인이 적립되었어요!", LENGTH_SHORT).show();
 
-            dailyMission2 = true;
             editor.putInt("userCoin", userCoin);
             editor.apply();
             coinText.setText(Integer.toString(userCoin)+"C");
+            dailyMission2 = true;
 
-            count++;
         }
         dailyMission1 = sharedPreferences.getBoolean("dailyMission1", false);
         if(walkResult >= 100 && dailyMission1 == false){
@@ -173,36 +168,12 @@ public class MissionFragment1 extends Fragment {
             Toast.makeText(getActivity(), "1코인이 적립되었어요!", LENGTH_SHORT).show();
 
             editor.putInt("userCoin", userCoin);
-            dailyMission1 = true;
             editor.apply();
             coinText.setText(Integer.toString(userCoin)+"C");
+            dailyMission1 = true;
 
-            count++;
         }
 
-
-        Boolean date_result = sharedPreferences.getBoolean("CheckDateChanged", false);
-        if(date_result == true && count >= 1) { //00시 되면 체크박스 초기화
-            //check표시된 박스
-            checkBoxO11.setVisibility(View.INVISIBLE);
-            checkBoxO12.setVisibility(View.INVISIBLE);
-            checkBoxO13.setVisibility(View.INVISIBLE);
-            checkBoxO14.setVisibility(View.INVISIBLE);
-            checkBoxO15.setVisibility(View.INVISIBLE);
-
-            //빈박스로 초기화
-            checkBoxX11.setVisibility(View.VISIBLE);
-            checkBoxX12.setVisibility(View.VISIBLE);
-            checkBoxX13.setVisibility(View.VISIBLE);
-            checkBoxO14.setVisibility(View.VISIBLE);
-            checkBoxO15.setVisibility(View.VISIBLE);
-
-            //초기화
-            count = 0;
-
-            editor.putBoolean("CheckDateChanged", false);
-            editor.apply();
-        }
 
         if (dailyMission1 == true){
             checkBoxX11.setVisibility(View.INVISIBLE);
