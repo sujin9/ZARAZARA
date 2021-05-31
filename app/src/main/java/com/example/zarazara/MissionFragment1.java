@@ -112,11 +112,13 @@ public class MissionFragment1 extends Fragment {
             userCoin = sharedPreferences.getInt("userCoin", 0) + 120;
 
             Toast.makeText(getActivity(), "120코인이 적립되었어요!", LENGTH_SHORT).show();
+            //toast.setText("120코인이 적립되었어요!");
+            //toast.show();
 
-            dailyMission5 = true;
             editor.putInt("userCoin", userCoin);
             editor.apply();
             coinText.setText(Integer.toString(userCoin)+"C");
+            dailyMission5 = true;
 
             count++;
         }
@@ -127,8 +129,8 @@ public class MissionFragment1 extends Fragment {
 
             Toast.makeText(getActivity(), "60코인이 적립되었어요!", LENGTH_SHORT).show();
 
-            dailyMission4 = true;
             editor.putInt("userCoin", userCoin);
+            dailyMission4 = true;
             editor.apply();
             coinText.setText(Integer.toString(userCoin)+"C");
 
@@ -142,11 +144,10 @@ public class MissionFragment1 extends Fragment {
 
             Toast.makeText(getActivity(), "20코인이 적립되었어요!", LENGTH_SHORT).show();
 
-            dailyMission3 = true;
             editor.putInt("userCoin", userCoin);
+            dailyMission3 = true;
             editor.apply();
             coinText.setText(Integer.toString(userCoin)+"C");
-
 
             count++;
         }
@@ -162,7 +163,6 @@ public class MissionFragment1 extends Fragment {
             editor.apply();
             coinText.setText(Integer.toString(userCoin)+"C");
 
-
             count++;
         }
         dailyMission1 = sharedPreferences.getBoolean("dailyMission1", false);
@@ -172,11 +172,10 @@ public class MissionFragment1 extends Fragment {
 
             Toast.makeText(getActivity(), "1코인이 적립되었어요!", LENGTH_SHORT).show();
 
-            dailyMission1 = true;
             editor.putInt("userCoin", userCoin);
+            dailyMission1 = true;
             editor.apply();
             coinText.setText(Integer.toString(userCoin)+"C");
-
 
             count++;
         }
