@@ -52,7 +52,7 @@ public class MissionFragment1 extends Fragment {
             //코인 값 추가 및 말풍선 개수 추가
             userCoin = sharedPreferences.getInt("userCoin", 0) + 1;
 
-            Toast.makeText(getActivity(), "1코인이 적립되었습니다!", LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "1코인이 적립되었어요!", LENGTH_SHORT).show();
 
             editor.putInt("userCoin", userCoin);
             editor.apply();
@@ -67,7 +67,7 @@ public class MissionFragment1 extends Fragment {
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 5;
 
-            Toast.makeText(getActivity(), "5코인이 적립되었습니다!", LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "5코인이 적립되었어요!", LENGTH_SHORT).show();
 
             editor.putInt("userCoin", userCoin);
             editor.apply();
@@ -81,7 +81,7 @@ public class MissionFragment1 extends Fragment {
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 20;
 
-            Toast.makeText(getActivity(), "20코인이 적립되었습니다!", LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "20코인이 적립되었어요!", LENGTH_SHORT).show();
 
             editor.putInt("userCoin", userCoin);
             editor.apply();
@@ -96,7 +96,7 @@ public class MissionFragment1 extends Fragment {
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 60;
 
-            Toast.makeText(getActivity(), "60코인이 적립되었습니다!", LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "60코인이 적립되었어요!", LENGTH_SHORT).show();
 
             editor.putInt("userCoin", userCoin);
             editor.apply();
@@ -111,7 +111,7 @@ public class MissionFragment1 extends Fragment {
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 120;
 
-            Toast.makeText(getActivity(), "120코인이 적립되었습니다!", LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "120코인이 적립되었어요!", LENGTH_SHORT).show();
 
             editor.putInt("userCoin", userCoin);
             editor.apply();
