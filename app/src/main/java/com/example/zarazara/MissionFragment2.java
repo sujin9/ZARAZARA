@@ -31,8 +31,9 @@ public class MissionFragment2 extends Fragment {
     ImageView checkBoxO2;
 
     int userCoin;   //메인에서 불러온 코인값 저장
-    int randomCoin = (int) (Math.random()) * 50, TotalStep = 5000; //randomCoin은 0 ~ 50 정수, 5000보부터 시작
+    int randomCoin = (int) (Math.random()*60) + 1, TotalStep; //randomCoin은 0 ~ 50 정수, 5000보부터 시작
     int randomNum = 70;    //변화하는 수
+    int accMission;
 
     @Nullable
     @Override
@@ -58,6 +59,14 @@ public class MissionFragment2 extends Fragment {
 
     public void setWalkActivity() {
         int walkTotal = helper.getTotalStep();
+        TotalStep = sharedPreferences.getInt("totalStep", 5000);
+        accMission = sharedPreferences.getInt("accMission", 0);
+
+        if(walkTotal == TotalStep){
+            accMission = 0;
+            editor.putInt("accMission", accMission);
+            editor.apply();
+        }
 
         if (walkTotal >= TotalStep) {
             Toast.makeText(getActivity(), "다음 미션을 향해서!", LENGTH_SHORT).show();
@@ -66,21 +75,30 @@ public class MissionFragment2 extends Fragment {
             checkBoxO2.setVisibility(View.VISIBLE);
 
             //코인 값 추가 및 말풍선 개수 추가
-            userCoin = sharedPreferences.getInt("userCoin", 0) + randomCoin;
+            if(accMission == 0) {
+                userCoin = sharedPreferences.getInt("userCoin", 0) + randomCoin;
 
-            Toast.makeText(getActivity(), "랜덤박스에서 " + String.valueOf(randomCoin) + "코인을 획득했어요!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "랜덤박스에서 " + String.valueOf(randomCoin) + "코인을 획득했어요!", Toast.LENGTH_LONG).show();
 
-            editor.putInt("userCoin", userCoin);
+                editor.putInt("userCoin", userCoin);
+
+                accMission = 1;
+                editor.putInt("accMission", 1);
+
+                editor.apply();
+            }
+
+            TotalStep += 5000;
+            editor.putInt("totalStep", TotalStep);
             editor.apply();
 
-            TotalStep += 1000;
             walkText.setText(String.valueOf(TotalStep) + "보 걷기");  //새롭게 설정
 
             checkBoxO2.setVisibility(View.INVISIBLE);
             checkBoxX2.setVisibility(View.VISIBLE);
 
-            randomNum += 20;
-            randomCoin += (int) (Math.random()) * randomNum;
+            randomNum += 50;
+            randomCoin += (int) (Math.random() * randomNum) + 1;
         }
     }
 }
