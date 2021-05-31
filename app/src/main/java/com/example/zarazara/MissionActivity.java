@@ -1,6 +1,9 @@
 package com.example.zarazara;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
@@ -14,6 +17,12 @@ public class MissionActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mission);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        String userCoin = Integer.toString(sharedPreferences.getInt("userCoin", 0));
+
+        TextView coinText = (TextView)findViewById(R.id.userCoin);
+        coinText.setText(userCoin);
 
         tabLayout = findViewById(R.id.missionTab);
         viewPager = findViewById(R.id.missionViewPager);

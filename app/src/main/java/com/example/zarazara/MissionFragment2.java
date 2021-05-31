@@ -58,6 +58,9 @@ public class MissionFragment2 extends Fragment {
             TotalStep += 1000;
             walkText.setText(String.valueOf(TotalStep) + "보 걷기");  //새롭게 설정
 
+            v.findViewById(R.id.checkbox_x2).setVisibility(View.VISIBLE);
+            v.findViewById(R.id.checkbox_o2).setVisibility(View.INVISIBLE);
+
             randomNum += 20;
             randomCoin += (int) (Math.random()) * randomNum;
         }
