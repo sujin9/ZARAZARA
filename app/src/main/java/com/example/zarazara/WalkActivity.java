@@ -63,7 +63,7 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         ProgressBar progressBar = (ProgressBar)findViewById(R.id.expProgressBar);
         progressBar.setProgress(sharedPreferences.getInt("totalExp",0));
         TextView coinText = (TextView)findViewById(R.id.userCoin);
-        coinText.setText(userCoin);
+        coinText.setText(userCoin+"C");
 
 
         DebugDB.getAddressLog();

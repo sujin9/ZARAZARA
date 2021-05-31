@@ -30,7 +30,7 @@ public class RaiseActivity extends AppCompatActivity {
         ProgressBar progressBar = (ProgressBar)findViewById(R.id.expProgressBar);
         progressBar.setProgress(sharedPreferences.getInt("totalExp",0));
         TextView coinText = (TextView)findViewById(R.id.userCoin);
-        coinText.setText(userCoin);
+        coinText.setText(userCoin+"C");
 
         tabLayout = findViewById(R.id.raiseTab);
         viewPager = findViewById(R.id.raiseViewPager);
