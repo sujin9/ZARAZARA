@@ -224,6 +224,13 @@ public class MissionFragment1 extends Fragment {
             checkBoxX15.setVisibility(View.INVISIBLE);
             checkBoxO15.setVisibility(View.VISIBLE);
         }
+
+        editor.putBoolean("dailyMission1", true);
+        editor.putBoolean("dailyMission2", true);
+        editor.putBoolean("dailyMission3", true);
+        editor.putBoolean("dailyMission4", true);
+        editor.putBoolean("dailyMission5", true);
+
         editor.apply();
     }
 }
