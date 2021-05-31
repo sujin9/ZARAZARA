@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class RaiseFragment2 extends Fragment implements View.OnClickListener {
 
     View toastLayout;
     TextView toastText;
+    ProgressBar progressBar;
 
     // 코인 변돋 관련
     TextView coinText;
@@ -37,6 +39,10 @@ public class RaiseFragment2 extends Fragment implements View.OnClickListener {
     int gaugeFull;
     int exercise_health = 20;
     int exercise_full = -10;
+    // 운동 경험치 +10
+    int totalExp;
+    int exerciseExp;
+    int getExp = 10;
 
     @Nullable
     @Override
@@ -51,6 +57,7 @@ public class RaiseFragment2 extends Fragment implements View.OnClickListener {
         toastText = toastLayout.findViewById(R.id.customToastText);
 
         coinText = (TextView) getActivity().findViewById(R.id.userCoin);
+        progressBar = getActivity().findViewById(R.id.expProgressBar);
         TextView exercisePrice = (TextView)v.findViewById(R.id.price_exercise);
         TextView exerciseExp = (TextView)v.findViewById(R.id.explain_exercise);
         ImageButton raiseExerciseBtn = (ImageButton)v.findViewById(R.id.raise_exerciseBtn);
@@ -70,19 +77,20 @@ public class RaiseFragment2 extends Fragment implements View.OnClickListener {
         gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0);
         gaugeFull = sharedPreferences.getInt("gaugeFull", 0);
 
+        exerciseExp = sharedPreferences.getInt("exerciseExp", 0);
+        totalExp = sharedPreferences.getInt("totalExp",0);
+
         switch(v.getId()) {
             case R.id.raise_exerciseBtn:
-                // 버튼 누름 작동 여부 판단 위한 예시
-            //    coin = sharedPreferences.getInt("userCoin", 0);
-            //    gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0);
-            //    gaugeFull = sharedPreferences.getInt("gaugeFull", 0);
-
                 if(coin<price_exercise) {
                     //Toast.makeText(getActivity(), "코인이 부족합니다", LENGTH_SHORT).show();
-                    toastText.setText("코인이 부족합니다");
+                    toastText.setText("코인이 부족해요");
                 }
-                else if(gaugeFull<=0) {
-                    toastText.setText("배고파서 운동을 할 수 없습니다");
+                else if(gaugeFull<=10) {
+                    toastText.setText("배고파서 운동을 할 수 없어요");
+                }
+                else if(gaugeHealth>=100) {
+                    toastText.setText("엄청 건강해요 !\n잠시 휴식을 취하고 있어요");
                 }
                 else {
                     // 코인
@@ -90,7 +98,7 @@ public class RaiseFragment2 extends Fragment implements View.OnClickListener {
                     editor.putInt("userCoin", coin);
                     coinText.setText(Integer.toString(coin));
                     //Toast.makeText(getActivity(), "운동을 해요! " + Integer.toString(price_exercise) + " 코인이 차감됩니다", LENGTH_SHORT).show();
-                    toastText.setText("운동을 해요!\n" + Integer.toString(price_exercise) + " 코인이 차감됩니다");
+                    toastText.setText("운동을 해요!\n" + Integer.toString(price_exercise) + " 코인이 차감됐어요");
                     // 수치 변화
                     gaugeHealth += exercise_health;
                     gaugeFull += exercise_full;
@@ -98,12 +106,30 @@ public class RaiseFragment2 extends Fragment implements View.OnClickListener {
                     if (gaugeFull>100) gaugeFull=100;
                     editor.putInt("gaugeHealth", gaugeHealth);
                     editor.putInt("gaugeFull", gaugeFull);
-
                     editor.apply();
+                    // 경험치
+                    setExp();
                 }
                 break;
         }
+        setTotalExp();
         toast.setView(toastLayout);
         toast.show();
+    }
+
+    void setExp() {
+        exerciseExp += getExp;
+        if(exerciseExp>100) exerciseExp=100;
+        editor.putInt("exerciseExp", exerciseExp);
+        editor.apply();
+    }
+
+    void setTotalExp() {
+        totalExp = sharedPreferences.getInt("mealExp",0)
+                +sharedPreferences.getInt("exerciseExp",0)
+                +sharedPreferences.getInt("hobbyExp",0);
+        editor.putInt("totalExp", totalExp);
+        editor.apply();
+        progressBar.setProgress(totalExp);
     }
 }
