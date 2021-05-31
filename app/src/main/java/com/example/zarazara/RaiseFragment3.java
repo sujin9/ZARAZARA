@@ -109,7 +109,7 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
                     // 코인
                     coin -= price_play;
                     editor.putInt("userCoin", coin);
-                    coinText.setText(Integer.toString(coin));
+                    coinText.setText(Integer.toString(coin)+"C");
                     //Toast.makeText(getActivity(), "장난감을 가지고 놀아요! " + Integer.toString(price_play) + " 코인이 차감됩니다", LENGTH_SHORT).show();
                     toastText.setText("장난감을 가지고 놀아요!\n" + Integer.toString(price_play) + " 코인이 차감됐어요");
                     // 수치 변화
@@ -137,7 +137,7 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
                     // 코인
                     coin -= price_sing;
                     editor.putInt("userCoin", coin);
-                    coinText.setText(Integer.toString(coin));
+                    coinText.setText(Integer.toString(coin)+"C");
                     //Toast.makeText(getActivity(), "노래를 불러요! " + Integer.toString(price_sing) + " 코인이 차감됩니다", LENGTH_SHORT).show();
                     toastText.setText("노래를 불러요!\n" + Integer.toString(price_sing) + " 코인이 차감됐어요");
                     // 수치 변화
@@ -165,7 +165,7 @@ public class RaiseFragment3 extends Fragment implements View.OnClickListener {
                     // 코인 변화
                     coin -= price_read;
                     editor.putInt("userCoin", coin);
-                    coinText.setText(Integer.toString(coin));
+                    coinText.setText(Integer.toString(coin)+"C");
                     //Toast.makeText(getActivity(), "책을 읽어요! " + Integer.toString(price_read) + " 코인이 차감됩니다", LENGTH_SHORT).show();
                     toastText.setText("책을 읽어요!\n" + Integer.toString(price_read) + " 코인이 차감됐어요");
                     // 수치 관련
