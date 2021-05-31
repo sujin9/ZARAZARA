@@ -55,9 +55,11 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         editor.putInt("gaugeFull", gaugeFull);
         editor.putInt("gaugeHealth", gaugeHealth);
+        editor.putInt("gaugeHappy", gaugeHappy);
 
-        Log.e("CheckFullGauge in Receiver", String.valueOf(gaugeFull));
-        Log.e("CheckHealthGauge in Receiver", String.valueOf(gaugeHealth));
+    //    Log.e("CheckFullGauge in Receiver", String.valueOf(gaugeFull));
+    //    Log.e("CheckHealthGauge in Receiver", String.valueOf(gaugeHealth));
+
 
         editor.apply();
 
