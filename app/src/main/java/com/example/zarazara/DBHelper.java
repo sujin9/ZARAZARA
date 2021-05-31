@@ -78,6 +78,16 @@ public class DBHelper extends SQLiteOpenHelper {
         return step;
     }
 
+    public int checkDay(String today){
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT count(*) FROM stepStore WHERE date LIKE '" + today + "%';" , null);
+        cursor.moveToFirst();
+        if(cursor.getInt(0) <= 0)
+            return 1;
+        else
+            return 0;
+    }
+
     public int getTotalStep() {
         SQLiteDatabase db = getWritableDatabase();
 
