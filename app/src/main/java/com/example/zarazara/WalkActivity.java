@@ -73,12 +73,8 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         db = helper.getWritableDatabase();
         helper.onCreate(db);
 
-
-        //현재 시간(날짜 구하기 위해)
-        now = System.currentTimeMillis();
-        date = new Date(now);
-        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-        today = sdt.format(date);
+        // 오늘 날짜 구하기
+        getDate();
 
         if(helper.checkTable() < 0)
             helper.insert("0",0);
@@ -89,7 +85,6 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
             if (check >= 1)
                 helper.insert(today, 0);
         }
-        
 
         stepCountView = findViewById(R.id.stepCountView);
         totalStepCountView = findViewById(R.id.totalStepCountView);
@@ -114,9 +109,7 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         if (stepCountSensor == null) {
             Toast.makeText(this, "No Step Sensor", Toast.LENGTH_SHORT).show();
         }
-
     }
-
 
     public void onStart() {
         super.onStart();
@@ -132,6 +125,14 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    public void getDate(){
+        //현재 시간(날짜 구하기 위해)
+        now = System.currentTimeMillis();
+        date = new Date(now);
+        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
+        today = sdt.format(date);
+    }
+
     // 실제 센서의 작동과 관련된 함수
     // 동작을 감지하면 이벤트를 발생하여 onSensorChanged 에 값을 전달
     @Override
@@ -139,6 +140,7 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         // 걸음 센서 이벤트 발생시
         if(event.sensor.getType() == Sensor.TYPE_STEP_COUNTER){
             // 초기값 설정(TYPE_STEP_COUNTER 는 스스로 초기화 x)
+            getDate();
             if(mSteps < 1)
             {
                 mSteps = (int) event.values[0];
@@ -153,7 +155,6 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
             mTotalSteps = helper.getTotalStep();
             totalStepCountView.setText(String.valueOf(mTotalSteps));
         }
-
     }
 
     @Override
