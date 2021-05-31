@@ -35,6 +35,14 @@ class MainActivity : AppCompatActivity() {
     var version: Int = 1         // 캐릭터 단계
     var kind: Int = 1            // 캐릭터 종류
 
+    // 데일리 미션 달성 여부
+    var dailyMission1:Boolean = false
+    var dailyMission2:Boolean = false
+    var dailyMission3:Boolean = false
+    var dailyMission4:Boolean = false
+    var dailyMission5:Boolean = false
+
+    // 텍스트뷰, 프로그레스바
     lateinit var coinText: TextView
     lateinit var fullProgressBar: ProgressBar
     lateinit var happyProgressBar: ProgressBar
@@ -122,6 +130,12 @@ class MainActivity : AppCompatActivity() {
             editor.putInt("mealExp", mealExp)
             editor.putInt("exerciseExp", exerciseExp)
             editor.putInt("hobbyExp", hobbyExp)
+            // 데일리 미션 달성여부 저장
+            editor.putBoolean("dailyMission1", false)
+            editor.putBoolean("dailyMission2", false)
+            editor.putBoolean("dailyMission3", false)
+            editor.putBoolean("dailyMission4", false)
+            editor.putBoolean("dailyMission5", false)
 
             editor.apply()
 
@@ -400,37 +414,37 @@ class MainActivity : AppCompatActivity() {
         if (kind == 1) {
             if (version == 1) {
                 mozzi.setImageResource(R.drawable.character_bear_11)
-                editor.putInt("version", 1)
+            //    editor.putInt("version", 1)
             } else if (version == 2) {
                 mozzi.setImageResource(R.drawable.character_bear_21)
-                editor.putInt("version", 2)
+            //    editor.putInt("version", 2)
             } else if (version == 3) {
                 mozzi.setImageResource(R.drawable.character_bear_31)
-                editor.putInt("version", 3)
+            //    editor.putInt("version", 3)
             } else { }
         }
         else if (kind == 2) {
             if (version == 1) {
                 mozzi.setImageResource(R.drawable.character_cat_11)
-                editor.putInt("version", 1)
+            //    editor.putInt("version", 1)
             } else if (version == 2) {
                 mozzi.setImageResource(R.drawable.character_cat_21)
-                editor.putInt("version", 2)
+            //    editor.putInt("version", 2)
             } else if (version == 3) {
                 mozzi.setImageResource(R.drawable.character_cat_31)
-                editor.putInt("version", 3)
+            //    editor.putInt("version", 3)
             } else { }
         }
         else if (kind == 3) {
             if (version == 1) {
                 mozzi.setImageResource(R.drawable.character_dog_11)
-                editor.putInt("version", 1)
+            //    editor.putInt("version", 1)
             } else if (version == 2) {
                 mozzi.setImageResource(R.drawable.character_dog_21)
-                editor.putInt("version", 2)
+            //    editor.putInt("version", 2)
             } else if (version == 3) {
                 mozzi.setImageResource(R.drawable.character_dog_31)
-                editor.putInt("version", 3)
+            //    editor.putInt("version", 3)
             } else { }
         }
         editor.apply()

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:background="#00000000"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/accumulatemission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginTop="170dp"
+        android:fontFamily="@font/dunggeunmo"
+        android:gravity="center"
+        android:text="5000보 걷기"
+        android:textSize="23dp"
+        android:textColor="@color/white"
+        android:translationX="-90dp"/>
+
+    <TextView
+        android:id="@+id/randombox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="120dp"
+        android:layout_marginTop="-24dp"
+        android:fontFamily="@font/dunggeunmo"
+        android:gravity="center"
+        android:text="랜덤박스"
+        android:textSize="23dp"
+        android:textColor="@color/white"
+        android:translationX="50dp"/>
+
+    <ImageView
+        android:id="@+id/checkbox_x2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-35dp"
+        android:visibility="visible"
+        app:srcCompat="@drawable/checkbox_x"
+        android:translationX="280dp"/>
+
+    <ImageView
+        android:id="@+id/checkbox_o2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-48dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/checkbox_o"
+        android:translationX="280dp"/>
+
+</LinearLayout>

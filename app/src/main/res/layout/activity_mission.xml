@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#B3000000"
     android:orientation="vertical">
 
@@ -10,66 +10,103 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.3"
-        android:background="#40FFFFFF" >
+        android:background="#40FFFFFF">
 
         <!-- 캐릭터 이름 -->
         <TextView
             android:id="@id/characterName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:fontFamily="@font/dunggeunmo"
             android:text="모찌"
-            android:textColor="@color/black"
             android:textAlignment="center"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="5dp"
-            android:textSize="30sp"
-            android:layout_gravity="center_vertical"/>
+            android:textColor="@color/black"
+            android:textSize="30dp" />
 
         <!-- 경험치 바 -->
         <ProgressBar
             android:id="@id/expProgressBar"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:progressDrawable="@drawable/custom_progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
-            android:max="300"
-            android:layout_gravity="center_vertical" />
+            android:layout_weight="2"
+            android:max="100"
+            android:progress="25" />
+        <!-- setProgress() 로 값 바꿀 수 있음 -->
 
         <!-- 보유한 코인 -->
         <TextView
             android:id="@id/userCoin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:fontFamily="@font/dunggeunmo"
-            android:layout_margin="5dp"
+            android:text="500C"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20dp"
-            android:layout_gravity="center_vertical" />
+            android:textSize="20dp" />
 
         <!-- 날씨 : 추후 날씨 정보에 따라 업데이트 예정 -->
         <ImageView
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:layout_weight="1"
-            android:src="@drawable/service_sun"
             android:layout_gravity="center"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:src="@drawable/service_sun" />
 
     </LinearLayout>
 
     <!-- 중앙 컨텐츠 -->
     <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="8" >
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8">
 
 
+        <TextView
+            android:id="@+id/missionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:text="미션"
+            android:textColor="@color/white"
+            android:textSize="35dp" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/missionTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/missionTitle"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="20dp"
+            app:tabBackground="@drawable/bg_outline"
+            app:tabIndicatorColor="@color/white"
+            app:tabTextAppearance="@style/tab_text"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/missionViewPager"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:layout_below="@id/missionTab"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/bg_outline" />
     </RelativeLayout>
 
 </LinearLayout>
