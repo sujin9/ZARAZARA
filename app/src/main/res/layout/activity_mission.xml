@@ -25,7 +25,7 @@
             android:text="모찌"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <!-- 경험치 바 -->
         <ProgressBar
@@ -33,13 +33,11 @@
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:progressDrawable="@drawable/custom_progressbar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:layout_weight="2"
-            android:max="300"
-            android:progress="25" />
-        <!-- setProgress() 로 값 바꿀 수 있음 -->
+            android:max="300" />
 
         <!-- 보유한 코인 -->
         <TextView
@@ -50,7 +48,6 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:fontFamily="@font/dunggeunmo"
-            android:text="500C"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20dp" />
