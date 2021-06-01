@@ -30,7 +30,6 @@ import java.util.Date;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-//변수를 사용해서 오류가 난다, 메인액티비티에서 바로 usercoin을 얻어오는 방법은???
 public class MissionFragment1 extends Fragment {
 
     View v;

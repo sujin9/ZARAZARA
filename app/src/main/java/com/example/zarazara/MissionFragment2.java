@@ -2,10 +2,13 @@ package com.example.zarazara;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,56 +16,97 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Timer;
+
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class MissionFragment2 extends Fragment {
     View v;
+    DBHelper helper;
+    SQLiteDatabase db;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
+    TextView walkText;
+    String walkText1 = "";
+
+    ImageView checkBoxX2;
+    ImageView checkBoxO2;
+
+    int userCoin;   //메인에서 불러온 코인값 저장
+    int randomCoin = (int) (Math.random()*60) + 1, TotalStep; //randomCoin은 0 ~ 50 정수, 5000보부터 시작
+    int randomNum = 70;    //변화하는 수
+    int accMission;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstaveState) {
         View v = inflater.inflate(R.layout.fragment_mission2, container, false);
+
+        sharedPreferences = this.getActivity().getSharedPreferences("shared", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        helper = new DBHelper(getActivity(), "stepStore.db", null, 1);
+        db = helper.getWritableDatabase();
+        helper.onCreate(db);
+
+        checkBoxX2 = v.findViewById(R.id.checkbox_x2);
+        checkBoxO2 = v.findViewById(R.id.checkbox_o2);
+
+        walkText = v.findViewById(R.id.accumulatemission);
+
+        setWalkActivity();
+
         return v;
     }
 
-    TextView walkText;
-
-    int count = 0; //체크박스 개수 세기, 1개라도 체크일시 00시에 0으로 초기화하고 빈박스로 변경하는 작업 진행
-    int userCoin;   //메인에서 불러온 코인값 저장
-    int randomCoin = (int) (Math.random()) * 50, TotalStep = 5000; //초기값 설정
-    int randomNum = 100;
-
-    WalkActivity walkActivity = new WalkActivity(); //walkActivity에서 걸음수 활용
-    MainActivity mainActivity = new MainActivity(); //mainActivity에서 시간과 날짜 활용
-
     public void setWalkActivity() {
-        SharedPreferences sharedPreferences = mainActivity.getSharedPreferences("shared", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        int walkTotal = helper.getTotalStep();
+        TotalStep = sharedPreferences.getInt("totalStep", 5000);
+        accMission = sharedPreferences.getInt("accMission", 0);
+        walkText1 = sharedPreferences.getString("walkText", "5000보 걷기");
 
-        if (walkActivity.mTotalSteps >= TotalStep && walkActivity.mTotalSteps < TotalStep + 10) {
-            Toast.makeText(getActivity(), "다음 미션을 향해서!", LENGTH_SHORT).show();
+        if(walkTotal >= TotalStep){
+            accMission = 0;
+            editor.putInt("accMission", accMission);
+            editor.apply();
+        }
 
-            v.findViewById(R.id.checkbox_x2).setVisibility(View.INVISIBLE);
-            v.findViewById(R.id.checkbox_o2).setVisibility(View.VISIBLE);
+        if (walkTotal >= TotalStep) {
+            checkBoxX2.setVisibility(View.INVISIBLE);
+            checkBoxO2.setVisibility(View.VISIBLE);
 
             //코인 값 추가 및 말풍선 개수 추가
-            userCoin = sharedPreferences.getInt("userCoin", 0) + randomCoin;
+            if(accMission == 0) {
+                userCoin = sharedPreferences.getInt("userCoin", 0) + randomCoin;
 
-            Toast.makeText(getActivity(), "랜덤박스에서" + String.valueOf(randomCoin) + "코인을\n획득했어요!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "랜덤박스에서 " + String.valueOf(randomCoin) + "코인을 획득했어요!", Toast.LENGTH_LONG).show();
 
-            editor.putInt("userCoin", userCoin);
+                editor.putInt("userCoin", userCoin);
+
+                accMission = 1;
+                editor.putInt("accMission", 1);
+
+                editor.apply();
+            }
+
+            TotalStep += 5000;
+            editor.putInt("totalStep", TotalStep);
             editor.apply();
 
-            walkText = v.findViewById(R.id.accumulatemission);  //주소값 받기
+            walkText1 = (String.valueOf(TotalStep) + "보 걷기");
+            Log.d("walkText1", walkText1);
+            editor.putString("walkText", walkText1);
+            editor.apply();
 
-            TotalStep += 1000;
-            walkText.setText(String.valueOf(TotalStep) + "보 걷기");  //새롭게 설정
+            checkBoxO2.setVisibility(View.INVISIBLE);
+            checkBoxX2.setVisibility(View.VISIBLE);
 
-            v.findViewById(R.id.checkbox_x2).setVisibility(View.VISIBLE);
-            v.findViewById(R.id.checkbox_o2).setVisibility(View.INVISIBLE);
+            randomNum += 50;
+            randomCoin += (int) (Math.random() * randomNum) + 1;
 
-            randomNum += 20;
-            randomCoin += (int) (Math.random()) * randomNum;
+            Toast.makeText(getActivity(), "다음 미션을 향해서!", LENGTH_SHORT).show();
         }
+        walkText.setText(walkText1);
     }
 }
