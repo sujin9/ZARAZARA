@@ -312,18 +312,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // 첫 실행시에만 tutorial 나오도록 설정
-        val sharedPreferences = getSharedPreferences("checkFirstAccess", MODE_PRIVATE)
-        val checkFirstAccess = sharedPreferences.getBoolean("checkFirstAccess", false)
-
-        if (!checkFirstAccess) {
-            val editor = sharedPreferences.edit()
-            editor.putBoolean("checkFirstAccess", true)
-            editor.apply()
-            val tutorialIntent = Intent(this@MainActivity, TutorialActivity::class.java)
-            startActivity(tutorialIntent)
-            finish()
-        }
     }
 
     // 날짜 비교 체크 함수
