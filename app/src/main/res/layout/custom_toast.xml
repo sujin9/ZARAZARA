@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:background="@drawable/dialog_round"
+    android:id="@+id/customToastLayout" >
+
+    <TextView
+        android:id="@+id/customToastText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:fontFamily="@font/dunggeunmo" />
+
+
+</LinearLayout>

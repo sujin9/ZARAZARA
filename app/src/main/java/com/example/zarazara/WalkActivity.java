@@ -1,11 +1,8 @@
 package com.example.zarazara;
 
 import android.Manifest;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Sensor;
@@ -14,31 +11,19 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import com.amitshekhar.DebugDB;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-
-// 참고 사이트
-// 만보계 구현
-//--> https://stickode.tistory.com/82
-// TYPE_STEP_COUNTER 사용
-//--> https://call203.tistory.com/29
-
-// SQLite 사용(db로 걸음 수 관리)
-//--> https://popcorn16.tistory.com/76
 
 
 public class WalkActivity extends AppCompatActivity implements SensorEventListener{
@@ -65,7 +50,6 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
     String today;
     int save = 0;
 
-
     @RequiresApi(api = Build.VERSION_CODES.M)
 
     @Override
@@ -73,30 +57,34 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walk);
 
+        // 상단 보유 코인 표시
+        SharedPreferences sharedPreferences = getSharedPreferences("shared", MODE_PRIVATE);
+        String userCoin = Integer.toString(sharedPreferences.getInt("userCoin", 0));
+        ProgressBar progressBar = (ProgressBar)findViewById(R.id.expProgressBar);
+        progressBar.setProgress(sharedPreferences.getInt("totalExp",0));
+        TextView coinText = (TextView)findViewById(R.id.userCoin);
+        coinText.setText(userCoin+"C");
+
+
         DebugDB.getAddressLog();
 
         // SQLite database 및 테이블 생성(if not exist)
         helper = new DBHelper(WalkActivity.this, "stepStore.db", null, 1);
-
         db = helper.getWritableDatabase();
         helper.onCreate(db);
 
-        //현재 시간(날짜 구하기 위해)
-        now = System.currentTimeMillis();
-        date = new Date(now);
-        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-        today = sdt.format(date);
+        // 오늘 날짜 구하기
+        getDate();
 
         if(helper.checkTable() < 0)
             helper.insert("0",0);
         else
         {
             // 새로운 날짜에만 instance 생성
-            save = helper.getStep(today);
-            if (save == 0)
+            int check = helper.checkDay(today);
+            if (check >= 1)
                 helper.insert(today, 0);
         }
-
 
         stepCountView = findViewById(R.id.stepCountView);
         totalStepCountView = findViewById(R.id.totalStepCountView);
@@ -121,9 +109,7 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         if (stepCountSensor == null) {
             Toast.makeText(this, "No Step Sensor", Toast.LENGTH_SHORT).show();
         }
-
     }
-
 
     public void onStart() {
         super.onStart();
@@ -139,14 +125,13 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-/*
-    @Override
-    public void onPause(){
-        super.onPause();
-        sensorManager.unregisterListener(this);
+    public void getDate(){
+        //현재 시간(날짜 구하기 위해)
+        now = System.currentTimeMillis();
+        date = new Date(now);
+        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
+        today = sdt.format(date);
     }
-*/
-
 
     // 실제 센서의 작동과 관련된 함수
     // 동작을 감지하면 이벤트를 발생하여 onSensorChanged 에 값을 전달
@@ -155,6 +140,7 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
         // 걸음 센서 이벤트 발생시
         if(event.sensor.getType() == Sensor.TYPE_STEP_COUNTER){
             // 초기값 설정(TYPE_STEP_COUNTER 는 스스로 초기화 x)
+            getDate();
             if(mSteps < 1)
             {
                 mSteps = (int) event.values[0];
@@ -169,11 +155,11 @@ public class WalkActivity extends AppCompatActivity implements SensorEventListen
             mTotalSteps = helper.getTotalStep();
             totalStepCountView.setText(String.valueOf(mTotalSteps));
         }
-
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
+
 }
 

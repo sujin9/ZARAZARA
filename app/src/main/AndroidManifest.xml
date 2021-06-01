@@ -3,21 +3,41 @@
     package="com.example.zarazara">
 
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
-    // foreground service
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_mozzi"
+        android:roundIcon="@mipmap/ic_launcher_mozzi_round"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <receiver
+            android:name=".DateChangedReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+        <receiver
+            android:name=".BroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+        <receiver
+            android:name=".ButtonReceiver"
+            android:exported="false"></receiver>
+
+        <receiver
+            android:name=".AlarmReceiver">
+            android:enabled="true"
+            android:exported="false"
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
         <service
             android:name=".WalkService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -31,5 +51,6 @@
         <activity android:name=".MissionActivity" />
         <activity android:name=".TutorialActivity"/>
     </application>
+
 
 </manifest>

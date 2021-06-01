@@ -31,16 +31,16 @@
 
         <!-- 경험치 바 -->
         <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
+            android:id="@+id/expProgressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:progressDrawable="@drawable/custom_progressbar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_weight="2"
             android:layout_margin="5dp"
-            android:max="100"
-            android:progress="25"
+            android:max="300"
             android:layout_gravity="center_vertical" />
-            <!-- setProgress() 로 값 바꿀 수 있음 -->
+        <!-- setProgress() 로 값 바꿀 수 있음 -->
 
         <!-- 보유한 코인 -->
         <TextView
@@ -56,14 +56,14 @@
             android:textSize="20dp"
             android:layout_gravity="center_vertical" />
 
-        <!-- 날씨 : 추후 날씨 정보에 따라 업데이트 예정 -->
+        <!-- foreground service 실행 버튼 -->
         <ImageView
             android:id="@+id/notiBtn"
             android:onClick="onStartForegroundService"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1"
-            android:src="@drawable/weather_sun"
+            android:src="@drawable/service_sun"
             android:layout_gravity="center"
             android:layout_marginRight="15dp"/>
 
@@ -80,7 +80,7 @@
         android:layout_height="0dp"
         android:layout_weight="7">
 
-        <!--모찌 선택할 수 있게끔 말풍선 띄우기용 -->
+        <!--상단 프로그레스바 말풍선 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -108,6 +108,16 @@
                 android:translationX="95dp"
                 android:translationY="-150dp"/>
 
+            <ProgressBar
+                android:id="@+id/p_meal_progressbar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:max="100"
+                android:translationY="-169dp"/>
+
             <TextView
                 android:id="@+id/p_exercise"
                 android:layout_width="match_parent"
@@ -117,7 +127,17 @@
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:translationX="95dp"
-                android:translationY="-143dp"/>
+                android:translationY="-160dp"/>
+
+            <ProgressBar
+                android:id="@+id/p_exercise_progressbar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:max="100"
+                android:translationY="-179dp"/>
 
             <TextView
                 android:id="@+id/p_hobby"
@@ -128,10 +148,20 @@
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:translationX="95dp"
-                android:translationY="-137dp"/>
+                android:translationY="-170dp"/>
+
+            <ProgressBar
+                android:id="@+id/p_hobby_progressbar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="160dp"
+                android:max="100"
+                android:translationY="-189dp"/>
 
             <Button
-                android:id="@+id/upgrade"
+                android:id="@+id/upgradeBtn"
                 android:layout_width="78dp"
                 android:layout_height="40dp"
                 android:fontFamily="@font/dunggeunmo"
@@ -139,7 +169,7 @@
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:translationX="116dp"
-                android:translationY="-138dp"
+                android:translationY="-187dp"
                 android:background="#00000000"/>
         </LinearLayout>
 
@@ -150,8 +180,7 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/character_bear_11" />
+            android:background="@android:color/transparent" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -169,6 +198,7 @@
                 android:translationY="40dp"
                 app:srcCompat="@drawable/speech_bubble" />
 
+            <!-- 모찌 선택 시 상태 말풍선 -->
             <TextView
                 android:id="@+id/profile"
                 android:layout_width="match_parent"
@@ -193,7 +223,17 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="23dp"
-                android:translationY="-205dp" />
+                android:translationY="-210dp" />
+
+            <ProgressBar
+                android:id="@+id/full_progressbar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:layout_marginLeft="192dp"
+                android:translationY="-230dp"/>
 
             <TextView
                 android:id="@+id/happy"
@@ -207,7 +247,17 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="23dp"
-                android:translationY="-189dp" />
+                android:translationY="-200dp" />
+
+            <ProgressBar
+                android:id="@+id/happy_progressbar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:layout_marginLeft="192dp"
+                android:translationY="-220dp"/>
 
             <TextView
                 android:id="@+id/exercise"
@@ -221,7 +271,17 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="23dp"
-                android:translationY="-173dp" />
+                android:translationY="-190dp" />
+
+            <ProgressBar
+                android:id="@+id/exercise_progressbar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:progressDrawable="@drawable/custom_small_progressbar"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:layout_marginLeft="192dp"
+                android:translationY="-210dp"/>
         </LinearLayout>
 
     </RelativeLayout>
@@ -239,6 +299,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:scaleType="centerInside"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:src="@drawable/icon_raise"/>
@@ -249,6 +310,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:scaleType="centerInside"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:src="@drawable/icon_walk"/>
@@ -258,6 +320,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:scaleType="centerInside"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:src="@drawable/icon_mission"/>
