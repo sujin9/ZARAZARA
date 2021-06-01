@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static android.content.Context.MODE_PRIVATE;
 

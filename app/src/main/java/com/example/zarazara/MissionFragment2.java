@@ -94,7 +94,7 @@ public class MissionFragment2 extends Fragment {
             editor.apply();
 
             walkText1 = (String.valueOf(TotalStep) + "보 걷기");
-            Log.d("walkText1", walkText1);
+        //    Log.d("walkText1", walkText1);
             editor.putString("walkText", walkText1);
             editor.apply();
 
