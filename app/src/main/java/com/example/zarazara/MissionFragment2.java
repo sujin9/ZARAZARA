@@ -8,15 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import java.util.Timer;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -27,11 +24,12 @@ public class MissionFragment2 extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    View toastLayout;
+    TextView toastText;
+    TextView coinText;
+
     TextView walkText;
     String walkText1 = "";
-
-    ImageView checkBoxX2;
-    ImageView checkBoxO2;
 
     int userCoin;   //메인에서 불러온 코인값 저장
     int randomCoin = (int) (Math.random()*60) + 1, TotalStep; //randomCoin은 0 ~ 50 정수, 5000보부터 시작
@@ -43,6 +41,9 @@ public class MissionFragment2 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstaveState) {
         View v = inflater.inflate(R.layout.fragment_mission2, container, false);
 
+        toastLayout = inflater.inflate(R.layout.custom_toast,(ViewGroup)v.findViewById(R.id.customToastLayout));
+        toastText = toastLayout.findViewById(R.id.customToastText);
+
         sharedPreferences = this.getActivity().getSharedPreferences("shared", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
@@ -50,8 +51,7 @@ public class MissionFragment2 extends Fragment {
         db = helper.getWritableDatabase();
         helper.onCreate(db);
 
-        checkBoxX2 = v.findViewById(R.id.checkbox_x2);
-        checkBoxO2 = v.findViewById(R.id.checkbox_o2);
+        coinText = (TextView) getActivity().findViewById(R.id.userCoin);
 
         walkText = v.findViewById(R.id.accumulatemission);
 
@@ -73,14 +73,13 @@ public class MissionFragment2 extends Fragment {
         }
 
         if (walkTotal >= TotalStep) {
-            checkBoxX2.setVisibility(View.INVISIBLE);
-            checkBoxO2.setVisibility(View.VISIBLE);
 
             //코인 값 추가 및 말풍선 개수 추가
             if(accMission == 0) {
                 userCoin = sharedPreferences.getInt("userCoin", 0) + randomCoin;
 
-                Toast.makeText(getActivity(), "랜덤박스에서 " + String.valueOf(randomCoin) + "코인을 획득했어요!", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getActivity(), "랜덤박스에서 " + String.valueOf(randomCoin) + "코인을 획득했어요!", Toast.LENGTH_LONG).show();
+                makeToast("누적미션 달성!\n랜덤박스에서 " + String.valueOf(randomCoin) + "코인을 획득했어요!");
 
                 editor.putInt("userCoin", userCoin);
 
@@ -99,14 +98,20 @@ public class MissionFragment2 extends Fragment {
             editor.putString("walkText", walkText1);
             editor.apply();
 
-            checkBoxO2.setVisibility(View.INVISIBLE);
-            checkBoxX2.setVisibility(View.VISIBLE);
-
             randomNum += 50;
             randomCoin += (int) (Math.random() * randomNum) + 1;
 
-            Toast.makeText(getActivity(), "다음 미션을 향해서!", LENGTH_SHORT).show();
         }
         walkText.setText(walkText1);
+        coinText.setText(Integer.toString(sharedPreferences.getInt("userCoin", 0))+"C");
+    }
+
+    void makeToast(String text) {
+        Toast toast = new Toast(this.getActivity());
+        toastText.setText(text);
+        // toast.setGravity(Gravity.BOTTOM,0,0);
+        toast.setDuration(LENGTH_SHORT);
+        toast.setView(toastLayout);
+        toast.show();
     }
 }

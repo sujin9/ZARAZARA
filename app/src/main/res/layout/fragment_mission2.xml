@@ -18,7 +18,7 @@
         android:text="5000보 걷기"
         android:textSize="23dp"
         android:textColor="@color/white"
-        android:translationX="-90dp"/>
+        android:translationX="-60dp"/>
 
     <TextView
         android:id="@+id/randombox"
@@ -32,24 +32,7 @@
         android:text="랜덤박스"
         android:textSize="23dp"
         android:textColor="@color/white"
-        android:translationX="50dp"/>
+        android:translationX="80dp"/>
 
-    <ImageView
-        android:id="@+id/checkbox_x2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-35dp"
-        android:visibility="visible"
-        app:srcCompat="@drawable/checkbox_x"
-        android:translationX="280dp"/>
-
-    <ImageView
-        android:id="@+id/checkbox_o2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-48dp"
-        android:visibility="invisible"
-        app:srcCompat="@drawable/checkbox_o"
-        android:translationX="280dp"/>
 
 </LinearLayout>
