@@ -12,9 +12,12 @@ import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import java.lang.Math.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -126,9 +129,9 @@ class MainActivity : AppCompatActivity() {
             editor.apply()
 
             // 튜토리얼 실행
-            //val tutorialIntent = Intent(this, TutorialActivity::class.java)
-            //startActivity(tutorialIntent)
-            //finish()
+            var tutorialIntent = Intent(this, TutorialActivity::class.java)
+            startActivity(tutorialIntent)
+            finish()
         } else {
             // 접속 날짜 변경 비교 --> 코인 획득
             // Log.d("CheckDateChanged", sharedPreferences.getString("currentDate", "Default").toString()+" & "+nowDate))
@@ -294,6 +297,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // 첫 실행시에만 tutorial 나오도록 설정
+        val sharedPreferences = getSharedPreferences("checkFirstAccess", MODE_PRIVATE)
+        val checkFirstAccess = sharedPreferences.getBoolean("checkFirstAccess", false)
+
+        if (!checkFirstAccess) {
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("checkFirstAccess", true)
+            editor.apply()
+            val tutorialIntent = Intent(this@MainActivity, TutorialActivity::class.java)
+            startActivity(tutorialIntent)
+            finish()
+        }
     }
 
     // 날짜 비교 체크 함수

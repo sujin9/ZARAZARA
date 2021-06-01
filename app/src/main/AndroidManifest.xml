@@ -49,6 +49,7 @@
         <activity android:name=".RaiseActivity" />
         <activity android:name=".WalkActivity" />
         <activity android:name=".MissionActivity" />
+        <activity android:name=".TutorialActivity"/>
     </application>
 
 
