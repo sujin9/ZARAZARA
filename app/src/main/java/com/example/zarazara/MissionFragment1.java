@@ -92,7 +92,7 @@ public class MissionFragment1 extends Fragment {
 
         String nowDate = sharedPreferences.getString("currentDate", "Default");
         int walkResult = helper.getStep(nowDate);
-        Log.d("CheckWalk", "날짜 "+nowDate+"걸음수 "+ Integer.toString(walkResult));
+    //    Log.d("CheckWalk", "날짜 "+nowDate+"걸음수 "+ Integer.toString(walkResult));
         ArrayList<String> msg = new ArrayList<>();
         // String text = null;
 

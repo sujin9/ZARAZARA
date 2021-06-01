@@ -38,18 +38,6 @@ class MainActivity : AppCompatActivity() {
     var version: Int = 1         // 캐릭터 단계
     var kind: Int = 1            // 캐릭터 종류
 
-    // 데일리 미션 달성 여부
-    var dailyMission1:Boolean = false
-    var dailyMission2:Boolean = false
-    var dailyMission3:Boolean = false
-    var dailyMission4:Boolean = false
-    var dailyMission5:Boolean = false
-
-    //누적미션
-    var totalStep:Int = 5000
-    var accMission:Int = 0
-    var walkText:String = "5000보 걷기"
-
     // 텍스트뷰, 프로그레스바
     lateinit var coinText: TextView
     lateinit var fullProgressBar: ProgressBar
@@ -252,7 +240,7 @@ class MainActivity : AppCompatActivity() {
         hobbyExp = sharedPreferences.getInt("hobbyExp", 0)
         exerciseExp = sharedPreferences.getInt("exerciseExp", 0)
         totalExp = sharedPreferences.getInt("totalExp", 0);
-        Log.d("CheckExp", "meal " + mealExp + "| exercise " + exerciseExp + "| hobby " + hobbyExp + "| total " + totalExp)
+    //    Log.d("CheckExp", "meal " + mealExp + "| exercise " + exerciseExp + "| hobby " + hobbyExp + "| total " + totalExp)
         mealExpProgressBar.setProgress(mealExp)
         exerciseExpProgressBar.setProgress(exerciseExp)
         hobbyExpProgressBar.setProgress(hobbyExp)
@@ -264,7 +252,7 @@ class MainActivity : AppCompatActivity() {
         gaugeFull = sharedPreferences.getInt("gaugeFull", 0)
         gaugeHealth = sharedPreferences.getInt("gaugeHealth", 0)
         gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0)
-        Log.d("CheckGauge", "full " + gaugeFull + "| health " + gaugeHealth + "| happy " + gaugeHappy)
+    //    Log.d("CheckGauge", "full " + gaugeFull + "| health " + gaugeHealth + "| happy " + gaugeHappy)
 
         fullProgressBar.setProgress(gaugeFull)
         exerciseProgressBar.setProgress(gaugeHealth)
@@ -293,8 +281,10 @@ class MainActivity : AppCompatActivity() {
                     progressBar_num = 0
                     mozzispeech.visibility = View.VISIBLE
                     mozzi_num = 1
-                }
+               }
+                passAway()
                 setMozziProgress()
+                setExpProgress()
             } 
           else {
                 mozzispeech.visibility = View.INVISIBLE
@@ -358,8 +348,8 @@ class MainActivity : AppCompatActivity() {
         // 1분 : 60*1000     (변경 확인 위해)
         alarmManager?.setRepeating(
                 AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() + 2 * 60 * 60 * 1000,
-                2 * 60 * 60 * 1000,
+                SystemClock.elapsedRealtime() + 2*60*60*1000,
+                2*60*60*1000,
                 alarmPendingIntent);
 
     }
@@ -476,6 +466,7 @@ class MainActivity : AppCompatActivity() {
         editor.putInt("gaugeHappy", gaugeSet)
 
         editor.apply()
+
 
     }
 
