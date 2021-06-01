@@ -89,6 +89,7 @@ public class RaiseFragment1 extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         Toast toast = new Toast(this.getActivity());
         toast.setDuration(LENGTH_SHORT);
+
         coin = sharedPreferences.getInt("userCoin", 0);
         gaugeFull = sharedPreferences.getInt("gaugeFull", 0);
         gaugeHappy = sharedPreferences.getInt("gaugeHappy", 0);

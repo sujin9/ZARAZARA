@@ -1,8 +1,6 @@
 package com.example.zarazara;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,21 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ComponentActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.ListFragment;
 
-import com.amitshekhar.DebugDB;
-
-import java.util.Date;
+import java.util.ArrayList;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -36,6 +28,9 @@ public class MissionFragment1 extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    // Handler handler;
+    // ArrayList<Toast> toasts;
+    // Toast toast;
     View toastLayout;
     TextView toastText;
     TextView coinText;
@@ -59,7 +54,7 @@ public class MissionFragment1 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_mission1,container,false);
+        v = inflater.inflate(R.layout.fragment_mission1,container,false);
 
         toastLayout = inflater.inflate(R.layout.custom_toast,(ViewGroup)v.findViewById(R.id.customToastLayout));
         toastText = toastLayout.findViewById(R.id.customToastText);
@@ -94,29 +89,27 @@ public class MissionFragment1 extends Fragment {
     //MainActivity mainActivity = new MainActivity(); //mainActivity에서 시간과 날짜 활용
 
     public void setWalkActivity(){
-        Toast toast = new Toast(this.getActivity());
-        toast.setDuration(LENGTH_SHORT);
-        toast.setView(toastLayout);
 
         String nowDate = sharedPreferences.getString("currentDate", "Default");
         int walkResult = helper.getStep(nowDate);
         Log.d("CheckWalk", "날짜 "+nowDate+"걸음수 "+ Integer.toString(walkResult));
+        ArrayList<String> msg = new ArrayList<>();
+        // String text = null;
 
         dailyMission5 = sharedPreferences.getBoolean("dailyMission5", false);
         if(walkResult >= 10000 &&  dailyMission5 == false){
-            Toast.makeText(getActivity(), "오늘 할 일은 끝났어요!", LENGTH_SHORT).show();
-            //toast.setText("오늘 할 일은 끝났어요!");
-            //toast.show();
+        //    Toast.makeText(getActivity(), "오늘 할 일은 끝났어요!", LENGTH_SHORT).show();
+        //    makeToast("오늘 할 일은 끝났어요!");
+            msg.add("오늘 할 일은 끝났어요!");
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 120;
 
-            Toast.makeText(getActivity(), "120코인이 적립되었어요!", LENGTH_SHORT).show();
-            //toast.setText("120코인이 적립되었어요!");
-            //toast.show();
+        //    Toast.makeText(getActivity(), "120코인이 적립되었어요!", LENGTH_SHORT).show();
+        //    makeToast("120코인이 적립되었어요!");
+            msg.add("120코인이 적립되었어요!");
 
             editor.putInt("userCoin", userCoin);
             editor.apply();
-            coinText.setText(Integer.toString(userCoin)+"C");
             dailyMission5 = true;
 
         }
@@ -125,11 +118,10 @@ public class MissionFragment1 extends Fragment {
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 60;
 
-            Toast.makeText(getActivity(), "60코인이 적립되었어요!", LENGTH_SHORT).show();
+            msg.add("60코인이 적립되었어요!");
 
             editor.putInt("userCoin", userCoin);
             editor.apply();
-            coinText.setText(Integer.toString(userCoin)+"C");
             dailyMission4 = true;
 
         }
@@ -138,11 +130,10 @@ public class MissionFragment1 extends Fragment {
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 20;
 
-            Toast.makeText(getActivity(), "20코인이 적립되었어요!", LENGTH_SHORT).show();
+            msg.add("20코인이 적립되었어요!");
 
             editor.putInt("userCoin", userCoin);
             editor.apply();
-            coinText.setText(Integer.toString(userCoin)+"C");
             dailyMission3 = true;
 
         }
@@ -151,11 +142,10 @@ public class MissionFragment1 extends Fragment {
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 5;
 
-            Toast.makeText(getActivity(), "5코인이 적립되었어요!", LENGTH_SHORT).show();
+            msg.add("5코인이 적립되었어요!");
 
             editor.putInt("userCoin", userCoin);
             editor.apply();
-            coinText.setText(Integer.toString(userCoin)+"C");
             dailyMission2 = true;
 
         }
@@ -164,14 +154,21 @@ public class MissionFragment1 extends Fragment {
 
             userCoin = sharedPreferences.getInt("userCoin", 0) + 1;
 
-            Toast.makeText(getActivity(), "1코인이 적립되었어요!", LENGTH_SHORT).show();
+            msg.add("1코인이 적립되었어요!");
 
             editor.putInt("userCoin", userCoin);
             editor.apply();
-            coinText.setText(Integer.toString(userCoin)+"C");
             dailyMission1 = true;
-
         }
+
+        if(!msg.isEmpty()) {
+            String text = msg.get(0);
+            for (int i = 1; i < msg.size(); i++) {
+                text += '\n' + msg.get(i);
+            }
+            makeToast(text);
+        }
+        coinText.setText(Integer.toString(sharedPreferences.getInt("userCoin", 0))+"C");
 
 
         if (dailyMission1 == true){
@@ -202,5 +199,13 @@ public class MissionFragment1 extends Fragment {
         editor.putBoolean("dailyMission5", dailyMission5);
 
         editor.apply();
+    }
+
+    void makeToast(String text) {
+        Toast toast = new Toast(this.getActivity());
+        toastText.setText(text);
+        toast.setDuration(LENGTH_SHORT);
+        toast.setView(toastLayout);
+        toast.show();
     }
 }
