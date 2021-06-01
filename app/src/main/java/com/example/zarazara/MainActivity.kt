@@ -45,6 +45,11 @@ class MainActivity : AppCompatActivity() {
     var dailyMission4:Boolean = false
     var dailyMission5:Boolean = false
 
+    //누적미션
+    var totalStep:Int = 5000
+    var accMission:Int = 0
+    var walkText:String = "5000보 걷기"
+
     // 텍스트뷰, 프로그레스바
     lateinit var coinText: TextView
     lateinit var fullProgressBar: ProgressBar
@@ -139,6 +144,11 @@ class MainActivity : AppCompatActivity() {
             editor.putBoolean("dailyMission3", false)
             editor.putBoolean("dailyMission4", false)
             editor.putBoolean("dailyMission5", false)
+
+            //누적미션 달성여부 저장
+            editor.putInt("accMission", 0)
+            editor.putInt("totalStep", 5000)
+            editor.putString("walkText", "5000보 걷기")
 
             editor.apply()
 
